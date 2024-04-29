@@ -1,0 +1,265 @@
+.panelCarga{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	background: rgba(250,250,250,0.9);
+	z-index: 102;
+	display: none;
+}
+.bodyCarga{
+	margin-left: 20%;
+	width: 60%;
+	text-align: center;
+	margin-top: 50px;
+}
+.imgCarga{
+	width: 30%;
+}
+.textCarga{
+	font-weight: bold;
+	font-size: 20px;
+	font-family: sans-serif;
+	margin-top: 10px;
+}
+
+body,html{
+	width: 100%;
+	height: 100vh;
+	margin: 0px;
+	background: #333;
+}
+.main-content-report{
+	width: 100%;
+	height: 100vh;
+	display: flex;
+}
+.blank-separate{
+	width: 10px;
+	background: #fff;
+	height: 100vh;
+}
+.space-content{
+	width: calc(50% - 5px);
+	height: 100vh;
+	display: flex;
+	height: 100%;
+}
+.space-content-s2{
+	width: 50%;
+	color: white;
+	height: 100vh;
+}
+.content-box{
+	padding: 10px;
+	width: calc(100% - 40px);
+	background: #666;
+	border-radius: 10px;
+	margin: 10px;
+	text-align: center;
+	height: calc(25% - 33px);
+	font-family: sans-serif;
+	font-weight: bold;
+	overflow: hidden;
+}
+.level-one{
+	width: 100%;
+	height: calc(50% - 32px);
+	font-size: 55px;
+	padding-top: 30px;
+}
+.level-two{
+	width: 100%;
+	height: calc(50% - 42px);
+	font-size: 40px;
+	padding-top: 40px;
+}
+.line-separate{
+	width: 100%;
+	background: #333;
+	height: 4px;
+}
+.normal-one{
+	width: 100%;
+	font-size: 40px;
+	padding-top: 20px;
+	height: calc(30% - 20px);
+	font-weight: 900;
+    line-height: 1;
+}
+.normal-two{
+	font-size: 100px;
+	width: 100%;
+	padding-top: 20px;
+	height: calc(70% - 20px);
+	font-weight: 900;
+	letter-spacing: -2px;
+}
+.n-t-l4{
+	font-size: 90px;
+    letter-spacing: -5px;
+}
+.n-tl{
+	font-size: 65px;
+    line-height: 1;
+}
+.n-dl{
+	padding-top: 5px;
+	height: calc(30% - 5px);	
+}
+.special-one{
+	width: 100%;
+	font-size: 40px;
+	padding-top: 0px;
+	height: calc(30% - 0px);
+	font-weight: 900;
+    line-height: 1;
+}
+.special-two{
+	font-size: 95px;
+	width: 100%;
+	padding-top: 0px;
+	height: calc(45% - 0px);
+	font-weight: 900;
+}
+.special-three{
+	font-size: 45px;
+	width: 100%;
+	padding-top: 0px;
+	height: calc(25% - 0px);
+	font-weight: 900;
+}
+.space-content-s3{
+	width: calc(50% - 10px);
+	color: white;
+	height: 100%;
+}
+.lateral-separate{
+	width: 10px;
+	height: 100%;
+}
+.content-no-st{
+	background: transparent;
+	display: flex;
+	padding: 0px;
+	width: calc(100% - 10px);
+    height: calc(25% - 12px);
+}
+.content-box-s2{
+	background: #666;
+	padding: 10px;
+	width: calc(100% - 20px);
+	border-radius: 10px;
+	text-align: center;
+	font-family: sans-serif;
+	font-weight: bold;
+    height: calc(100% - 20px);
+}
+.n-o-s2{
+	font-size: 40px;
+}
+.n-t-s2{
+	font-size: 70px;
+    letter-spacing: -2px;
+}
+.content-red{
+	background: red;
+}
+.content-green{
+	background: #16d22d;
+	color: black;
+}
+.content-yellow{
+	background: yellow;
+	color: black;
+}
+.textCarga{
+	font-size: 60px;
+}
+@media(min-width:2000px ){
+	.content-box{
+		text-shadow: 5px 0 0 #fff, -5px 0 0 #fff, 0 5px 0 #fff, 0 -5px 0 #fff, 5px 5px #fff, -5px -5px 0 #fff, 5px -5px 0 #fff, -5px 5px 0 #fff;
+		font-weight: normal;
+	}
+	.content-red{
+		background: red;
+		font-weight: normal;
+	}
+	.content-green{
+		text-shadow: 5px 0 0 #000, -5px 0 0 #000, 0 5px 0 #000, 0 -5px 0 #000, 5px 5px #000, -5px -5px 0 #000, 5px -5px 0 #000, -5px 5px 0 #000;
+		font-weight: normal;
+	}
+	.content-yellow{
+		text-shadow: 5px 0 0 #000, -5px 0 0 #000, 0 5px 0 #000, 0 -5px 0 #000, 5px 5px #000, -5px -5px 0 #000, 5px -5px 0 #000, -5px 5px 0 #000;
+		font-weight: normal;
+	}
+	.textCarga{
+		font-size: 80px;
+	}
+	.level-one{
+		padding-top: 50px;
+		height: calc(50% - 52px);
+		font-size: 110px;
+	}
+	.level-two{
+		font-size: 80px;
+	}
+	.normal-one{
+		font-size: 80px;
+		padding-top: 30px;
+		height: calc(30% - 30px);
+	}
+	.n-o-s2{
+		font-size: 80px;
+	}
+	.normal-two{
+		font-size: 190px;
+		padding-top: 30px;
+		height: calc(70% - 30px);
+	}
+	.n-t-l4{
+		font-size: 160px;
+	}
+	.n-t-s2{
+		font-size: 110px;
+	}
+	.n-tl{
+		font-size: 120px;		
+	}
+	.special-one{
+		font-size: 80px;
+	}
+	.special-two{
+		font-size: 160px;
+	}
+	.special-three{
+		font-size: 85px;
+	}
+}
+.same-line{
+	display: flex;
+}
+.content-icon{
+	width: 35%;
+}
+.content-text{
+	width: 65%;
+}
+.content-icon2{
+	width: 25%;
+}
+.content-text2{
+	width: 60%;
+}
+.content-frac2{
+	width: 15%;
+}
+.frac-num{
+	font-size: 35px;
+}
+.frac-line{
+	width: 100%;
+	height: 5px;
+	background: white;
+}

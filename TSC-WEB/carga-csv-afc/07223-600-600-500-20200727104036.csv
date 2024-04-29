@@ -1,0 +1,53 @@
+FICHA DE ESPECIFICACIONES TECNICAS   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+HOJA DE MEDIDAS DE MOLDE;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+FECHA DE GENERACION:;;29/05/2020;;;;;;;;;;;;;;;;;;;;;;;;;;;
+FECHA DE ACTUALIZACION:;;;;;;;;;;;;;;;;;;;;;;;;;MOLDE ;;;;
+CLIENTE:;;LANDS END;;;;;;;;;ESTILO PROPIO 1:;;;;;;6910;7421;;;;;;;ENCOGIMIENTO;;;;MOLDE
+ESTILO CLIENTE:;;476520;;;;;;;;;ESTILO PROPIO 2:;;;;;;7223;;;;;;;;HILO;;;;6.00%
+SILUETA:;;PLUS;;;;;;;;;TEMPORADA:;;;;;;FH20;;;;;;;;TRAVEZ;;;;6.00%
+DIVISION:;;WOMENS;;;;;;;;;TALLAS:;;;;;;1X-2X-3X;;;;;;;;LARG.DE MANGA;;;;5.00%
+TIPO MUESTRA:;;PRODUCCION PROGRAMA# 102;;;;;;;;;MEDIDA :;;;;;;PULGADA;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;MARGEN DE RECORTES;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;UNION DE HOMBROS;;;;  1/8 
+;;;;;;;;;;;;;;;;;;;;;;;;;PEGADO DE MANGA;;;;  3/16
+;;;;;;;;;;;;;;;;;;;;;;;;;CERRADO DE COSTADOS;;;;  3/16
+;;;;;;;;;;;;;;;;;;;;;;;;;BASTA DE FALDON ;;;;  1/4 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+COD.;DESCRIPCIÓN;;P/C;CRITICAL;MARGEN (1);MARGEN (2);;;1X;;2X;;3X;;;;;;;;;;;;;;;;
+A;ABERTURA DE ESCOTE ESPALDA;;P;CRITICAL;;;;;8  7/8 ;;9  1/8 ;;9  3/8 ;;;;;;;;;;;;;;;;
+B;CAIDA DE ESCOTE ESPALDA;;P;CRITICAL;;;;;2  1/8 ;;2  1/4 ;;2  1/4 ;;;;;;;;;;;;;;;;
+C;ANCHO DE HOMBRO ESPALDA;;P;CRITICAL;  3/8 ;  3/8 ;;;19;;19  1/2 ;;20;;;;;;;;;;;;;;;;
+D;UBICACIÓN DE 1/2 PECHO ESPALDA ;;P;CRITICAL;;;;;7  1/2 ;;7  1/2 ;;7  1/2 ;;;;;;;;;;;;;;;;
+E;ANCHO DE 1/2 PECHO ESPALDA ;;P;CRITICAL;  3/8 ;  3/8 ;;;18  1/16;;18  9/16;;19  1/16;;;;;;;;;;;;;;;;
+F;SISA RECTA ESPALDA;;P;CRITICAL;  5/16;  3/8 ;;;10  1/4 ;;10  3/4 ;;11  1/2 ;;;;;;;;;;;;;;;;
+G;ANCHO DE PECHO ESPALDA -DELANTERO;;P;CRITICAL;  3/8 ;  3/8 ;;;27;;29;;31;;;;;;;;;;;;;;;;
+H;ANCHO DE FALDON ESPALDA -DELANTERO;;P;CRITICAL;  3/8 ;  3/8 ;;;27  7/8 ;;29  7/8 ;;31  7/8 ;;;;;;;;;;;;;;;;
+I;LARGO DE CUERPO ESPALDA;;P;CRITICAL;  5/16;  1/4 ;;;31  1/2 ;;32  3/16;;32  3/4 ;;;;;;;;;;;;;;;;
+J;ANCHO DE HOMBRO INDIVIDUAL;;P;CRITICAL;;;;;5  3/8 ;;5  1/2 ;;5  5/8 ;;;;;;;;;;;;;;;;
+K;ABERTURA DE ESCOTE DELANTERO;;P;CRITICAL;;;;;8  1/4 ;;8  1/2 ;;8  3/4 ;;;;;;;;;;;;;;;;
+L;CAIDA DE ESCOTE DELANTERO;;P;CRITICAL;;;;;4  7/16;;4  9/16;;4 13/16;;;;;;;;;;;;;;;;
+M;ANCHO DE HOMBRO DELANTERO;;P;CRITICAL;  3/8 ;  3/8 ;;;18  3/8 ;;18  7/8 ;;19  3/8 ;;;;;;;;;;;;;;;;
+N;UBICACIÓN DE 1/2 PECHO DELANTERO;;P;CRITICAL;;;;;6  5/8 ;;6  5/8 ;;6  5/8 ;;;;;;;;;;;;;;;;
+O;ANCHO DE 1/2 PECHO DELANTERO;;P;CRITICAL;  3/8 ;  3/8 ;;;17  1/4 ;;17  3/4 ;;18  1/4 ;;;;;;;;;;;;;;;;
+P;SISA RECTA DELANTERO;;P;CRITICAL;  5/16;  3/8 ;;;9  9/16;;10  3/16;;10  7/8 ;;;;;;;;;;;;;;;;
+Q;LARGO DE CUERPO DELANTERO;;P;CRITICAL;  5/16;  1/4 ;;;30  3/4 ;;31  3/8 ;;32;;;;;;;;;;;;;;;;
+R;LARGO DE MANGA;;P;CRITICAL;  3/8 ;  1/4 ;;;26  1/2 ;;26  5/8 ;;26  3/4 ;;;;;;;;;;;;;;;;
+S;ANCHO DE BICEPS;;P;CRITICAL;  3/8 ;  3/8 ;;;19  3/4 ;;21  1/8 ;;22  1/2 ;;;;;;;;;;;;;;;;
+T;ANCHO DE BOCA DE MANGA;;P;CRITICAL;  3/8 ;  3/8 ;;;10  1/2 ;;11;;11  1/2 ;;;;;;;;;;;;;;;;
+U;"ANCHO DE MANGA A 3"" DE CABEZA DE MANGA";;P;CRITICAL;;;;;10  5/8 ;;11;;11  5/16;;;;;;;;;;;;;;;;
+V;ANCHO DE CUELLO EN BORDE;;C;CRITICAL;;;;;22;;22 11/16;;23  1/2 ;;;;;;;;;;;;;;;;
+W;ANCHO DE CUELLO EN EL CENTRO;;C;CRITICAL;;;;;21  5/8 ;;22  5/16;;23  1/8 ;;;;;;;;;;;;;;;;
+X;ALTO DE CUELLO ;;C;CRITICAL;;;;;1 11/16;;1 11/16;;1 11/16;;;;;;;;;;;;;;;;
+Y;LARGO DE TAPETE ;;C;CRITICAL;;;;;15  1/16;;15  7/16;;15 11/16;;;;;;;;;;;;;;;;
+Z;ALTO DE TAPETE ;;C;CRITICAL;;;;;1  1/8 ;;1  1/8 ;;1  1/8 ;;;;;;;;;;;;;;;;

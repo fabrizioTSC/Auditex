@@ -1,0 +1,120 @@
+
+.spaceGraph{
+	width: 100%;
+	max-width: 700px;
+	margin: auto;
+	background: white;
+    margin-bottom: 5px;
+}
+.secondSSpaceGraph{
+	max-width: 500px;
+}
+.spaceGraph2{
+	width: 100%;
+	background: white;
+    margin-bottom: 5px;
+    min-width: 500px;
+}
+
+.contentclass{
+	width: 100%;
+    display: flex;
+}
+#spaceForCharts2{
+	display: block;
+}
+.reactWid{
+	margin: auto;
+}
+.animateClass{
+	width: calc(100%);
+}
+.response-tablet{
+	display: flex;
+}
+#spaceForCharts{
+	width: calc(60% - 5px);
+}
+#spaceForCharts2{
+	width: calc(40% - 5px);
+}
+#lineDecoCentral{
+	width: 10px;
+}
+.spaceAlign{
+	width: 100%;
+	max-width: 700px;
+	margin: auto;
+}
+.alignCharts{
+	display: flex;
+}
+.completeWidth{
+	display: none;
+}
+.tableContentResult{
+	margin: auto;
+	margin-top: 0px;
+	margin-bottom: 5px;
+	width: 130px;
+	padding: 5px;
+	background: #bbb;
+	text-align: center;
+	border-radius: 5px;
+	position: relative;
+}
+.spaceNewBox{
+	width: 140px;
+}
+@media(min-width: 430px){
+	.completeWidth{
+		display: block;
+		width: calc(50% - 215px);
+	}	
+}
+@media(min-width: 750px){
+	.spaceNewBox{
+		margin-top: 20px;
+	}
+	.spaceWithoutMargin{
+		margin:0px;
+	}
+	.alignCharts{
+		display: flex;
+	}
+	#lineDecoCentral{
+		background: transparent;
+	}
+	.secondSSpaceGraph{
+		margin-left: 5px;
+		max-width: calc(100% - 145px);
+	}
+}
+@media(max-width: 750px){
+	.contentclass{
+		display: block;
+	}
+	#spaceForCharts2{
+		display: block;
+	}
+	.reactWid{
+		margin-right: 0px;
+		margin-top: 0px;
+	}
+	.animateClass{
+		width: calc(100%);
+	}
+	.response-tablet{
+		display: block;
+	}
+	#spaceForCharts{
+		width: 100%;
+	}
+	#spaceForCharts2{
+		width: 100%;
+	}
+	#lineDecoCentral{
+		display: block;
+		width: 100%;
+	}
+}

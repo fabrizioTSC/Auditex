@@ -1,0 +1,45 @@
+.headerTitle{
+	overflow-y: hidden;
+    height: 20px;
+}
+.contentGraph{
+	max-width: 700px;
+	margin: auto;
+	background: white;
+	margin-bottom: 5px;
+}
+.content-table{
+	width: 100%;
+	height: calc(100vh - 500px);
+	overflow-y: scroll;
+}
+.table{
+	/*min-width: 890px;*/
+	width: 100%;
+}
+.tbl-header{
+	width: 100%;
+	background: #980f0f;
+	display: flex;
+	border-radius: 5px 5px 0px 0px;
+}
+.head{
+	padding: 5px;
+	color: white;
+	font-size: 15px;
+	font-weight: bold;
+	text-align: center;
+}
+.tbl-body{
+	width: 100%;
+	background: white;	
+}
+.body-line{
+	display: flex;
+	border-top: 1px #666 solid;
+}
+.body{
+	padding: 5px;
+	font-size: 13px;
+	text-align: center;
+}

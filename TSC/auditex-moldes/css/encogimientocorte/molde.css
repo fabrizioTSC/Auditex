@@ -1,0 +1,338 @@
+.thead th{
+    vertical-align: middle !important;
+    text-align: center !important;
+}
+
+.theaddatos{
+    font-size: 12px !important;
+}
+
+.tbodydatos{
+    font-size: 11.3px !important;
+}
+
+
+.theaddatos .w-mediano-sm{
+    width: 50px !important;
+    overflow: auto;
+}
+
+.theaddatos .w-mediano-sm-cant{
+    width: 45px !important;
+    overflow: auto;
+}
+
+/* .theaddatos .w-mediano-sm-sm{
+    width: 67px !important;
+    overflow: auto;
+} */
+
+.theaddatos .w-mediano-sm-sm{
+    width: 65px !important;
+    overflow: auto;
+}
+
+
+.theaddatos .w-mediano-sm-sm2{
+    width: 80px !important;
+    overflow: auto;
+}
+
+
+.theaddatos .w-mediano-xs-partida{
+    width: 62px !important;
+    overflow: auto; 
+}
+
+.theaddatos .w-mediano-xs{
+    width: 60px !important;
+    overflow: auto;
+}
+
+.theaddatos .w-mediano-sm-lg{
+    width: 75px !important;
+    overflow: auto;
+}
+
+.theaddatos .w-mediano{
+    width: 75px !important;
+    overflow: auto;
+}
+
+.theaddatos .w-mediano-lg{
+    width: 200px !important;
+    overflow: auto;
+}
+
+.theaddatos .w-mediano-md{
+    width: 150px !important;
+    overflow: auto;
+}
+
+.theaddatos .w-mediano-md-sm{
+    width: 100px !important;
+    overflow: auto;
+}
+
+.theaddatos .w-bajo{
+    width: 40px !important;
+    overflow: auto;
+}
+
+.theaddatos .w-bajo-sm{
+    width: 30px !important;
+    overflow: auto;
+}
+
+
+.theaddatos .w-largo{
+    width: 390px !important;
+    overflow: auto;
+}
+.theaddatos .w-xl-largo-sm{
+    width: 350px !important;
+    overflow: auto;
+}
+
+.theaddatos .w-largo-sm{
+    width: 260px !important;
+    overflow: auto;
+}
+
+.theaddatos .w-largo-sm-sm{
+    width: 240px !important;
+    overflow: auto;
+}
+
+
+.theaddatos .w-largo-md{
+    width: 300px !important;
+
+    overflow: auto;
+}
+
+
+
+.border-table{
+    border:1px solid #acb1b7 !important;
+}
+
+.border-table-especial{
+    border-top: 2px solid #acb1b7 !important;
+    border-bottom: 1.5px solid #acb1b7 !important;
+
+}
+
+.border-table-right{
+    border-right:1px solid #acb1b7 !important;
+}
+
+.border-table-left{
+    border-left:1px solid #acb1b7 !important;
+}
+
+/* .table-bordered td, .table-bordered th {
+    border: 1px solid #acb1b7 !important;
+} */
+
+
+.tbodydatos td{
+    vertical-align: middle;
+}
+
+.buttons-table{
+    font-size: 10px !important;
+    padding: 0px !important;
+}
+
+.buttons-table-new{
+    font-size: 10px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+
+}
+
+.font-sistema{
+    font-size: 10px !important;
+}
+
+
+.bg-pendiente-calidad{
+    background-color: #ffe991 !important;
+}
+
+.bg-complemento{
+    background-color: #b3fbff !important;
+    /* background-color: #4f4e4e !important; */
+}
+
+.bg-pendiente{
+    background-color: #fff !important;
+    /* background-color: #4f4e4e !important; */
+}
+
+
+.bg-muestra{
+    background-color: rgb(196, 41, 178) !important;
+    /* background-color: #4f4e4e !important; */
+}
+
+.thead-light-dark{
+    background-color: #cdcece !important;
+}
+
+.thead-light-success{
+    background-color: #a6eaa4 !important;
+}
+
+
+.table-sm td, .table-sm th {
+    padding: .1rem !important;
+}
+
+
+/* THEAD TABLAS */
+/* #tabledatos{
+    table-layout: fixed;
+} */
+
+.tabledatos{
+    table-layout: fixed;
+}
+
+/* #tabledatos{
+    margin-top: 22px !important;
+} */
+
+/* #table-cont{
+    max-height: 300px !important;
+} */
+
+#frmresultadopruebaencogimiento{
+    font-size: 12px !important;
+}
+
+.bg-thead-light{
+    background-color: #e9ecef !important;
+}
+
+
+.input-datos{
+    font-weight: bold !important;
+    background: #89d4f2 !important;
+}
+
+.imgsubidas{
+    border: 1px solid black;
+    width: 100%;
+    height: 100%;
+}
+.col-card-1{
+    /* width: 894px !important; */
+    /* width: 909px !important; */
+    /* width: 949px !important; */
+    /* width: 1009px !important; */
+    width: 1071px !important;
+
+
+
+}
+
+.col-card-2{
+    /* width: calc(100% - 909px )!important; */
+    /* width: calc(100% - 949px )!important; */
+    /* width: calc(100% - 1009px )!important; */
+    width: calc(100% - 1071px )!important;
+
+
+
+}
+
+
+.col-card{
+    float:left !important;
+}
+
+#cardbodygeneral{
+    /* max-height: 400px !important; */
+    max-height: 70vh !important;
+
+    overflow: auto;
+}
+
+
+/* COLORES ESTADOS */
+.bg-estado2{
+    background: #F7F785 !important;
+}
+.bg-estado3{
+    background: #FFC000 !important;
+}
+.bg-estado6{
+    background: #FFD966 !important;
+}
+.bg-estado7{
+    background: #D9D4B9 !important;
+}
+.bg-estado8{
+    background: #BDD7EE !important;
+}
+.bg-estado9{
+    background: #D77BE9 !important;
+}
+.bg-estado10{
+    background: #D0CECE !important;
+}
+.bg-estado11{
+    background: #AEAAAA !important;
+}
+.bg-estado12{
+    background: #F8CBAD !important;
+}
+
+.bg-estado13{
+    background: #FFD966 !important;
+}
+
+.bg-estado15{
+    background: #00ffd0 !important;
+}
+
+.bg-estado16{
+    background: #e97941 !important;
+}
+
+.background-row{
+    background: #ecebeb !important;
+}
+
+
+.rows > td:disabled{
+    background: yellow;
+}
+
+.fichadisabled{
+    background: #f7abb2;
+}
+
+.bg-primary-testing{
+    background-color: #84b6f4 !important;
+    color: #000 !important;
+}
+
+.bg-danger-testing{
+    background-color: #ff6961 !important;
+}
+
+.bg-warning-testing{
+    background-color: #fdfd96 !important;
+    color: #000 !important;
+}
+
+.bg-success-testing{
+    background-color: #77dd77 !important;
+}
+
+.fechaliberaciontesting{
+    font-size: 10px !important;
+}

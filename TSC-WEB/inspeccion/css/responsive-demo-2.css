@@ -1,0 +1,5 @@
+@media(max-width: 380px){
+	.itemBody2,.itemHeader2{
+		font-size: 13px;
+	}
+}

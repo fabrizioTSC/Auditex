@@ -1,0 +1,25 @@
+.maxHeight{
+	height: 25px;
+	overflow-y: hidden;
+}
+.items2{
+	background: #bfdebf;
+}
+.spaceForMainCharts{
+	display: block;
+}
+.spaceBMain{
+	width: 10px;
+	display: none;
+}
+@media(min-width: 600px){
+	.spaceForMainCharts{
+		display: flex;
+	}
+	.spaceBMain{
+		display: block;
+	}
+	.chartsMain{
+		width: calc(50% - 5px);
+	}
+}

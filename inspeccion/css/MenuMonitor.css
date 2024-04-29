@@ -1,0 +1,56 @@
+.content-btns-monitor{
+	margin:auto;
+	margin-top: 60px;
+	width: 600px;
+}
+.sameline-s2{
+	display: flex;
+}
+.itemMainContent{
+	width: 130px;
+}
+.bodySpecialButton{
+	height: 70px;
+}
+.sameline-inter{
+	display: flex;
+	width: 300px;
+	margin: auto;
+}
+.sameline-text{
+	width: 250px;
+	margin: auto;
+	margin-bottom: 5px;
+}
+.sameline{
+	display: flex;
+	margin-bottom: 5px;
+}
+.line-text{
+	width: 130px;
+	font-weight: bold;
+	font-size: 20px;
+	padding-top: 10px;
+}
+.ipt-menu{
+	width: calc(100% - 152px);
+	padding: 10px;
+	font-size: 20px;
+	text-align: center;
+}
+.bodySelected{
+	background: white;
+	color: #607d8b;
+}
+.icon{
+	font-size: 40px;
+	padding-bottom: 5px;
+}
+@media(max-width: 600px){
+	.content-btns-monitor{
+		width: 100%;
+	}
+	.sameline-s2{
+		display: block;
+	}
+}

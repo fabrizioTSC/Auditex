@@ -1,0 +1,31 @@
+<?php
+	include('connection.php');
+	$response=new stdClass();
+	$error=new stdClass();
+	if (isset($_POST['aql'])) {
+		$sql="SELECT MAX(CODAQL) as MAXIMO FROM AQL where ESTADO='A'";
+		$stmt=oci_parse($conn,$sql);
+		$resul=oci_execute($stmt);
+		$row=oci_fetch_array($stmt,OCI_ASSOC);
+		$sql="INSERT INTO AQL VALUES(".($row['MAXIMO']+1).",".$_POST['AQL'].",'A')";
+		$stmt=oci_parse($conn,$sql);
+		$resul=oci_execute($stmt);
+		if ($result) {
+			$response->state=true;
+			$error->description="Aql guardado!";
+		}else{
+			$response->state=false;
+			$error->code=3;
+			$error->description="No se pudo guardar Aql!";
+			$response->error=$error;			
+		}
+	}else{
+		$response->state=false;
+		$error->code=1;
+		$error->description="No es un metodo POST.";
+		$response->error=$error;
+	}
+	oci_close($conn);
+	header('Content-Type: application/json');
+	echo json_encode($response);
+?>

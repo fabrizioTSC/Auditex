@@ -1,0 +1,270 @@
+$(document).ready(function(){
+	$.ajax({
+		url:"config/getValidatePreviewFicAudCor.php",
+		type:"POST",
+		data:{
+			codfic:codfic
+		},
+		success:function (data){
+			console.log(data);
+			if (data.detalle.length>0) {
+				var html='';
+				html+=
+				'<div class="column-tbl">'+
+					'<div class="header-item item-center item-c0"></div>'+
+					'<div class="header-item">Prenda</div>';
+				
+				for (var i = 0; i < data.talla.length*data.numpre; i++) {
+					html+=
+					'<div class="header-item item-center item-c2">'+(i+1)+'</div>';
+				}
+				html+=					
+				'</div>';
+
+				html+=
+				'<div class="column-tbl">'+
+					'<div class="header-item">Medida</div>'+
+					'<div class="header-item">Talla</div>';
+				for (var i = 0; i < data.talla.length; i++) {
+					for (var j = 0; j < data.numpre; j++) {
+						html+=
+					'<div class="header-item item-center item-c2">'+data.talla[i].DESTAL+'</div>';	
+					}
+				}
+				html+=
+					'<div class="header-item item-center item-c0"></div>';
+				for (var i = 0; i < data.talla.length; i++) {
+						html+=
+					'<div class="header-item item-center item-c2">'+data.talla[i].DESTAL+'</div>';	
+				}
+				html+=
+				'</div>';
+
+				var ant_nom=data.detalle[0].DESMED;
+				for (var i = 0; i < data.detalle.length; i++) {
+					if (data.detalle[i].DESMED!=ant_nom) {
+						html+=
+					'<div class="header-item item-center item-c0"></div>';
+						for (var k = 0; k < data.detalletalla.length; k++) {
+							if (data.detalletalla[k].DESMED==ant_nom) {
+								html+=
+					'<div class="header-item item-s2 item-center item-c3">'+data.detalletalla[k].MEDIDA+'</div>';	
+							}
+						}
+						html+=
+				'</div>'+
+				'<div class="column-tbl-s2">'+
+					'<div class="header-item item-s2">'+data.detalle[i].DESMEDCOR+'</div>'+
+					'<div class="header-item item-s2">'+data.detalle[i].DESMED+'</div>';
+						ant_nom=data.detalle[i].DESMED;
+					}
+					if (i==0) {
+						html+=
+				'<div class="column-tbl-s2">'+
+					'<div class="header-item item-s2">'+data.detalle[i].DESMEDCOR+'</div>'+
+					'<div class="header-item item-s2">'+data.detalle[i].DESMED+'</div>';
+					}
+					var style=" item-c3";
+					if(reg_med_nivel_uno(data.detalle[i].VALOR)){
+						style=" item-c4";
+					}else{
+						if(reg_med_nivel_dos(data.detalle[i].VALOR)){
+							style=" item-c5";
+						}
+					}
+					html+=
+					'<div class="header-item item-s2 item-center'+style+'">'+data.detalle[i].VALOR+'</div>';
+				}
+				html+=
+					'<div class="header-item item-center item-c0"></div>';
+				for (var k = 0; k < data.detalletalla.length; k++) {
+					if (data.detalletalla[k].DESMED==ant_nom) {
+						html+=
+					'<div class="header-item item-s2 item-center item-c3">'+data.detalletalla[k].MEDIDA+'</div>';	
+					}
+				}
+				html+=
+				'</div>';
+
+				$("#space-tbl-medidas").append(html);
+				//$("#resume-medida").css("display","block");
+			}
+
+			$(".panelCarga").fadeOut(100);
+		}
+	});
+});
+
+var last_pos=0;
+function generateTable(){
+	if ($("#CanXTalla").val()>=1) {
+		$(".panelCarga").fadeIn(100);
+		$.ajax({
+			url:"config/getDetalleMedidas.php",
+			type:"POST",
+			data:{
+				codfic:codfic,
+				cantidad:$("#CanXTalla").val()
+			},
+			success:function (data){
+				$("#content-main").css("display","none");
+				console.log(data);
+				var html='';
+				var destal="";
+				var display='style="display:block;"';
+				var k=0;
+				last_pos=parseInt(data.cont*parseInt($("#CanXTalla").val()));
+				for (var j = 0; j < parseInt($("#CanXTalla").val()); j++) {
+					for (var i = 0; i < data.detalle.length; i++) {
+						if(data.detalle[i].DESTAL!=destal){
+							k++;
+							if (k>1) {
+								html+=
+						'</div>'+
+						'<div class="title-medida tit-special">'+(k-1)+' de '+(data.cont*parseInt($("#CanXTalla").val()))+'</div>'+
+					'</div>';
+								display='style="display:none;"';
+							}
+							var html_btns='';
+							for (var l = 0; l < parseInt($("#CanXTalla").val()); l++) {
+								html_btns
+							}
+								html+=
+					'<div class="main-content-medida content'+k+'" data-pos="'+k+'" '+display+'>'+
+						'<div class="title-medida">Talla '+data.detalle[i].DESTAL+' - Prenda '+(j+1)+'</div>'+
+						'<div class="content-medida">'+					
+							'<div class="column-tbl">'+
+								'<div class="header-item">Medida</div>'+
+								'<div class="header-item">Desc.</div>'+
+								'<div class="header-item item-center item-c2">1</div>'+
+								'<div class="header-item item-center item-c2">7/8</div>'+
+								'<div class="header-item item-center item-c2">3/4</div>'+
+								'<div class="header-item item-center item-c2">5/8</div>'+
+								'<div class="header-item item-center item-c2">1/2</div>'+
+								'<div class="header-item item-center item-c2">3/8</div>'+
+								'<div class="header-item item-center item-c5">1/4</div>'+
+								'<div class="header-item item-center item-c5">1/8</div>'+
+								'<div class="header-item item-center item-c4">0</div>'+
+								'<div class="header-item item-center item-c5">-1/8</div>'+
+								'<div class="header-item item-center item-c5">-1/4</div>'+
+								'<div class="header-item item-center item-c2">-3/8</div>'+
+								'<div class="header-item item-center item-c2">-1/2</div>'+
+								'<div class="header-item item-center item-c2">-5/8</div>'+
+								'<div class="header-item item-center item-c2">-3/4</div>'+
+								'<div class="header-item item-center item-c2">-7/8</div>'+
+								'<div class="header-item item-center item-c2">-1</div>'+
+							'</div>';
+							destal=data.detalle[i].DESTAL;
+						}
+						html+=
+							'<div class="column-tbl-s2">'+
+								'<div class="header-item item-s2">'+data.detalle[i].DESMEDCOR+'</div>'+
+								'<div class="header-item item-s2">'+data.detalle[i].DESMED+'</div>'+
+								'<div class="content-validate contentButton-'+data.detalle[i].CODMED+'-'+data.detalle[i].CODTAL+'-'+(j+1)+'" data-clicked="0">'+
+									'<div class="header-item item-center item-s2 item-c3" onclick="register('+data.detalle[i].CODMED+',\''+data.detalle[i].CODTAL+'\','+(j+1)+',\'1\',this)"></div>'+
+									'<div class="header-item item-center item-s2 item-c3" onclick="register('+data.detalle[i].CODMED+',\''+data.detalle[i].CODTAL+'\','+(j+1)+',\'7/8\',this)"></div>'+
+									'<div class="header-item item-center item-s2 item-c3" onclick="register('+data.detalle[i].CODMED+',\''+data.detalle[i].CODTAL+'\','+(j+1)+',\'3/4\',this)"></div>'+
+									'<div class="header-item item-center item-s2 item-c3" onclick="register('+data.detalle[i].CODMED+',\''+data.detalle[i].CODTAL+'\','+(j+1)+',\'5/8\',this)"></div>'+
+									'<div class="header-item item-center item-s2 item-c3" onclick="register('+data.detalle[i].CODMED+',\''+data.detalle[i].CODTAL+'\','+(j+1)+',\'1/2\',this)"></div>'+
+									'<div class="header-item item-center item-s2 item-c3" onclick="register('+data.detalle[i].CODMED+',\''+data.detalle[i].CODTAL+'\','+(j+1)+',\'3/8\',this)"></div>'+
+									'<div class="header-item item-center item-s2 item-c5" onclick="register('+data.detalle[i].CODMED+',\''+data.detalle[i].CODTAL+'\','+(j+1)+',\'1/4\',this)"></div>'+
+									'<div class="header-item item-center item-s2 item-c5" onclick="register('+data.detalle[i].CODMED+',\''+data.detalle[i].CODTAL+'\','+(j+1)+',\'1/8\',this)"></div>'+
+									'<div class="header-item item-center item-s2 item-c4" onclick="register('+data.detalle[i].CODMED+',\''+data.detalle[i].CODTAL+'\','+(j+1)+',\'0\',this)"></div>'+
+									'<div class="header-item item-center item-s2 item-c5" onclick="register('+data.detalle[i].CODMED+',\''+data.detalle[i].CODTAL+'\','+(j+1)+',\'-1/8\',this)"></div>'+
+									'<div class="header-item item-center item-s2 item-c5" onclick="register('+data.detalle[i].CODMED+',\''+data.detalle[i].CODTAL+'\','+(j+1)+',\'-1/4\',this)"></div>'+
+									'<div class="header-item item-center item-s2 item-c3" onclick="register('+data.detalle[i].CODMED+',\''+data.detalle[i].CODTAL+'\','+(j+1)+',\'-3/8\',this)"></div>'+
+									'<div class="header-item item-center item-s2 item-c3" onclick="register('+data.detalle[i].CODMED+',\''+data.detalle[i].CODTAL+'\','+(j+1)+',\'-1/2\',this)"></div>'+
+									'<div class="header-item item-center item-s2 item-c3" onclick="register('+data.detalle[i].CODMED+',\''+data.detalle[i].CODTAL+'\','+(j+1)+',\'-5/8\',this)"></div>'+
+									'<div class="header-item item-center item-s2 item-c3" onclick="register('+data.detalle[i].CODMED+',\''+data.detalle[i].CODTAL+'\','+(j+1)+',\'-3/4\',this)"></div>'+
+									'<div class="header-item item-center item-s2 item-c3" onclick="register('+data.detalle[i].CODMED+',\''+data.detalle[i].CODTAL+'\','+(j+1)+',\'-7/8\',this)"></div>'+
+									'<div class="header-item item-center item-s2 item-c3" onclick="register('+data.detalle[i].CODMED+',\''+data.detalle[i].CODTAL+'\','+(j+1)+',\'-1\',this)"></div>'+
+								'</div>'+
+							'</div>';
+					}
+				}
+				html+=
+					'</div>'+
+					'<div class="title-medida tit-special">'+k+' de '+(data.cont*parseInt($("#CanXTalla").val()))+'</div>'+
+				'</div>';
+				$("#space-tbl-generate").append(html);
+				$("#second-frame").css("display","block");
+				$(".panelCarga").fadeOut(100);
+			}
+		});
+	}else{
+		alert("Ingrese una cantidad apropiada!");
+	}
+}
+
+function register(codmed,codtal,numpre,valor,element){
+	$(".panelCarga").fadeIn(100);
+	document.getElementsByClassName("contentButton-"+codmed+"-"+codtal+"-"+numpre)[0].dataset.clicked="1";
+	var ar_elem=document.getElementsByClassName("contentButton-"+codmed+"-"+codtal+"-"+numpre)[0].getElementsByClassName("header-item");
+	for (var i = 0; i < ar_elem.length; i++) {
+		ar_elem[i].innerHTML="";
+	}
+	element.innerHTML="X";
+	$.ajax({
+		url:"config/updateDetailAudFinCor.php",
+		type:"POST",
+		data:{
+			codfic:codfic,
+			codmed:codmed,
+			codtal:codtal,
+			numpre:numpre,
+			valor:valor
+		},
+		success:function (data){
+			if (data.state!=true) {
+				alert(data.detail);
+			}
+			$(".panelCarga").fadeOut(100);
+		}
+	});
+}
+
+function move_frame(dir){
+	var ar_content=document.getElementsByClassName("main-content-medida");
+	var i=0;
+	var validate=false;
+	var pos=0;
+	while( i < ar_content.length && validate==false) {
+		if(ar_content[i].style.display=="block"){
+			validate=true;
+			pos=parseInt(ar_content[i].dataset.pos);
+		}
+		i++;
+	}
+	if ((dir==0 && pos==1) ||(dir==1 && pos==last_pos)) {
+
+	}else{
+		$(".content"+pos).css("display","none");
+		var newpos=0;
+		if (dir==0) {
+			newpos=pos-1;
+		}else{
+			newpos=pos+1;
+		}
+		$(".content"+newpos).css("display","block");
+	}
+}
+
+function endRegistroMedida(path){
+	var ar_val=document.getElementsByClassName("content-validate");
+	var validate=false;
+	var i=0;
+	while (validate==false && i < ar_val.length) {
+		if(ar_val[i].dataset.clicked=="0"){
+			validate=true;
+		}
+		i++;
+	}
+	if (validate==false) {
+		window.location.href=path;
+	}else{
+		var conf=confirm("Quedan medidas sin registrar. Desea salir de todas maneras?");
+		if (conf) {
+			window.location.href=path;			
+		}
+	}
+}

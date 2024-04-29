@@ -1,0 +1,83 @@
+:root{
+	--main-hd:#204d86;
+	--main-hd2:#ccc;
+}
+.contentTbl{
+	display: flex;
+    overflow-x: scroll;
+    margin-bottom: 10px;
+}
+.lateralHeAders{
+}
+.items1{
+	width: 110px;
+	padding: 5px;
+	border:1px solid #333;
+	color: white;
+	background: var(--main-hd);
+	font-size: 11px;
+}
+.itemhs1{
+	text-align: center;
+	overflow: hidden;
+	width: 70px;
+	padding: 5px;
+	border:1px solid #333;
+	color: white;
+	background: var(--main-hd);
+	font-size: 11px;
+}
+.items2{
+	color: #333;
+	background: var(--main-hd2);
+}
+.items3{
+	color: #333;
+	background: var(--main-hd2);
+	border-color: var(--main-hd2);
+	height: 12px;
+}
+.items4{
+	color: #333;
+	background: white;
+}
+.colorA{
+	background: #17d201;
+}
+.colorB{
+	background: #fff700;
+}
+.colorC{
+	background: #ff0000;	
+}
+.contents{
+	display: flex;
+}
+.firstGraph{
+	text-align: center;
+	margin-bottom: 5px;
+}
+.contentGraph{
+    background: white;
+    width: 100%;
+	margin:auto;
+    max-width: 700px;
+}
+.lblTitulo{
+	text-align: center;
+	width: 100%;
+	font-size: 12px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+.contentHeAders{
+	display: flex;
+}
+.lineBody{
+	display: flex;
+}
+@media(min-width: 700px){
+	.firstGraph{
+		overflow-x: auto;
+	}
+}

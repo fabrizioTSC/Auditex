@@ -1,0 +1,56 @@
+FICHA DE ESPECIFICACIONES TECNICAS   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+HOJA DE MEDIDAS DE MOLDE;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+FECHA DE GENERACION:;;1/07/2020;;;;;;;;;;;;;;;;;;;;;;;;;;;
+FECHA DE ACTUALIZACION:;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+CLIENTE:;;LANDS END;;;;;;;;;ESTILO PROPIO 1:;;;;5795;7035;;;;;;;;;ENCOGIMIENTO;;;;MOLDE
+ESTILO CLIENTE:;;504378;;;;;;;;;ESTILO PROPIO 2:;;;;7033;7492;;;;;;;;;HILO;;;;1.00%
+SILUETA:;;PLUS;;;;;;;;;TEMPORADA:;;;;HO'20;;;;;;;;;;TRAVEZ;;;;2.00%
+DIVISION:;;SLEEPWEAR;;;;;;;;;TALLAS:;;;;1X-2X-3X;;;;;;;;;;LARG.DE MANGA;;;;-1.00%
+TIPO MUESTRA:;;PRODUCCION-PROGRAMA # 97;;;;;;;;;MEDIDA :;;;;PULGADA;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;MARGEN DE RECORTES;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;UNION DE HOMBROS;;;;  1/8 
+;;;;;;;;;;;;;;;;;;;;;;;;;PEGADO DE MANGA;;;;  3/16
+;;;;;;;;;;;;;;;;;;;;;;;;;CERRADO DE COSTADOS;;;;  3/16
+;;;;;;;;;;;;;;;;;;;;;;;;;BASTA DE FALDON ;;;;  1/4 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+COD.;DESCRIPCIÓN;;P/C;CRITICA;MARGEN (1);MARGEN (2);1X;;2X;;3X;;4X;;5X;;;;;;;;;;;;;;
+A;LARGO DE CUERPO DELANTERO;;P;CRITICA;  1/4 ;  1/4 ;40  1/2 ;;41  1/8 ;;41  3/4 ;;42;;42  1/4 ;;;;;;;;;;;;;;
+A1;LARGO DE CUERPO ESPALDA;;P;CRITICA;  1/4 ;  1/4 ;40  7/8 ;;41  1/2 ;;42  1/8 ;;42  3/8 ;;42  5/8 ;;;;;;;;;;;;;;
+B;ANCHO DE PECHO DELANTERO EN SISA;;P;CRITICA;  3/8 ;  3/8 ;24  5/8 ;;26  5/8 ;;28  5/8 ;;30  5/8 ;;32  5/8 ;;;;;;;;;;;;;;
+B1;ANCHO DE PECHO ESPALDA EN SISA;;P;CRITICA;  3/8 ;  3/8 ;25;;27;;29;;31;;33;;;;;;;;;;;;;;
+C;ANCHO DE CINTURA DELANTERO;;P;CRITICA;  3/8 ;  3/8 ;24  7/8 ;;26  7/8 ;;28  7/8 ;;30  7/8 ;;32  7/8 ;;;;;;;;;;;;;;
+C1;ANCHO DE CINTURA ESPALDA;;P;CRITICA;  3/8 ;  3/8 ;25  1/4 ;;27  1/4 ;;29  1/4 ;;31  1/4 ;;33  1/4 ;;;;;;;;;;;;;;
+D;ANCHO DE CADERA DELANTERO;;P;CRITICA;  3/8 ;  3/8 ;27  3/4 ;;29  3/4 ;;31  3/4 ;;33  3/4 ;;35  3/4 ;;;;;;;;;;;;;;
+D1;ANCHO DE CADERA ESPALDA;;P;CRITICA;  1/4 ;  1/4 ;28  1/4 ;;30  1/4 ;;32  1/4 ;;34  1/4 ;;36  1/4 ;;;;;;;;;;;;;;
+E;ANCHO DE FALDON DELANTERO;;P;CRITICA;  1/4 ;  1/4 ;29;;31;;33;;35;;37;;;;;;;;;;;;;;
+F;ANCHO DE FALDON ESPALDA;;P;CRITICA;  1/4 ;  1/4 ;29  1/2 ;;31  1/2 ;;33  1/2 ;;35  1/2 ;;37  1/2 ;;;;;;;;;;;;;;
+G;ABERTURA DE CUELLO DELANTERO;;P;CRITICA;  1/4 ;  1/4 ;7  7/16;;7 11/16;;7 15/16;;8  3/16;;8  7/16;;;;;;;;;;;;;;
+H;CAIDA DE CUELLO DELANTERO;;P;CRITICA;  1/4 ;  5/16;5  5/8 ;;5  3/4 ;;6;;6  1/8 ;;6  3/8 ;;;;;;;;;;;;;;
+I;CAIDA DE CUELLO ESPALDA;;P;CRITICA;  1/4 ;  5/16;1  3/4 ;;1  7/8 ;;1  7/8 ;;2;;2;;;;;;;;;;;;;;
+J;ABERTURA DE CUELLO ESPALDA;;P;CRITICA;;;7  3/16;;7  7/16;;7 11/16;;7 15/16;;8  3/16;;;;;;;;;;;;;;
+K;ANCHO DE HOMBRO DELANTERO;;P;CRITICA;;;16  1/4 ;;16  3/4 ;;17  1/4 ;;17  3/4 ;;8  3/16;;;;;;;;;;;;;;
+L;ANCHO DE HOMBRO ESPALDA;;P;CRITICA;;;16;;16  1/2 ;;17;;17  1/2 ;;18;;;;;;;;;;;;;;
+M;ALTO DE CINTURA DELANTERO;;P;CRITICA;;;15  7/16;;15 11/16;;15 15/16;;16  3/16;;16  7/16;;;;;;;;;;;;;;
+N;ALTO DE CINTURA ESPALDA;;P;CRITICA;  5/16;  3/8 ;24;;24  1/4 ;;24  1/2 ;;24  3/4 ;;25;;;;;;;;;;;;;;
+O;ALTO DE CADERA DELANTERO;;P;CRITICA;  5/16;  3/8 ;16  1/4 ;;16  1/2 ;;16  3/4 ;;17;;17  1/4 ;;;;;;;;;;;;;;
+P;ALTO CADERA ESPALDA;;P;CRITICA;  5/16;  1/4 ;24  5/8 ;;24  7/8 ;;25  1/8 ;;25  3/8 ;;25  5/8 ;;;;;;;;;;;;;;
+Q;SISA RECTA DELANTERO;;P;CRITICA;  3/8 ;  3/8 ;9  1/4 ;;9  7/8 ;;10  9/16;;11  1/4 ;;12;;;;;;;;;;;;;;
+R;SISA RECTA ESPALDA;;P;CRITICA;  3/8 ;  3/8 ;9  3/4 ;;10  7/16;;11  1/8 ;;11  7/8 ;;12  5/8 ;;;;;;;;;;;;;;
+S;LARGO SUPERIOR DE MANGA;;P;CRITICA;;;24  1/16;;24  3/16;;24  5/16;;24  7/16;;24  9/16;;;;;;;;;;;;;;
+T;BICEP ANCHO SUPERIOR DE MANGA;;P;CRITICA;;;18  7/8 ;;20  1/4 ;;21  9/16;;23;;24  1/4 ;;;;;;;;;;;;;;
+U;ANCHO DE BOCA DE MANGA;;P;CRITICA;;;10  3/8 ;;11;;11  9/16;;12  1/4 ;;13  1/8 ;;;;;;;;;;;;;;
+V;LARGO DE COLLARETA DE CUELLO;;C;CRITICA;;;31  5/8 ;;31  1/8 ;;33;;33  3/4 ;;34  1/2 ;;;;;;;;;;;;;;
+W;ALTO DE COLLARETA DE CUELLO;;C;CRITICA;;;1  1/16;;1  1/16;;1  1/16;;1  1/16;;1  1/16;;;;;;;;;;;;;;
+Y;LARGO DE COLLARETA DE PRESILLA;;C;CRITICA;;;6;;6;;6;;6;;6;;;;;;;;;;;;;;
+Z;ALTO DE COLLARETA DE PRESILLA;;C;CRITICA;;;1  1/16;;1  1/16;;1  1/16;;1  1/16;;1  1/16;;;;;;;;;;;;;;

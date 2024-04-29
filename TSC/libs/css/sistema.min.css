@@ -1,0 +1,133 @@
+.bg-sistema{
+    background-color: #922b21 !important;
+}
+
+html, body{
+    width: 100%;
+    margin: 0px;
+    background-image: url('../../public/img/fondo.png');
+    background-repeat: repeat;
+    /* color: #ffffff; */
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.fieldset{
+    border: 1px solid !important;
+}
+
+
+.loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('../../public/img/carga.gif') 50% 50% no-repeat rgb(249,249,249);
+    opacity: .8;
+}
+
+.tablainput td {
+    position: relative;
+}
+
+.tablainput td .inputtabla {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    border: none;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.bg-success-light{
+    background-color: #6ad081 !important;
+}
+
+
+/* input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+} */
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type=number] { -moz-appearance:textfield; }
+
+
+
+.thead-sistema-3{
+    background: #e3e1e1 !important;
+    color: #000 !important;
+}
+
+.thead-sistema-2{
+    background-color: #cccccc !important;
+    color: #000 !important;
+}
+
+.thead-sistema{
+    background-color: #204d86 !important;
+    color: #fff !important;
+}
+
+.thead-sistema-new{
+    background-color: #922b21 !important;
+    color: #fff !important;
+}
+
+.btn-sistema{
+    background-color: #922b21 !important;
+    color: #fff !important;
+}
+
+/* .table-bordered-sistema > td,th{
+    border: 1.5px solid black;
+} */
+
+.table-bordered-sistema td, .table-bordered-sistema th {
+    border: 1px solid #333;
+}
+
+
+.align-vertical{
+    vertical-align: middle !important;
+}
+
+
+.cursor-pointer{
+    cursor: pointer !important;
+}
+
+.border-table{
+    border:1px solid #acb1b7 !important;
+}
+
+.border-table-right{
+    border-right:1px solid #acb1b7 !important;
+}
+
+.mayus{
+    text-transform: uppercase !important;
+}
+
+
+/* .select2-selection--multiple{
+    height: 15px !important;
+} */
+
+
+.bg-secondary-sistema{
+    background-color: #ddd !important;
+    /* color: #fff !important; */
+}

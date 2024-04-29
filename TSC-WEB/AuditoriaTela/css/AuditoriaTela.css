@@ -1,0 +1,269 @@
+.mini-btn{
+	padding: 5px 8px;
+	border-radius: 3px;
+	border:1px #666 solid;
+	font-size: 13px;
+	height: 15px;
+}
+.mini-btn-active{
+	background: #980f0f;
+	color: white;
+}
+.content-parts-auditoria{
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	z-index: 11;
+    background: rgba(50,50,50,0.5);
+}
+.body-parts-auditoria{
+	margin: auto;
+	background: white;
+	border-radius: 5px;
+	width: 450px;
+	display: flex;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	/*box-shadow: 0px 0px 13px 5px rgba(50,50,50,0.5); */
+}
+.part-auditoria{
+	cursor: pointer;
+	padding: 10px;
+	width: 120px;
+	border-radius: 5px;
+	text-align: center;
+	font-family: sans-serif;
+	color: #000000;
+}
+.part-auditoria:hover{
+	background: #cccc;
+	color: #333;
+}
+.number-part{
+	font-size: 20px;
+	font-weight: bold;
+}
+.label-part{
+	font-size: 13px;
+	height: 30px;
+}
+.part-active{
+	color: #fff;
+	background: #980f0f;
+}
+span{
+	font-weight: normal;
+}
+.bodyContent {
+    margin-bottom: 90px;
+}
+@media(max-width: 500px){
+	.body-parts-auditoria{
+		border-radius: 0px;
+		width: 100%;
+		margin-top: 0px;
+		margin-bottom: 0px;
+	}
+	.part-auditoria{
+		width: calc(25% - 20px);
+		border-radius: 0px;
+	}
+	.bodyContent {
+	    margin-bottom: 70px;
+	}
+	.label-part{
+		font-size: 11px;
+	}
+}		
+@media(max-width: 400px){
+	.label-part{
+		font-size: 10px;
+	}
+}
+.table-form{
+	width: 100%;
+}
+.header-table{
+	width: 100%;
+	background: #980f0f;
+	color: white;
+	font-size: 13px;
+}
+.line-table{
+	display: flex;
+}
+.item-table{
+	border: 1px solid #333;
+	padding: 5px;
+	height: 21px;
+	overflow: hidden;
+}
+.item-main{
+	width: calc(70% - 12px);
+}
+.item-secondary{
+	width: calc(30% - 12px);
+}
+.body-table{
+	width: 100%;
+	background: white;
+	color: #333;
+	font-size: 12px;
+}
+.item-main{
+	width: calc(70% - 12px);
+}
+.item-secondary{
+	width: calc(30% - 12px);
+}
+.item2-submain{
+	width: calc(80px - 12px);
+}
+.item2-headerrow{
+	/*writing-mode: vertical-lr;	*/
+}
+.item2-main{
+	width: calc(100% - 372px);
+}
+.item2-secondary{
+	width: calc(70px - 12px);
+}
+.content-row{
+	width: calc(100% - 80px);
+}
+.itemr2-main{
+	width: calc(100% - 292px);
+}
+.itemr2-secondary{
+	width: calc(70px - 12px);
+}
+.item3-1{
+	width: calc(100% - 642px);
+	font-size: 12px;
+}
+.item3-2{
+	width: calc(90px - 12px);
+	font-size: 12px;
+	text-align: center;
+}
+input[type="number"],input[type="text"] {
+	width: calc(100% - 12px);
+    height: 19px;
+    padding: 0px;
+    border-radius: 5px;
+    border:1px solid #ccc;
+}
+.table-animate{
+	width: 100%;
+}
+@media(max-width: 730px){
+	.table-animate {
+		overflow-x: scroll;
+	}
+}
+.item4-1{
+	width: calc(50px - 12px);
+	height: 160px;
+}
+.item4-2{
+	width: calc(100% - 12px);
+	height: 14px;
+}
+.item4-3{
+	width: calc(50px - 12px);
+	height: 134px;
+}
+.itemb4-1{
+	width: calc(50px - 12px);		
+}
+.item-center{
+	text-align: center;
+}
+.btn-addrollo{
+	margin-top: 5px;
+	color: #0974b3;
+	text-decoration: underline;
+	font-weight: bold;
+	cursor: pointer;
+}
+.miniform-content{
+	z-index: 12;
+	width: 100%;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	background: rgba(50,50,50,0.5);
+	height: 100vh;
+}
+.miniform-body{
+	margin: auto;
+	margin-top: 60px;
+	background: white;
+	border-radius: 10px;
+	padding: 10px;
+	width: 280px;
+	text-align: center;
+	color: #000;
+}
+.lbl{
+	padding: 0px;
+	font-family: sans-serif;
+	margin-bottom: 5px;
+	text-align: left;
+	width: 100%;
+}
+.numrollos-btns{
+	display: flex;
+	margin-bottom: 5px;
+	overflow-x: scroll;
+}
+.numrol{
+	width: 100px;
+	padding: 5px;
+	text-align: center;
+	background: #ccc;
+	color: black;
+}
+.numrol-active{
+	background: #980f0f;
+	color: white;
+}
+.numrol-disabled{
+	color: #ddd;
+}
+.btn-add{
+	display: flex;
+	width: calc(100% - 20px);
+	height: 17px;
+}
+.btn-add span{
+	width: 100%;
+	border-radius: 5px;
+	border:1px solid #ccc;
+	text-align: center;
+}
+.btn-minus{
+	text-align: center;
+	padding-top: 1px;
+	border-radius: 5px;
+	background: #980f0f;
+	color: white;
+	width: 20px;
+	height: 17px;
+}
+.lineSearch{
+	background: #b1e6ff;
+}
+.contentDefectos{
+	margin: 5px 0px	;overflow-y: scroll;height: 150px;border: 1px solid #ccc;
+}
+.lineDefecto{
+	padding: 5px; text-align: left;font-family: sans-serif;
+	font-size: 12px;
+}
+.lineObservacion{
+	font-size: 12px;
+	font-weight: bold;
+	font-family: sans-serif;
+}

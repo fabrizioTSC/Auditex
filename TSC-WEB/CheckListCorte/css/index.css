@@ -1,0 +1,737 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+body,html{
+	width: 100%;
+	margin: 0px;
+	/* background: #ddd; */
+	background-image: url('../assets/img/fondo.png');
+	background-repeat: repeat;
+	color: #ffffff;
+	font-family: 'Roboto', sans-serif;
+}
+
+table {
+	color: #0F0F0F;
+}
+.panelCarga{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	background: rgba(250,250,250,0.9);
+	z-index: 101;
+	display: none;
+	color: #0F0F0F;
+}
+.bodyCarga{
+	margin-left: 20%;
+	width: 60%;
+	text-align: center;
+	margin-top: 50px;
+}
+.imgCarga{
+	width: 30%;
+}
+.textCarga{
+	font-weight: bold;
+	font-size: 20px;
+	font-family: sans-serif;
+	margin-top: 10px;
+}
+
+
+.mainContent{
+	width: 100%;
+	font-family: sans-serif;
+}
+/*Dosis - Google fonts*/
+.headerContent{
+	padding: 10px;
+	width: calc(100% - 20px);
+	height: 30px;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 100;
+	display: inline-flex;
+
+	/* background: linear-gradient(#980f0f,#c74a4a);
+	color: white;
+	display: inline-flex;
+	box-shadow: 0px 0px 3px 1px rgb(125,125,125); */
+	
+	background-color: #922B21;
+	color: white;
+    -webkit-box-shadow: 0 10px 6px -6px #0F0F0F;
+    -moz-box-shadow: 0 10px 6px -6px #0F0F0F;
+		 box-shadow: 0 10px 6px -6px #0F0F0F;
+}
+.mainBodyContent{
+	margin-top: 50px;
+}
+.backSpace{
+	width: 30px;
+}
+.iconSpace{
+	font-size: 28px;
+}
+.headerTitle{
+	font-size: 20px;
+	width: calc(100% - 30px);
+	padding-top: 3px;
+	font-weight: bold;
+}
+.iconMode2{
+	font-size: 30px;
+}
+.menuHeader{
+	width: 30px;
+}
+.bodyContent{
+	padding: 10px;
+	width: calc(100% - 20px);
+}
+.rowLine{
+	width: 100%;
+}
+.rowLineFlex{
+	width: 100%;
+	display: inline-flex;
+}
+.sameLine{
+	display: inline-flex;
+	width: 80%;
+	margin-left: 10%;
+}
+.sameLine table {
+	color: white;
+	border: 1px solid #ffffff;
+}
+.sameLine table th {
+	border-color: #ffffff;
+	text-align: center;
+}
+
+.sameLine table td {
+ border-color: #ffffff;
+ text-align: center;
+}
+
+.btnSpace{
+	padding-bottom: 10px;
+}
+.btnPrimary{
+	width: 160px;
+	color: white;
+	padding: 10px;
+	border-radius: 5px;
+	border-style: none;
+	background: #607d8b;
+	text-align: center;
+}
+.btn-primary{
+	width: 160px;
+	color: white;
+	padding: 10px;
+	border-radius: 5px;
+	border-style: none;
+	background: #607d8b;
+	text-align: center;
+	margin: auto;
+}
+.lbl{
+	font-size: 15px;
+	font-weight: bold;
+	padding-top: 7px;
+}
+.lblNew{
+	font-size: 15px;
+	margin-bottom: 5px;
+	font-weight: bold;	
+}
+.finalPartTbl{
+	background: #333;
+	color: white;
+	border-radius: 0px 0px 5px 5px;
+}
+.valueRequest{
+	font-size:15px;
+}
+.tblDistributionTalla{
+	width: 80%;
+	margin-left: 10%;
+}
+.spaceIpt{
+
+}
+.btnSearchSpace{
+	width: 30px;
+	height: 30px;
+}
+.btnSearch{
+	width: 30px;
+	height: 28px;
+	padding: 0px;
+	padding: 2px 2px 2px 2px;
+	font-size: 22px;
+	border-radius: 0px 5px 5px 0px;
+}
+.classIpt{
+	width: calc(100% - 12px);
+	height: 20px;
+	font-size: 15px;
+	padding: 7px;
+	border-width: 1px;
+	border-radius: 8px;
+}
+.tblSelection{
+	margin-top: 10px;
+	background: white;
+	width: calc(80%);
+	height: 80px;
+	margin-left: 10%;
+	overflow-y: scroll;
+	color: #0F0F0F;
+}
+.bodyPrimary{
+	display: block;
+}
+.bodySecondary{
+	display: none;
+}
+.listaTalleres{
+	width: 100%;
+}
+.taller{
+	padding: 5px;
+	width: calc(100% - 10px);
+	font-size: 14px;
+}
+.rowCenter{
+	padding: 10px;
+	padding-top: 20px;
+}
+.subtitle{
+	width: 100%;
+	font-weight: bold;
+	font-size: 15px;
+	display: inline-flex;
+}
+.spaceInLine{
+	width: 100%;
+	height: 10px;
+}
+.tblContent{
+	width: 100%;
+}
+::-webkit-scrollbar{
+	display: block;
+	background: #ea6060;
+	width: 10px;
+	height: 10px;
+}
+::-webkit-scrollbar-thumb {
+	background: #980f0f;
+	border-radius: 4px;
+}
+.tblHeader{
+	display: inline-flex;
+	background: #980f0f;
+	border-radius: 5px 5px 0px 0px;
+	width: 100%;
+	font-size: 15px;
+	font-weight: bold;
+}
+.itemHeader{
+	font-size: 13px;
+	width: 20%;
+	padding: 5px;
+	text-align: center;
+	color: white;
+}
+.itemHeader2{
+	padding: 5px;
+	text-align: center;
+	color: white;
+}
+.verticalHeader{
+	padding-top: 5px;
+}
+.tblBody,.tblBodyResumen{	
+	background: white;
+	font-size: 15px;
+	border-radius: 0px 0px 5px 5px;
+	width: 100%;
+	color: #0F0F0F;
+}
+.tblLine{
+	font-size: 13px;
+	display: inline-flex;
+	width: 100%;
+	border-top: 1px solid #560c0c;
+	cursor: pointer;
+}
+.codAuditoria{
+	text-decoration: underline;
+	cursor: pointer;
+}
+.itemBody{
+	font-size: 13px;
+	width: 20%;
+	padding: 5px;
+	text-align: center;
+}
+.itemBody2{
+	padding: 5px;
+	text-align: center;
+}
+.rowNormal{
+	padding-top: 10px;
+}
+.textCenter{
+	width: 100%;
+	text-align: center;
+}
+.detalleMuestras{
+	width: 100%;
+}
+.spaceTipoMuestra{
+	width: 100%;
+}
+.inputCheckSpace{
+	display: inline-flex;
+}
+input[type="checkbox"]{
+	margin: 0px 5px 10px 5px;
+	width: 20px;
+	height: 20px;
+}
+.descCheack{
+	padding-top: 2px;
+	display: flex;
+}
+#muestraSelection{
+	display: none;
+}
+.iptForDiscrecional{
+	display: none;
+}
+.formAlternative{
+	width: calc(230px);
+	font-weight: normal;
+	padding-top: 8px;
+}
+.finalBtn{
+	width: 100%;
+	text-align: -webkit-right;
+	display: none;
+}
+input[type="number"]{
+	width: 40px;
+	height: 20px;
+	padding: 5px;
+	text-align: center;
+	font-size: 15px;
+	border-radius: 8px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #aaa;
+}
+.lineWithDecoration{
+	width: calc(100% - 20px);
+	margin-left: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	height: 2px;
+	background: #560c0c;
+}
+.tblDefectos,.tblOperaciones,.tblOperador,.tblOperacion{
+	margin-top: 10px;
+	margin-left: 10%;
+	width: 80%;
+	background: white;
+	height: 80px;
+	overflow-y: scroll;
+	color: #0F0F0F;
+}
+.defecto,.operacion,.operador{
+	padding: 5px;
+	width: calc(100% - 10px);
+	font-size: 15px;
+}
+.btnSpaceDouble{
+	width: 100%;
+	display: inline-flex;
+}
+.lateralSpace{
+	width: 20px;
+}
+.spaceBtnOne{
+	width: calc(50% - 10px);
+}
+.btnSpecialStyle{
+	width: calc(100% - 20px);
+}
+.lblMsg{
+	text-align: center;
+	width: 100%;
+	font-weight: bold;
+	font-size: 18px;
+	color: red;
+}
+
+/* MODAL */
+.modalContainer{
+	position: fixed;
+	width: calc(100% - 40px);
+	height: 100%;
+	background: rgba(25,25,25,0.8);
+	top: 0px;
+	left: 0px;
+	z-index: 101;
+	padding: 20px;
+	display: none;
+}
+.modalBackground{
+	background: white;
+	padding: 10px;
+	width: calc(100% - 20px);
+	border-radius: 5px;
+	font-family: sans-serif;
+}
+.lineModal{
+	width: 100%;
+	height: 30px;
+}
+.iconoClose{
+	float: right;
+	font-size: 25px;
+}
+.modalTitle{
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+.modalBody{
+	width: calc(100% - 20px);
+	padding:10px;
+}
+.lineModalBody{
+	display: flex;
+	width: 100%;
+	padding-bottom: 5px;
+	font-size: 15px;
+}
+.lineDecoration{
+	width: 100%;
+	height: 1px;
+	background: #999;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.lblLineModalBody{
+	width: 120px;
+	font-weight: bold;
+}
+.modalButtons{
+	display: flex;
+	width: 100%;
+}
+.btnModal{
+	width: calc(50%);
+	background: #607d8b;
+	color: white;
+	font-size: 15px;
+	padding: 10px;
+	border-style: none;
+	border-radius: 5px;
+}
+.spaceVertical{
+	width: 10px;
+}
+/* AUDITORIA REGISTRADA */
+.tblPrendasDefecto{
+	width: 100%;
+}
+.iptClass{
+	font-family: sans-serif;
+	width: calc(100% - 10px);
+	padding: 5px;
+	border-style: none;
+	font-size: 18px;
+	border-radius: 5px;
+	background: white;
+	border-color: #666;
+}
+@media(max-width: 570px){
+	.verticalHeader{
+		padding-top: 15px;
+	}
+}
+
+
+/* ESTILOS DE MENU */
+.menuContent{
+	display: none;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 101;
+	width: 100%;
+	height: 500px;
+	font-family: sans-serif;
+}
+.spaceMenu{
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	background: white;
+	border-radius: 5px;
+	width: 50%;
+	box-shadow: 0px 0px 5px 1px rgba(25,25,25,0.8);
+	color: #0F0F0F;
+}
+.userSpace{
+	text-align: center;
+	width: 100%;
+}
+.imgUser{
+	width: 40%;
+	padding: 5px;
+	padding-top: 10px;
+}
+.detailUser{
+	font-size: 14px;
+	text-align: center;
+}
+.itemsMenu{
+	padding: 10px;
+	width: calc(100% - 20px);
+	cursor: pointer;
+}
+
+/* ESTILOS MAIN.PHP */
+.itemMainContent{
+	width: calc(50% - 20px);
+	padding: 10px;
+}
+.bodySpecialButton{
+	height: 130px;
+	width: calc(100% - 20px);
+	background: #607d8b;
+	color:white;
+	padding: 10px;
+	border-radius: 10px;
+	box-shadow: -3px 2px 7px 1px rgba(25,25,25,0.8);	
+	cursor:pointer;
+}
+.icon{
+	width: 100%;
+	text-align: center;
+	font-size: 60px;
+	padding-bottom: 10px;
+}
+.detailSpecialButton{
+	text-align: center;
+	width: 100%;
+}
+.addPaddings{
+	padding-top: 9px;
+	padding-bottom: 9px;
+}
+.addPaddingsTwo{
+	padding-top: 18px;
+	padding-bottom:18px;
+}
+.addPaddingsThree{
+	padding-top: 28px;
+	padding-bottom:28px;
+}
+
+/* CONSULTAR EDITAR AUDITORIA */
+.btnBuscarSpace{
+	background: #607d8b;
+	border-radius: 5px;
+	color: white;
+	font-size: 25px;
+	padding-left: 5px;
+	padding-top: 1px;
+}
+.msgForFichas{
+	display: none;
+	color: red;
+	font-size: 15px;
+	padding-top: 10px;
+}
+/* MODAL DE EDITAR DEFECTOS */
+.editarDefectos,.contentClasiRecu{
+	position: fixed;
+	top:0px;
+	left: 0px;
+	background: rgba(25,25,25,0.8);
+	padding: 20px;
+	width: calc(100% - 40px);
+	height: 100%;
+	font-family: sans-serif;
+	z-index: 101;
+	display: none;
+}
+.agregarDefectos{	
+	position: fixed;
+	top:0px;
+	left: 0px;
+	background: rgba(25,25,25,0.8);
+	padding: 20px;
+	width: calc(100% - 40px);
+	height: 100%;
+	font-family: sans-serif;
+	z-index: 101;
+	display: none;
+}
+.contentEditar{
+	padding: 10px;
+	width: calc(100% - 20px);
+	background: white;
+	border-radius: 5px;
+}
+.titleContent{
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+}
+.bodyEdicion{
+	width: 100%;
+}
+.classCmbBox{
+	width: 100%;
+	height: 35px;
+	border-radius: 5px;
+	font-size: 15px;
+	padding: 5px;
+	margin-bottom: 10px;
+}
+.bodyEdicion input[type="number"]{
+	font-size: 15px;
+	margin-left: 35%;
+	width: calc(30% - 8px);
+	padding: 7px;
+	border:1px solid #aaa;
+	margin-bottom: 10px;
+}
+.btnPrimary{
+	font-size: 15px;
+}
+.btnPrimaryDisabled{
+	background: #b2c3cb;
+}
+.btnPrimaryActive{
+	background: #607d8b;
+}
+.in3lines{
+	padding: 0px 0px;
+}
+.sameline{
+	display: flex;
+}
+.txtSizeLbl{
+	font-size: 14px;	
+}
+.lblSimple{
+	font-weight: bold;
+	width: 120px;
+}
+@media(min-width: 386px){
+	.in3lines{
+		padding: 9px 0px;
+	}
+	.itemHeader{
+		font-size: 15px;
+	}
+	.itemBody{
+		font-size: 15px;
+	}
+}
+@media(min-width: 400px){
+	.addPaddingsThree{
+		padding-top: 18px;
+		padding-bottom:18px;
+	}
+}
+@media(min-width: 454px){
+	.addPaddings{
+		padding: 18px 0px;
+	}
+}
+
+/*MENSAJE INSTANTANEO*/
+.msgInstant{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 80%;
+	margin-top: 20px;
+	margin-left: 10%;
+	z-index: 101;
+	font-size: 20px;
+	font-family: sans-serif;
+}
+.bodyMsgInstant{
+	box-shadow: 0px 0px 8px 2px rgba(50,50,50,0.8);
+	background: white;
+	padding: 10px;
+	width: calc(100% - 20px);
+	border-radius: 5px;
+}
+.mayorContent{
+	width: 100%;
+	overflow: scroll;
+	max-height: 450px;
+}
+.tblMaxHeight{
+	overflow-y: scroll;
+	max-height: 350px;
+}
+.tblExpanded{
+	width: 710px;
+}
+.tblExpanded2{
+	width: 1120px;
+}
+.itemSpace1{
+	width: 160px;
+}
+.itemSpace2{
+	width: 250px;
+}
+.itemSpace3{
+	width: 100px;
+}
+.itemSpace4{
+	width: 100px;
+}
+.itemSpace5{
+	width: 100px;
+}
+.titleversion{
+	width: 100%;
+	color: #aaa;
+	font-size: 10px;
+	margin-top: 5px;
+}
+.centercontent{
+    margin-left: auto;
+    margin-right: auto;
+}
+.notaminus{
+	font-size: 12px;
+	font-weight: bold;
+	text-align: right;
+	margin-bottom: 5px;
+}
+.hideMargin{
+	margin: 0px;
+}
+.tblSpace{
+	margin:auto;
+}

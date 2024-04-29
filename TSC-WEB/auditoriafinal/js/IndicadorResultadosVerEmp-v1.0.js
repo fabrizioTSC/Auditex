@@ -1,0 +1,1525 @@
+var param_codran1=0;
+var param_codran2=0;
+$(document).ready(function(){
+	$.ajax({
+		type:"POST",
+		data:{
+			/*
+			codtll:codtll,
+			codtipser:codtipser,
+			codsede:codsede,*/
+			fecha:fecha
+		},
+		url:"config/getInfoIndResVerEmp.php",
+		success:function(data){
+			console.log(data);
+			var labels=[];
+			var rechazado=[];
+			var aprobado=[];
+			var colors=[];
+			var html='';
+			var labelsps=[];
+			var rechazadops=[];
+			var aprobadops=[];
+			var colorsps=[];
+			var htmlps='';
+			param_codran2=parseInt(data.param[0].VALOR);
+			param_codran1=parseInt(data.param[1].VALOR);
+			$("#titulodetalle").append(data.titulo);
+			for (var i = 0; i < data.anios.length; i++) {
+				var PorAudApro=Math.round(data.anios[i]['AUD_APR1']*10000/data.anios[i]['AUD_IND'])/100;
+				var styleC="colorB";
+				var color=window.chartColors.yellow;
+				if (PorAudApro>=param_codran1) {
+					styleC="colorA";
+					color=window.chartColors.green;
+				}else{
+					if (PorAudApro<param_codran2) {
+						styleC="colorC";
+						color=window.chartColors.reddark;
+					}
+				}			
+				var PorPreApro=Math.round(data.anios[i]['PREN_APR1']*10000/data.anios[i]['PREN_IND'])/100;
+				html+=
+				'<div class="divanios[i]">'+
+					'<div class="itemhs1">'+data.anios[i]['ANHO']+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.anios[i]['AUD_APR1'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.anios[i]['AUD_REC'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.anios[i]['AUD_IND'])+'</div>'+
+					'<div class="itemhs1 items4 '+styleC+'">'+PorAudApro+'%</div>'+
+					'<div class="itemhs1 items4">'+Math.round((100-PorAudApro)*100)/100+'%</div>'+
+					'<div class="itemhs1 items3"></div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.anios[i]['PREN_APR1'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.anios[i]['PREN_REC'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.anios[i]['PREN_IND'])+'</div>'+
+					'<div class="itemhs1 items4">'+PorPreApro+'%</div>'+
+					'<div class="itemhs1 items4">'+Math.round((100-PorPreApro)*100)/100+'%</div>'+
+				'</div>';
+				colors.push(color);
+				labels.push(data.anios[i]['ANHO']);
+				rechazado.push(Math.round((100-PorAudApro)*100)/100);
+				aprobado.push(PorAudApro);
+
+				var auditoriasTotales=parseInt(data.anios[i]['AUD_APR1'])+parseInt(data.anios[i]['AUD_APR2']);
+				var PorAudAproP=Math.round(data.anios[i]['AUD_APR1']*10000/auditoriasTotales)/100;
+				var styleC="colorB";
+				var color=window.chartColors.yellow;
+				if (PorAudAproP>=param_codran1) {
+					styleC="colorA";
+					color=window.chartColors.green;
+				}else{
+					if (PorAudAproP<param_codran2) {
+						styleC="colorC";
+						color=window.chartColors.reddark;
+					}
+				}
+				var prendasTotales=parseInt(data.anios[i]['PREN_APR1'])+parseInt(data.anios[i]['PREN_APR2']);
+				var PorPreAproP=Math.round(data.anios[i]['PREN_APR1']*10000/prendasTotales)/100;
+				htmlps+=
+				'<div class="divanios[i]">'+
+					'<div class="itemhs1">'+data.anios[i]['ANHO']+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.anios[i]['AUD_APR1'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.anios[i]['AUD_APR2'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(auditoriasTotales)+'</div>'+
+					'<div class="itemhs1 items4 '+styleC+'">'+PorAudAproP+'%</div>'+
+					'<div class="itemhs1 items4">'+Math.round((100-PorAudAproP)*100)/100+'%</div>'+
+					'<div class="itemhs1 items4">100%</div>'+
+					'<div class="itemhs1 items3"></div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.anios[i]['PREN_APR1'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.anios[i]['PREN_APR2'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(prendasTotales)+'</div>'+
+					'<div class="itemhs1 items4">'+PorPreAproP+'%</div>'+
+					'<div class="itemhs1 items4">'+Math.round((100-PorPreAproP)*100)/100+'%</div>'+
+					'<div class="itemhs1 items4">100%</div>'+
+				'</div>';
+				colorsps.push(color);
+				labelsps.push(data.anios[i]['ANHO']);
+				rechazadops.push(Math.round((100-PorAudAproP)*100)/100);
+				aprobadops.push(PorAudAproP);
+			}
+			$("#placeAnios").append(html);
+			$("#placeAniosPS").append(htmlps);
+
+			html='';
+			htmlps='';
+			for (var i = 0; i < data.meses.length; i++) {
+				var PorAudApro=Math.round(data.meses[i]['AUD_APR1']*10000/data.meses[i]['AUD_IND'])/100;
+				var styleC="colorB";
+				var color=window.chartColors.yellow;
+				if (PorAudApro>=param_codran1) {
+					styleC="colorA";
+					color=window.chartColors.green;
+				}else{
+					if (PorAudApro<param_codran2) {
+						styleC="colorC";
+						color=window.chartColors.reddark;
+					}
+				}			
+				var PorPreApro=Math.round(data.meses[i]['PREN_APR1']*10000/data.meses[i]['PREN_IND'])/100;
+				html+=
+				'<div class="divanios[i]">'+
+					'<div class="itemhs1">'+proceMes(data.meses[i]['MES'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.meses[i]['AUD_APR1'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.meses[i]['AUD_REC'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.meses[i]['AUD_IND'])+'</div>'+
+					'<div class="itemhs1 items4 '+styleC+'">'+PorAudApro+'%</div>'+
+					'<div class="itemhs1 items4">'+Math.round((100-PorAudApro)*100)/100+'%</div>'+
+					'<div class="itemhs1 items3"></div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.meses[i]['PREN_APR1'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.meses[i]['PREN_REC'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.meses[i]['PREN_IND'])+'</div>'+
+					'<div class="itemhs1 items4">'+PorPreApro+'%</div>'+
+					'<div class="itemhs1 items4">'+Math.round((100-PorPreApro)*100)/100+'%</div>'+
+				'</div>';
+				colors.push(color);
+				labels.push(proceMes(data.meses[i]['MES']));
+				rechazado.push(Math.round((100-PorAudApro)*100)/100);
+				aprobado.push(PorAudApro);
+
+				var auditoriasTotales=parseInt(data.meses[i]['AUD_APR1'])+parseInt(data.meses[i]['AUD_APR2']);
+				var PorAudAproP=Math.round(data.meses[i]['AUD_APR1']*10000/auditoriasTotales)/100;
+				var styleC="colorB";
+				var color=window.chartColors.yellow;
+				if (PorAudAproP>=param_codran1) {
+					styleC="colorA";
+					color=window.chartColors.green;
+				}else{
+					if (PorAudAproP<param_codran2) {
+						styleC="colorC";
+						color=window.chartColors.reddark;
+					}
+				}
+				var prendasTotales=parseInt(data.meses[i]['PREN_APR1'])+parseInt(data.meses[i]['PREN_APR2']);
+				var PorPreAproP=Math.round(data.meses[i]['PREN_APR1']*10000/prendasTotales)/100;
+				htmlps+=
+				'<div class="divanios[i]">'+
+					'<div class="itemhs1">'+proceMes(data.meses[i]['MES'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.meses[i]['AUD_APR1'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.meses[i]['AUD_APR2'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(auditoriasTotales)+'</div>'+
+					'<div class="itemhs1 items4 '+styleC+'">'+PorAudAproP+'%</div>'+
+					'<div class="itemhs1 items4">'+Math.round((100-PorAudAproP)*100)/100+'%</div>'+
+					'<div class="itemhs1 items4">100%</div>'+
+					'<div class="itemhs1 items3"></div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.meses[i]['PREN_APR1'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.meses[i]['PREN_APR2'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(prendasTotales)+'</div>'+
+					'<div class="itemhs1 items4">'+PorPreAproP+'%</div>'+
+					'<div class="itemhs1 items4">'+Math.round((100-PorPreAproP)*100)/100+'%</div>'+
+					'<div class="itemhs1 items4">100%</div>'+
+				'</div>';
+				colorsps.push(color);
+				labelsps.push(proceMes(data.meses[i]['MES']));
+				rechazadops.push(Math.round((100-PorAudAproP)*100)/100);
+				aprobadops.push(PorAudAproP);
+			}
+			$("#placeMeses").append(html);
+			$("#placeMesesPS").append(htmlps);
+
+			html='';
+			htmlps='';
+			var numSem=0;
+			for (var i = 0; i < data.semanas.length; i++) {
+				var PorAudApro=Math.round(data.semanas[i]['AUD_APR1']*10000/data.semanas[i]['AUD_IND'])/100;
+				var styleC="colorB";
+				var color=window.chartColors.yellow;
+				if (PorAudApro>=param_codran1) {
+					styleC="colorA";
+					color=window.chartColors.green;
+				}else{
+					if (PorAudApro<param_codran2) {
+						styleC="colorC";
+						color=window.chartColors.reddark;
+					}
+				}			
+				var PorPreApro=Math.round(data.semanas[i]['PREN_APR1']*10000/data.semanas[i]['PREN_IND'])/100;
+				html+=
+				'<div class="divanios[i]">'+
+					'<div class="itemhs1">S. '+data.semanas[i]['NUMERO_SEMANA']+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.semanas[i]['AUD_APR1'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.semanas[i]['AUD_REC'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.semanas[i]['AUD_IND'])+'</div>'+
+					'<div class="itemhs1 items4 '+styleC+'">'+PorAudApro+'%</div>'+
+					'<div class="itemhs1 items4">'+Math.round((100-PorAudApro)*100)/100+'%</div>'+
+					'<div class="itemhs1 items3"></div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.semanas[i]['PREN_APR1'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.semanas[i]['PREN_REC'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.semanas[i]['PREN_IND'])+'</div>'+
+					'<div class="itemhs1 items4">'+PorPreApro+'%</div>'+
+					'<div class="itemhs1 items4">'+Math.round((100-PorPreApro)*100)/100+'%</div>'+
+				'</div>';
+				colors.push(color);
+				labels.push("S. "+data.semanas[i]['NUMERO_SEMANA']);
+				rechazado.push(Math.round((100-PorAudApro)*100)/100);
+				aprobado.push(PorAudApro);
+				if (data.semanas.length-1==i) {
+					numSem=data.semanas[i]['NUMERO_SEMANA'];
+				}
+
+				var auditoriasTotales=parseInt(data.semanas[i]['AUD_APR1'])+parseInt(data.semanas[i]['AUD_APR2']);
+				var PorAudAproP=Math.round(data.semanas[i]['AUD_APR1']*10000/auditoriasTotales)/100;
+				var styleC="colorB";
+				var color=window.chartColors.yellow;
+				if (PorAudAproP>=param_codran1) {
+					styleC="colorA";
+					color=window.chartColors.green;
+				}else{
+					if (PorAudAproP<param_codran2) {
+						styleC="colorC";
+						color=window.chartColors.reddark;
+					}
+				}
+				var prendasTotales=parseInt(data.semanas[i]['PREN_APR1'])+parseInt(data.semanas[i]['PREN_APR2']);
+				var PorPreAproP=Math.round(data.semanas[i]['PREN_APR1']*10000/prendasTotales)/100;
+				htmlps+=
+				'<div class="divanios[i]">'+
+					'<div class="itemhs1">S. '+data.semanas[i]['NUMERO_SEMANA']+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.semanas[i]['AUD_APR1'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.semanas[i]['AUD_APR2'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(auditoriasTotales)+'</div>'+
+					'<div class="itemhs1 items4 '+styleC+'">'+PorAudAproP+'%</div>'+
+					'<div class="itemhs1 items4">'+Math.round((100-PorAudAproP)*100)/100+'%</div>'+
+					'<div class="itemhs1 items4">100%</div>'+
+					'<div class="itemhs1 items3"></div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.semanas[i]['PREN_APR1'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(data.semanas[i]['PREN_APR2'])+'</div>'+
+					'<div class="itemhs1 items4">'+formatNumber(prendasTotales)+'</div>'+
+					'<div class="itemhs1 items4">'+PorPreAproP+'%</div>'+
+					'<div class="itemhs1 items4">'+Math.round((100-PorPreAproP)*100)/100+'%</div>'+
+					'<div class="itemhs1 items4">100%</div>'+
+				'</div>';
+				colorsps.push(color);
+				labelsps.push("S. "+data.semanas[i]['NUMERO_SEMANA']);
+				rechazadops.push(Math.round((100-PorAudAproP)*100)/100);
+				aprobadops.push(PorAudAproP);
+			}
+			$("#placeSemanas").append(html);
+			$("#placeSemanasPS").append(htmlps);
+			processGraph(labels,rechazado,aprobado,colors);
+			processGraphPS(labelsps,rechazadops,aprobadops,colorsps);
+
+			
+			$("#titParUno").text(data.semanas[data.semanas.length-1]['ANIO']+" - Semana "+numSem);
+			$("#titParDos").text(data.semanas[data.semanas.length-1]['ANIO']+" - Semana "+numSem);
+			$("#titParUno-Mes").text(data.meses[data.meses.length-1]['ANHO'].substr(0,4)+" - "+proceMesLarge(data.meses[data.meses.length-1]['MES']));
+			$("#titParDos-Mes").text(data.meses[data.meses.length-1]['ANHO'].substr(0,4)+" - "+proceMesLarge(data.meses[data.meses.length-1]['MES']));
+
+			var defLbl=[];
+			var defCan=[];
+			var defPor=[];
+			var defColor=[];
+			html='';
+			var sumPor=0;
+			var pos=0;
+			for (var i = 0; i < data.defuno.length; i++) {
+				var por1=0;
+				if (i!=data.defuno.length-1) {
+					por1=Math.round(data.defuno[i]['SUMA']*10000/data.sumDU)/100;
+					sumPor+=Math.round(por1*100)/100;
+				}else{
+					por1=Math.round((100-sumPor)*100)/100;
+					sumPor=100;
+				}
+				if (i==0) {
+					$("#defPosUno").text(data.defuno[i]['DSCFAMILIA']);
+				}
+				if (i==1) {
+					$("#defPosDos").text(data.defuno[i]['DSCFAMILIA']);
+				}
+				html+=
+				'<div class="lineBody">'+
+					'<div class="itemhs1 items4" style="width: 120px;text-align:left;">'+(i+1)+'. '+data.defuno[i]['DSCFAMILIA']+'</div>'+
+					'<div class="itemhs1 items4" style="width: 80px;">'+formatNumber(data.defuno[i]['SUMA'])+'</div>'+
+					'<div class="itemhs1 items4" style="width: 40px;">'+por1+'%</div>'+
+					'<div class="itemhs1 items4" style="width: 90px;">'+Math.round(sumPor*100)/100+'%</div>'+
+				'</div>';		
+				defLbl.push(data.defuno[i]['DSCFAMILIA']);		
+				defCan.push(data.defuno[i]['SUMA']);
+				defPor.push(Math.round(sumPor*100)/100);
+				defColor.push(window.arrayColor[pos]);
+				if (sumPor>80) {
+					pos=1;
+				}
+			}
+			sumTotSem=data.sumDU;
+			processGraph2(defLbl,defCan,defPor,defColor);
+			$("#idDefUno").append(html);
+
+			//Grafico - Tabla nivel 1 - Mes
+			var defLbl=[];
+			var defCan=[];
+			var defPor=[];
+			var defColor=[];
+			html='';
+			var sumPor=0;
+			var pos=0;
+			for (var i = 0; i < data.defunomes.length; i++) {
+				var por1=0;
+				if (i!=data.defunomes.length-1) {
+					por1=Math.round(data.defunomes[i]['SUMA']*10000/data.sumDUM)/100;
+					sumPor+=Math.round(por1*100)/100;
+				}else{
+					por1=Math.round((100-sumPor)*100)/100;
+					sumPor=100;
+				}
+				if (i==0) {
+					$("#defPosUno-Mes").text(data.defunomes[i]['DSCFAMILIA']);
+				}
+				if (i==1) {
+					$("#defPosDos-Mes").text(data.defunomes[i]['DSCFAMILIA']);
+				}
+				html+=
+				'<div class="lineBody">'+
+					'<div class="itemhs1 items4" style="width: 120px;text-align:left;">'+(i+1)+'. '+data.defunomes[i]['DSCFAMILIA']+'</div>'+
+					'<div class="itemhs1 items4" style="width: 80px;">'+formatNumber(data.defunomes[i]['SUMA'])+'</div>'+
+					'<div class="itemhs1 items4" style="width: 40px;">'+por1+'%</div>'+
+					'<div class="itemhs1 items4" style="width: 90px;">'+Math.round(sumPor*100)/100+'%</div>'+
+				'</div>';		
+				defLbl.push(data.defunomes[i]['DSCFAMILIA']);		
+				defCan.push(data.defunomes[i]['SUMA']);
+				defPor.push(Math.round(sumPor*100)/100);
+				defColor.push(window.arrayColor[pos]);
+				if (sumPor>80) {
+					pos=1;
+				}
+			}
+			sumTotMes=data.sumDUM;
+			processGraph2Mes(defLbl,defCan,defPor,defColor);
+			$("#idDefUno-Mes").append(html);
+
+			sumTotUSem=data.sumDefectosU;
+			sumTotDSem=data.sumDefectosD;
+			sumTotUMes=data.sumDefectosUM;
+			sumTotDMes=data.sumDefectosDM;
+
+			var defLbl=[];
+			var defCan=[];
+			var defPor=[];
+			var defColor=[];
+			html='';
+			var sumPor=0;
+			var pos=0;
+			for (var i = 0; i < data.defectosU.length; i++) {
+				var por1=0;
+				if (i!=data.defectosU.length-1) {
+					por1=Math.round(data.defectosU[i]['SUMA']*10000/data.sumDefectosU)/100;
+					sumPor+=por1;
+				}else{
+					por1=Math.round((100-sumPor)*100)/100;
+					sumPor=100;
+				}
+				if(sumPor>100){
+					sumPor=100;
+				}
+				html+=
+				'<div class="lineBody">'+
+					'<div class="itemhs1 items4" style="width: 120px;text-align:left;">'+(i+1)+'. '+data.defectosU[i]['DESDEF']+'</div>'+
+					'<div class="itemhs1 items4" style="width: 80px;">'+formatNumber(data.defectosU[i]['SUMA'])+'</div>'+
+					'<div class="itemhs1 items4" style="width: 40px;">'+por1+'%</div>'+
+					'<div class="itemhs1 items4" style="width: 90px;">'+Math.round(sumPor*100)/100+'%</div>'+
+					'<div class="itemhs1 items3" style="width: 50px; background:transparent;border-color:transparent;"></div>'+
+					'<div class="itemhs1 items4 itemSpecial" style="width: 100px;">'+Math.round(data.defectosU[i]['SUMA']*10000/data.sumDU)/100+'%</div>'+
+				'</div>';		
+				defLbl.push(data.defectosU[i]['DESDEF']);		
+				defCan.push(data.defectosU[i]['SUMA']);
+				defPor.push(Math.round(sumPor*100)/100);
+				defColor.push(window.arrayColor[pos]);
+				if (sumPor>80) {
+					pos=1;
+				}
+			}
+			processGraph3(defLbl,defCan,defPor,defColor);
+			$("#idDefectoUno").append(html);
+
+			var defLbl=[];
+			var defCan=[];
+			var defPor=[];
+			var defColor=[];
+			html='';
+			var sumPor=0;
+			var pos=0;
+			for (var i = 0; i < data.defectosD.length; i++) {
+				var por1=0;
+				if (i!=data.defectosD.length-1) {
+					por1=Math.round(data.defectosD[i]['SUMA']*10000/data.sumDefectosD)/100;
+					sumPor+=por1;
+				}else{
+					por1=Math.round((100-sumPor)*100)/100;
+					sumPor=100;
+				}
+				if(sumPor>100){
+					sumPor=100;
+				}
+				html+=
+				'<div class="lineBody">'+
+					'<div class="itemhs1 items4" style="width: 120px;text-align:left;">'+(i+1)+'. '+data.defectosD[i]['DESDEF']+'</div>'+
+					'<div class="itemhs1 items4" style="width: 80px;">'+formatNumber(data.defectosD[i]['SUMA'])+'</div>'+
+					'<div class="itemhs1 items4" style="width: 40px;">'+por1+'%</div>'+
+					'<div class="itemhs1 items4" style="width: 90px;">'+Math.round(sumPor*100)/100+'%</div>'+
+					'<div class="itemhs1 items3" style="width: 50px; background:transparent;border-color:transparent;"></div>'+
+					'<div class="itemhs1 items4 itemSpecial" style="width: 100px;">'+Math.round(data.defectosD[i]['SUMA']*10000/data.sumDU)/100+'%</div>'+
+				'</div>';		
+				defLbl.push(data.defectosD[i]['DESDEF']);		
+				defCan.push(data.defectosD[i]['SUMA']);
+				defPor.push(Math.round(sumPor*100)/100);
+				defColor.push(window.arrayColor[pos]);
+				if (sumPor>80) {
+					pos=1;
+				}
+			}
+			processGraph4(defLbl,defCan,defPor,defColor);
+			$("#idDefectoDos").append(html);
+
+			var defLbl=[];
+			var defCan=[];
+			var defPor=[];
+			var defColor=[];
+			html='';
+			var sumPor=0;
+			var pos=0;
+			for (var i = 0; i < data.defectosUM.length; i++) {
+				var por1=0;
+				if (i!=data.defectosUM.length-1) {
+					por1=Math.round(data.defectosUM[i]['SUMA']*10000/data.sumDefectosUM)/100;
+					sumPor+=por1;
+				}else{
+					por1=Math.round((100-sumPor)*100)/100;
+					sumPor=100;
+				}
+				if(sumPor>100){
+					sumPor=100;
+				}
+				html+=
+				'<div class="lineBody">'+
+					'<div class="itemhs1 items4" style="width: 120px;text-align:left;">'+(i+1)+'. '+data.defectosUM[i]['DESDEF']+'</div>'+
+					'<div class="itemhs1 items4" style="width: 80px;">'+formatNumber(data.defectosUM[i]['SUMA'])+'</div>'+
+					'<div class="itemhs1 items4" style="width: 40px;">'+por1+'%</div>'+
+					'<div class="itemhs1 items4" style="width: 90px;">'+Math.round(sumPor*100)/100+'%</div>'+
+					'<div class="itemhs1 items3" style="width: 50px; background:transparent;border-color:transparent;"></div>'+
+					'<div class="itemhs1 items4 itemSpecial" style="width: 100px;">'+Math.round(data.defectosUM[i]['SUMA']*10000/data.sumDUM)/100+'%</div>'+
+				'</div>';		
+				defLbl.push(data.defectosUM[i]['DESDEF']);		
+				defCan.push(data.defectosUM[i]['SUMA']);
+				defPor.push(Math.round(sumPor*100)/100);
+				defColor.push(window.arrayColor[pos]);
+				if (sumPor>80) {
+					pos=1;
+				}
+			}
+			processGraph3Mes(defLbl,defCan,defPor,defColor);
+			$("#idDefectoUno-Mes").append(html);
+
+			var defLbl=[];
+			var defCan=[];
+			var defPor=[];
+			var defColor=[];
+			html='';
+			var sumPor=0;
+			var pos=0;
+			for (var i = 0; i < data.defectosDM.length; i++) {
+				var por1=0;
+				if (i!=data.defectosDM.length-1) {
+					por1=Math.round(data.defectosDM[i]['SUMA']*10000/data.sumDefectosDM)/100;
+					sumPor+=por1;
+				}else{
+					por1=Math.round((100-sumPor)*100)/100;
+					sumPor=100;
+				}
+				if(sumPor>100){
+					sumPor=100;
+				}
+				html+=
+				'<div class="lineBody">'+
+					'<div class="itemhs1 items4" style="width: 120px;text-align:left;">'+(i+1)+'. '+data.defectosDM[i]['DESDEF']+'</div>'+
+					'<div class="itemhs1 items4" style="width: 80px;">'+formatNumber(data.defectosDM[i]['SUMA'])+'</div>'+
+					'<div class="itemhs1 items4" style="width: 40px;">'+por1+'%</div>'+
+					'<div class="itemhs1 items4" style="width: 90px;">'+Math.round(sumPor*100)/100+'%</div>'+
+					'<div class="itemhs1 items3" style="width: 50px; background:transparent;border-color:transparent;"></div>'+
+					'<div class="itemhs1 items4 itemSpecial" style="width: 100px;">'+Math.round(data.defectosDM[i]['SUMA']*10000/data.sumDUM)/100+'%</div>'+
+				'</div>';		
+				defLbl.push(data.defectosDM[i]['DESDEF']);		
+				defCan.push(data.defectosDM[i]['SUMA']);
+				defPor.push(Math.round(sumPor*100)/100);
+				defColor.push(window.arrayColor[pos]);
+				if (sumPor>80) {
+					pos=1;
+				}
+			}
+			processGraph4Mes(defLbl,defCan,defPor,defColor);
+			$("#idDefectoDos-Mes").append(html);
+			
+			$(".panelCarga").fadeOut(200);
+		},
+	    error: function (jqXHR, exception) {
+	        var msg = '';
+	        if (jqXHR.status === 0) {
+	            msg = 'Sin conexión.\nVerifique su conexión a internet!';
+	        } else if (jqXHR.status == 404) {
+	            msg = 'No se encuentra el archivo necesario para guardar la inspección!';
+	        } else if (jqXHR.status == 500) {
+	            msg = 'Servidor no disponible (Web de TSC). Intente más tarde';
+	        } else if (exception === 'parsererror') {
+	            msg = 'La respuesta tiene errores. Por favor, contactar al equipo de desarrollo!';
+	        } else if (exception === 'timeout') {
+	            msg = 'Tiempo de respuesta muy largo (Web de TSC)!';
+	        } else if (exception === 'abort') {
+	            msg = 'Se cancelo la consulta!';
+	        } else {
+	            msg = 'Error desconocido.\n' + jqXHR.responseText+'.\nInforme al equipo de desarrollo!';
+	        }
+	        alert(msg);
+			$(".panelCarga").fadeOut(200);
+	    }
+	});
+});
+var sumTotSem=0;
+var sumTotMes=0;
+var sumTotUSem=0;
+var sumTotUMes=0;
+var sumTotDSem=0;
+var sumTotDMes=0;
+
+window.arrayColor=['rgb(255,150,60)','rgb(240,200,160)'];
+
+function processGraph(ar_lab,ar_rec,ar_apr,ar_color){
+	var chartData = {
+		labels: ar_lab,
+		datasets: [{
+			type: 'line',
+			label: 'Aud. rechazadas',
+			borderColor: window.chartColors.black,
+			borderWidth: 2,
+			fill: false,
+			data: ar_rec,
+			lineTension: 0,
+			yAxisID: 'y-axis-2',
+			datalabels: {
+				align: 'right',
+				anchor: 'end'
+			}
+		}, {
+			type: 'bar',
+			label: 'Aud. aprobadas 1ra',
+			backgroundColor:ar_color,
+			data: ar_apr,
+			yAxisID: 'y-axis-1',
+			datalabels: {
+				align: 'center',
+				anchor: 'end' 
+			}
+		}]
+	};
+	var wWin=window.innerWidth;
+	var dBorder=true;
+	var stepTicks=5;
+	if (wWin<600) {
+		dBorder=false;
+		stepTicks=20;
+	}
+	var ctx = document.getElementById('chart-area').getContext('2d');
+	window.myMixedChart = new Chart(ctx, {
+		plugins: [{
+		    beforeInit: function(chart, options) {
+		      	chart.legend.afterFit = function() {
+		        this.height = this.height + 15;
+		      	};
+		   	}
+		}],
+		type: 'bar',
+		data: chartData,
+		options: {
+			plugins: {
+				datalabels: {
+        			color: 'black',
+					formatter: function(value, context) {
+						return Math.round(value)+"%";
+					},
+					font:{
+						weight:'bold'
+					}
+				}
+			},
+			responsive: true,
+			tooltips: {
+				mode: 'index',
+				intersect: true
+			},
+			scales: {
+				xAxes: [{
+					display: true,
+					scaleLabel: {
+						display: true
+					}
+				}],
+				yAxes: [{
+					type: 'linear',
+					display: true,
+					position: 'left',
+					id: 'y-axis-1',
+					scaleLabel: {
+						display: false
+					},
+					gridLines: {
+						display: dBorder,
+						drawBorder: true,
+						color: ['none','rgb(50,200,50)','yellow','none']
+					},
+					ticks: {
+						suggestedMin: 0,
+						suggestedMax: 100
+					},
+					afterBuildTicks: function(humdaysChart) {
+					    humdaysChart.ticks = [];
+					    humdaysChart.ticks.push(0);
+					    humdaysChart.ticks.push(param_codran1);
+					    humdaysChart.ticks.push(param_codran2);
+					    humdaysChart.ticks.push(100);
+					}
+				}, {
+					type: 'linear',
+					display: true,
+					position: 'right',
+					id: 'y-axis-2',
+					scaleLabel: {
+						display: false
+					},
+					gridLines: {
+						display: dBorder,
+						drawBorder: true,
+						color: ['none','rgb(50,200,50)','yellow','none']
+					},
+					ticks: {
+						suggestedMin: 0,
+						suggestedMax: 100
+					},
+					afterBuildTicks: function(humdaysChart) {
+					    humdaysChart.ticks = [];
+					    humdaysChart.ticks.push(0);
+					    humdaysChart.ticks.push(param_codran1);
+					    humdaysChart.ticks.push(param_codran2);
+					    humdaysChart.ticks.push(100);
+					}
+				}]
+			},
+			legend:{
+				labels:{
+					usePointStyle: true
+				}
+			}/*,
+			animation: {
+                duration: 1,
+                onComplete: function () {
+                    var chartInstance = this.chart,
+                    ctx = chartInstance.ctx;
+                    ctx.fillStyle = "rgba(0, 0, 0, 1)";
+			        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, 'normal', Chart.defaults.global.defaultFontFamily);
+			        ctx.textAlign = 'center';
+			        ctx.textBaseline = 'bottom';
+
+                    this.data.datasets.forEach(function (dataset, i) {
+                    	//if (dataset.type=="bar") {
+	                        var meta = chartInstance.controller.getDatasetMeta(i);
+	                        meta.data.forEach(function (bar, index) {
+	                            var data = Math.round(dataset.data[index])+"%";
+	                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+	                        });
+	                    //}
+                    });
+
+                }
+            }*/
+		}
+	});
+}
+
+function processGraphPS(ar_lab,ar_rec,ar_apr,ar_color){
+	var chartData = {
+		labels: ar_lab,
+		datasets: [{
+			type: 'line',
+			label: 'Aud. Apr. 2da ó más',
+			borderColor: window.chartColors.black,
+			borderWidth: 2,
+			fill: false,
+			data: ar_rec,
+			lineTension: 0,
+			datalabels: {
+				align: 'right',
+				anchor: 'end'
+			}
+		},{
+			type: 'bar',
+			label: 'Aud. Apr. 1ra',
+			backgroundColor:ar_color,
+			data: ar_apr,
+			datalabels: {
+				align: 'left',
+				anchor: 'end'
+			}
+		}]
+	};
+	var wWin=window.innerWidth;
+	var dBorder=true;
+	var stepTicks=5;
+	if (wWin<600) {
+		dBorder=false;
+		stepTicks=20;
+	}
+	var ctx =null;
+	/*ctx= document.getElementById('chart-area-ps').getContext('2d');
+	window.myMixedChart = new Chart(ctx, {
+		type: 'bar',
+		data: chartData,
+		options: {
+			responsive: true,
+			tooltips: {
+				mode: 'index',
+				intersect: true
+			},
+			scales: {
+				xAxes: [{
+					display: true,
+					scaleLabel: {
+						display: true
+					}
+				}],
+				yAxes: [{
+					display: true,
+					scaleLabel: {
+						display: false
+					},
+					gridLines: {
+						display: dBorder,
+						drawBorder: true,
+						color: ['none','rgb(50,200,50)','yellow','none']
+					},
+					ticks: {
+						suggestedMin: 0,
+						suggestedMax: 100
+					},
+					afterBuildTicks: function(humdaysChart) {
+					    humdaysChart.ticks = [];
+					    humdaysChart.ticks.push(0);
+					    humdaysChart.ticks.push(param_codran1);
+					    humdaysChart.ticks.push(param_codran2);
+					    humdaysChart.ticks.push(100);
+					}
+				}]
+			},
+			animation: {
+                duration: 1,
+                onComplete: function () {
+                    var chartInstance = this.chart,
+                    ctx = chartInstance.ctx;
+                    ctx.fillStyle = "rgba(0, 0, 0, 1)";
+			        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, 'normal', Chart.defaults.global.defaultFontFamily);
+			        ctx.textAlign = 'center';
+			        ctx.textBaseline = 'bottom';
+
+                    this.data.datasets.forEach(function (dataset, i) {
+                    	//if (dataset.type=="bar") {
+	                        var meta = chartInstance.controller.getDatasetMeta(i);
+	                        meta.data.forEach(function (bar, index) {
+	                            var data = Math.round(dataset.data[index])+"%";
+	                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+	                        });
+	                    //}
+                    });
+
+                }
+            }
+		}
+	});*/
+}
+
+function processGraph2(ar_lab,ar_defCan,ar_defPor,ar_defCol){
+	var chartData = {
+		labels: ar_lab,
+		datasets: [{
+			type: 'line',
+			label: 'Acumulado',
+			borderColor: window.chartColors.red,
+			borderWidth: 2,
+			fill: false,
+			data: ar_defPor,
+			yAxisID: 'y-axis-2',
+			lineTension: 0,
+			datalabels: {
+				align: 'right',
+				anchor: 'end'
+			}
+		}, {
+			type: 'bar',
+			backgroundColor: ar_defCol,
+			label: 'Frecuencia',
+			yAxisID: 'y-axis-1',
+			data: ar_defCan,
+			datalabels: {
+				align: 'left',
+				anchor: 'center'
+			}
+		}]
+	};
+	var ctx = document.getElementById('chart-area2').getContext('2d');
+	window.myMixedChart = new Chart(ctx, {
+		type: 'bar',
+		data: chartData,
+		options: {
+			plugins: {
+				datalabels: {
+        			color: 'black',
+					formatter: function(value, context) {
+						if (context.dataset.type=="bar") {
+							return Math.round(value)+"%";
+						}else{
+							return value;
+						}
+					},
+					font:{
+						weight:'bold'
+					}
+				}
+			},
+			responsive: true,
+			tooltips: {
+				mode: 'index',
+				intersect: true
+			},
+			scales: {
+				xAxes: [{
+					display: true,
+					scaleLabel: {
+						display: true
+					}
+				}],
+				yAxes: [{
+					type: 'linear',
+					display: true,
+					position: 'left',
+					id: 'y-axis-1',
+					scaleLabel: {
+						display: false
+					},
+					ticks: {
+						suggestedMin: 0/*,
+						suggestedMax: 100,*/
+					}
+				}, {
+					type: 'linear',
+					display: true,
+					position: 'right',
+					id: 'y-axis-2',
+					scaleLabel: {
+						display: false
+					},
+					ticks: {
+						suggestedMin: 0,
+						suggestedMax: 100,
+					}
+				}]
+			},
+			legend:{
+				labels:{
+					usePointStyle: true
+				}
+			}/*,
+			animation: {
+                duration: 1,
+                onComplete: function () {
+                    var chartInstance = this.chart,
+                    ctx = chartInstance.ctx;
+                    ctx.fillStyle = "rgba(0, 0, 0, 1)";
+			        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, 'normal', Chart.defaults.global.defaultFontFamily);
+			        ctx.textAlign = 'center';
+			        ctx.textBaseline = 'bottom';
+                    this.data.datasets.forEach(function (dataset, i) {
+                    	if (dataset.type=="bar") {
+	                        var meta = chartInstance.controller.getDatasetMeta(i);
+	                        meta.data.forEach(function (bar, index) {
+	                            var data = Math.round(dataset.data[index]*100/sumTotSem)+"%";
+	                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+	                        });
+	                    }else{
+	                        var meta = chartInstance.controller.getDatasetMeta(i);
+	                        meta.data.forEach(function (bar, index) {
+	                            var data = Math.round(dataset.data[index])+"%";
+	                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+	                        });	                    	
+	                    }
+                    });
+                }
+            }*/
+		}
+	});
+}
+
+function processGraph2Mes(ar_lab,ar_defCan,ar_defPor,ar_defCol){
+	var chartData = {
+		labels: ar_lab,
+		datasets: [{
+			type: 'line',
+			label: 'Acumulado',
+			borderColor: window.chartColors.red,
+			borderWidth: 2,
+			fill: false,
+			data: ar_defPor,
+			yAxisID: 'y-axis-2',
+			lineTension: 0,
+			datalabels: {
+				align: 'right',
+				anchor: 'end'
+			}
+		}, {
+			type: 'bar',
+			backgroundColor: ar_defCol,
+			label: 'Frecuencia',
+			yAxisID: 'y-axis-1',
+			data: ar_defCan,
+			datalabels: {
+				align: 'left',
+				anchor: 'center'
+			}
+		}]
+	};
+	var ctx = document.getElementById('chart-area2-mes').getContext('2d');
+	window.myMixedChart = new Chart(ctx, {
+		type: 'bar',
+		data: chartData,
+		options: {
+			plugins: {
+				datalabels: {
+        			color: 'black',
+					formatter: function(value, context) {
+						if (context.dataset.type=="line") {
+							return Math.round(value)+"%";
+						}else{
+							return value;
+						}
+					},
+					font:{
+						weight:'bold'
+					}
+				}
+			},
+			responsive: true,
+			tooltips: {
+				mode: 'index',
+				intersect: true
+			},
+			scales: {
+				xAxes: [{
+					display: true,
+					scaleLabel: {
+						display: true
+					}
+				}],
+				yAxes: [{
+					type: 'linear',
+					display: true,
+					position: 'left',
+					id: 'y-axis-1',
+					ticks: {
+						suggestedMin: 0/*,
+						suggestedMax: 100,*/
+					}
+				}, {
+					type: 'linear',
+					display: true,
+					position: 'right',
+					id: 'y-axis-2',
+					ticks: {
+						suggestedMin: 0,
+						suggestedMax: 100,
+					}
+				}]
+			},
+			legend:{
+				labels:{
+					usePointStyle: true
+				}
+			}/*,
+			animation: {
+                duration: 1,
+                onComplete: function () {
+                    var chartInstance = this.chart,
+                    ctx = chartInstance.ctx;
+                    ctx.fillStyle = "rgba(0, 0, 0, 1)";
+			        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, 'normal', Chart.defaults.global.defaultFontFamily);
+			        ctx.textAlign = 'center';
+			        ctx.textBaseline = 'bottom';
+                    this.data.datasets.forEach(function (dataset, i) {
+                    	if (dataset.type=="bar") {
+	                        var meta = chartInstance.controller.getDatasetMeta(i);
+	                        meta.data.forEach(function (bar, index) {
+	                            var data = Math.round(dataset.data[index]*100/sumTotMes)+"%";
+	                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+	                        });
+	                    }else{
+	                        var meta = chartInstance.controller.getDatasetMeta(i);
+	                        meta.data.forEach(function (bar, index) {
+	                            var data = Math.round(dataset.data[index])+"%";
+	                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+	                        });	                    	
+	                    }
+                    });
+                }
+            }*/
+		}
+	});
+}
+
+function processGraph3(ar_lab,ar_defCan,ar_defPor,ar_defCol){
+	var chartData = {
+		labels: ar_lab,
+		datasets: [{
+			type: 'line',
+			label: 'Acumulado',
+			borderColor: window.chartColors.red,
+			borderWidth: 2,
+			fill: false,
+			data: ar_defPor,
+			yAxisID: 'y-axis-2',
+			lineTension: 0,
+			datalabels: {
+				align: 'right',
+				anchor: 'end'
+			}
+		}, {
+			type: 'bar',
+			backgroundColor: ar_defCol,
+			label: 'Frecuencia',
+			yAxisID: 'y-axis-1',
+			data: ar_defCan,
+			datalabels: {
+				align: 'left',
+				anchor: 'center'
+			}
+		}]
+	};
+	var ctx = document.getElementById('chart-area3').getContext('2d');
+	window.myMixedChart = new Chart(ctx, {
+		type: 'bar',
+		data: chartData,
+		options: {
+			plugins: {
+				datalabels: {
+        			color: 'black',
+					formatter: function(value, context) {
+						if (context.dataset.type=="line") {
+							return Math.round(value)+"%";
+						}else{
+							return value;
+						}
+					},
+					font:{
+						weight:'bold'
+					}
+				}
+			},
+			responsive: true,
+			tooltips: {
+				mode: 'index',
+				intersect: true
+			},
+			scales: {
+				xAxes: [{
+					display: true,
+					scaleLabel: {
+						display: true
+					}
+				}],
+				yAxes: [{
+					type: 'linear',
+					display: true,
+					position: 'left',
+					id: 'y-axis-1',
+					ticks: {
+						suggestedMin: 0
+					}
+				}, {
+					type: 'linear',
+					display: true,
+					position: 'right',
+					id: 'y-axis-2',
+					ticks: {
+						suggestedMin: 0,
+						suggestedMax: 100,
+					}
+				}]
+			},
+			legend:{
+				labels:{
+					usePointStyle: true
+				}
+			}/*,
+			animation: {
+                duration: 1,
+                onComplete: function () {
+                    var chartInstance = this.chart,
+                    ctx = chartInstance.ctx;
+                    ctx.fillStyle = "rgba(0, 0, 0, 1)";
+			        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, 'normal', Chart.defaults.global.defaultFontFamily);
+			        ctx.textAlign = 'center';
+			        ctx.textBaseline = 'bottom';
+                    this.data.datasets.forEach(function (dataset, i) {
+                    	if (dataset.type=="bar") {
+	                        var meta = chartInstance.controller.getDatasetMeta(i);
+	                        meta.data.forEach(function (bar, index) {
+	                            var data = Math.round(dataset.data[index]*100/sumTotUSem)+"%";
+	                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+	                        });
+	                    }else{
+	                        var meta = chartInstance.controller.getDatasetMeta(i);
+	                        meta.data.forEach(function (bar, index) {
+	                            var data = Math.round(dataset.data[index])+"%";
+	                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+	                        });	                    	
+	                    }
+                    });
+                }
+            }*/
+		}
+	});
+}
+
+function processGraph3Mes(ar_lab,ar_defCan,ar_defPor,ar_defCol){
+	var chartData = {
+		labels: ar_lab,
+		datasets: [{
+			type: 'line',
+			label: 'Acumulado',
+			borderColor: window.chartColors.red,
+			borderWidth: 2,
+			fill: false,
+			data: ar_defPor,
+			yAxisID: 'y-axis-2',
+			lineTension: 0,
+			datalabels: {
+				align: 'right',
+				anchor: 'end'
+			}
+		}, {
+			type: 'bar',
+			backgroundColor: ar_defCol,
+			label: 'Frecuencia',
+			yAxisID: 'y-axis-1',
+			data: ar_defCan,
+			datalabels: {
+				align: 'left',
+				anchor: 'center'
+			}
+		}]
+	};
+	var ctx = document.getElementById('chart-area3-mes').getContext('2d');
+	window.myMixedChart = new Chart(ctx, {
+		type: 'bar',
+		data: chartData,
+		options: {
+			plugins: {
+				datalabels: {
+        			color: 'black',
+					formatter: function(value, context) {
+						if (context.dataset.type=="line") {
+							return Math.round(value)+"%";
+						}else{
+							return value;
+						}
+					},
+					font:{
+						weight:'bold'
+					}
+				}
+			},
+			responsive: true,
+			tooltips: {
+				mode: 'index',
+				intersect: true
+			},
+			scales: {
+				xAxes: [{
+					display: true,
+					scaleLabel: {
+						display: true
+					}
+				}],
+				yAxes: [{
+					type: 'linear',
+					display: true,
+					position: 'left',
+					id: 'y-axis-1',
+					ticks: {
+						suggestedMin: 0
+					}
+				}, {
+					type: 'linear',
+					display: true,
+					position: 'right',
+					id: 'y-axis-2',
+					ticks: {
+						suggestedMin: 0,
+						suggestedMax: 100,
+					}
+				}]
+			},
+			legend:{
+				labels:{
+					usePointStyle: true
+				}
+			}/*,
+			animation: {
+                duration: 1,
+                onComplete: function () {
+                    var chartInstance = this.chart,
+                    ctx = chartInstance.ctx;
+                    ctx.fillStyle = "rgba(0, 0, 0, 1)";
+			        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, 'normal', Chart.defaults.global.defaultFontFamily);
+			        ctx.textAlign = 'center';
+			        ctx.textBaseline = 'bottom';
+                    this.data.datasets.forEach(function (dataset, i) {
+                    	if (dataset.type=="bar") {
+	                        var meta = chartInstance.controller.getDatasetMeta(i);
+	                        meta.data.forEach(function (bar, index) {
+	                            var data = Math.round(dataset.data[index]*100/sumTotUMes)+"%";
+	                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+	                        });
+	                    }else{
+	                        var meta = chartInstance.controller.getDatasetMeta(i);
+	                        meta.data.forEach(function (bar, index) {
+	                            var data = Math.round(dataset.data[index])+"%";
+	                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+	                        });	                    	
+	                    }
+                    });
+                }
+            }*/
+		}
+	});
+}
+
+function processGraph4(ar_lab,ar_defCan,ar_defPor,ar_defCol){
+	var chartData = {
+		labels: ar_lab,
+		datasets: [{
+			type: 'line',
+			label: 'Acumulado',
+			borderColor: window.chartColors.red,
+			borderWidth: 2,
+			fill: false,
+			data: ar_defPor,
+			yAxisID: 'y-axis-2',
+			lineTension: 0,
+			datalabels: {
+				align: 'right',
+				anchor: 'end'
+			}
+		}, {
+			type: 'bar',
+			backgroundColor: ar_defCol,
+			label: 'Frecuencia',
+			yAxisID: 'y-axis-1',
+			data: ar_defCan,
+			datalabels: {
+				align: 'left',
+				anchor: 'center'
+			}
+		}]
+	};
+	var ctx = document.getElementById('chart-area4').getContext('2d');
+	window.myMixedChart = new Chart(ctx, {
+		type: 'bar',
+		data: chartData,
+		options: {
+			plugins: {
+				datalabels: {
+        			color: 'black',
+					formatter: function(value, context) {
+						if (context.dataset.type=="line") {
+							return Math.round(value)+"%";
+						}else{
+							return value;
+						}
+					},
+					font:{
+						weight:'bold'
+					}
+				}
+			},
+			responsive: true,
+			tooltips: {
+				mode: 'index',
+				intersect: true
+			},
+			scales: {
+				xAxes: [{
+					display: true,
+					scaleLabel: {
+						display: true
+					}
+				}],
+				yAxes: [{
+					type: 'linear',
+					display: true,
+					position: 'left',
+					id: 'y-axis-1',
+					ticks: {
+						suggestedMin: 0
+					}
+				}, {
+					type: 'linear',
+					display: true,
+					position: 'right',
+					id: 'y-axis-2',
+					ticks: {
+						suggestedMin: 0,
+						suggestedMax: 100,
+					}
+				}]
+			},
+			legend:{
+				labels:{
+					usePointStyle: true
+				}
+			}/*,
+			animation: {
+                duration: 1,
+                onComplete: function () {
+                    var chartInstance = this.chart,
+                    ctx = chartInstance.ctx;
+                    ctx.fillStyle = "rgba(0, 0, 0, 1)";
+			        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, 'normal', Chart.defaults.global.defaultFontFamily);
+			        ctx.textAlign = 'center';
+			        ctx.textBaseline = 'bottom';
+                    this.data.datasets.forEach(function (dataset, i) {
+                    	if (dataset.type=="bar") {
+	                        var meta = chartInstance.controller.getDatasetMeta(i);
+	                        meta.data.forEach(function (bar, index) {
+	                            var data = Math.round(dataset.data[index]*100/sumTotDSem)+"%";
+	                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+	                        });
+	                    }else{
+	                        var meta = chartInstance.controller.getDatasetMeta(i);
+	                        meta.data.forEach(function (bar, index) {
+	                            var data = Math.round(dataset.data[index])+"%";
+	                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+	                        });	                    	
+	                    }
+                    });
+                }
+            }*/
+		}
+	});
+}
+
+function processGraph4Mes(ar_lab,ar_defCan,ar_defPor,ar_defCol){
+	var chartData = {
+		labels: ar_lab,
+		datasets: [{
+			type: 'line',
+			label: 'Acumulado',
+			borderColor: window.chartColors.red,
+			borderWidth: 2,
+			fill: false,
+			data: ar_defPor,
+			yAxisID: 'y-axis-2',
+			lineTension: 0,
+			datalabels: {
+				align: 'right',
+				anchor: 'end'
+			}
+		}, {
+			type: 'bar',
+			backgroundColor: ar_defCol,
+			label: 'Frecuencia',
+			yAxisID: 'y-axis-1',
+			data: ar_defCan,
+			datalabels: {
+				align: 'left',
+				anchor: 'center'
+			}
+		}]
+	};
+	var ctx = document.getElementById('chart-area4-mes').getContext('2d');
+	window.myMixedChart = new Chart(ctx, {
+		type: 'bar',
+		data: chartData,
+		options: {
+			plugins: {
+				datalabels: {
+        			color: 'black',
+					formatter: function(value, context) {
+						if (context.dataset.type=="line") {
+							return Math.round(value)+"%";
+						}else{
+							return value;
+						}
+					},
+					font:{
+						weight:'bold'
+					}
+				}
+			},
+			responsive: true,
+			tooltips: {
+				mode: 'index',
+				intersect: true
+			},
+			scales: {
+				xAxes: [{
+					display: true,
+					scaleLabel: {
+						display: true
+					}
+				}],
+				yAxes: [{
+					type: 'linear',
+					display: true,
+					position: 'left',
+					id: 'y-axis-1',
+					ticks: {
+						suggestedMin: 0
+					}
+				}, {
+					type: 'linear',
+					display: true,
+					position: 'right',
+					id: 'y-axis-2',
+					ticks: {
+						suggestedMin: 0,
+						suggestedMax: 100,
+					}
+				}]
+			},
+			legend:{
+				labels:{
+					usePointStyle: true
+				}
+			}/*,
+			animation: {
+                duration: 1,
+                onComplete: function () {
+                    var chartInstance = this.chart,
+                    ctx = chartInstance.ctx;
+                    ctx.fillStyle = "rgba(0, 0, 0, 1)";
+			        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, 'normal', Chart.defaults.global.defaultFontFamily);
+			        ctx.textAlign = 'center';
+			        ctx.textBaseline = 'bottom';
+                    this.data.datasets.forEach(function (dataset, i) {
+                    	if (dataset.type=="bar") {
+	                        var meta = chartInstance.controller.getDatasetMeta(i);
+	                        meta.data.forEach(function (bar, index) {
+	                            var data = Math.round(dataset.data[index]*100/sumTotDMes)+"%";
+	                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+	                        });
+	                    }else{
+	                        var meta = chartInstance.controller.getDatasetMeta(i);
+	                        meta.data.forEach(function (bar, index) {
+	                            var data = Math.round(dataset.data[index])+"%";
+	                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+	                        });	                    	
+	                    }
+                    });
+                }
+            }*/
+		}
+	});
+}
+
+function downloadPDF(){
+	$.ajax({
+	  	type: "POST",
+	  	url: "config/saveTmpImg.php",
+	  	data: { 
+	    	imgBase64: document.getElementById("chart-area").toDataURL("image/png"),
+	    	img2: document.getElementById("chart-area2").toDataURL("image/png"),
+	    	img3: document.getElementById("chart-area2-mes").toDataURL("image/png"),
+	    	img4: document.getElementById("chart-area3").toDataURL("image/png"),
+	    	img5: document.getElementById("chart-area4").toDataURL("image/png"),
+	    	img6: document.getElementById("chart-area3-mes").toDataURL("image/png"),
+	    	img7: document.getElementById("chart-area4-mes").toDataURL("image/png"),
+			codtll:codtll,
+			codtipser:codtipser,
+			codsede:codsede,
+			codusu:codusu
+	  	},
+	  	success:function(data){
+	  		var title=$("#titulodetalle").text();
+	  		var t2=$("#titParUno").text();
+	  		var t3=$("#titParUno-Mes").text();
+	  		var t4=$("#titParDos").text();
+	  		var t4_1=$("#defPosUno").text();
+	  		var t4_2=$("#defPosDos").text();
+	  		var t5=$("#titParDos-Mes").text();
+	  		var t5_1=$("#defPosUno-Mes").text();
+	  		var t5_2=$("#defPosDos-Mes").text();
+	  		var a=document.createElement("a");
+	  		a.target="_blank";
+	  		a.href="fpdf/crearPdfVerEmp.php?n="+data+
+	  		"&t="+title+"&parran1="+param_codran1+"&parran2="+param_codran2+
+	  		"&t2="+t2+"&t3="+t3+"&t4="+t4+"&t4_1="+t4_1+"&t4_2="+t4_2+"&t5="+t5+"&t5_1="+t5_1+"&t5_2="+t5_2+
+	  		"&ct="+codtll+"&cts="+codtipser+"&cs="+codsede+"&fecha="+fecha;
+	  		a.click();
+	  	}
+	}).done(function(o) {
+	  	console.log('Images Saved!'); 
+	});
+}

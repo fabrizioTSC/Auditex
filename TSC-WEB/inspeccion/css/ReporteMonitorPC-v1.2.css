@@ -1,0 +1,155 @@
+@media(max-width: 1400px){
+    .level-one{
+        font-size: 40px;
+    }
+    .level-two {
+        width: 100%;
+        font-size: 35px;
+    }
+    .normal-one {
+        font-size: 35px;
+        font-weight: bold;
+    }
+    .n-o-s2{
+        font-size: 25px;        
+    }
+    .normal-two{	
+        font-size: 70px;
+        font-weight: bold;
+    }
+    .n-t-s2{
+        font-size: 50px;
+    }
+    .n-tl {
+        font-size: 40px;
+    }
+    .n-dl {
+        font-size: 35px;
+    }
+    .special-one {
+        font-size: 35px;
+        font-weight: bold;
+    }
+    .special-two {
+        font-size: 70px;
+        font-weight: bold;
+    }
+    .special-three {
+        font-size: 30px;
+        font-weight: bold;
+    }
+}
+@media(max-width: 1300px){
+    .n-t-s2{
+        font-size: 40px;
+    }    
+}
+@media(max-width: 1100px){
+    .normal-one {
+        font-size: 30px;
+    }
+    .n-o-s2{
+        font-size: 22px;        
+    }
+    .normal-two{    
+        font-size: 65px;
+    }
+    .n-t-s2{
+        font-size: 37px;
+    }
+}
+@media(max-height: 950px){
+    .level-one{
+        padding-top: 20px;
+        height: calc(50% - 22px);
+    }
+    .level-two {
+        padding-top: 10px;
+        height: calc(50% - 12px);
+    }
+    .content-box {
+        height: calc(25% - 38px);
+    }
+    .content-no-st {
+        height: calc(25% - 17px);
+    }
+    .normal-one {
+        padding-top: 10px;
+        height: calc(40% - 10px);
+    }
+    .n-o-s2{
+        padding-top: 10px;
+        height: calc(30% - 10px);
+    }
+    .normal-two{    
+        padding-top: 20px;
+        height: calc(60% - 20px);
+    }
+    .n-t-s2{
+        padding-top: 30px;
+        height: calc(70% - 30px);
+    }
+    .n-t-s2{
+    }
+    .n-tl {
+    }
+    .n-dl {
+        padding-top: 0px;
+        height: calc(40% - 0px);
+    }
+    .special-one {
+        height: 40%;
+    }
+    .special-two {
+        height: 40%;
+    }
+    .special-three {
+        height: 20%;
+    }
+}
+@media(max-height: 850px){
+    .level-two {
+        padding-top: 5px;
+        height: calc(50% - 7px);
+    }    
+}
+@media(max-height: 800px){
+    .level-one{
+    }
+    .level-two {
+        font-size: 32px;
+    }
+    .content-box {
+    }
+    .content-no-st {
+    }
+    .normal-one {
+        font-size: 30px;
+    }
+    .n-o-s2{
+        font-size: 25px;
+    }
+    .normal-two{
+        padding-top: 0px;
+        height: calc(60% - 0px);
+    }
+    .n-t-s2{
+        padding-top: 20px;
+        height: calc(70% - 20px);
+    }
+    .n-t-s2{
+    }
+    .n-tl {
+        font-size: 45px;        
+    }
+    .n-dl {
+    }
+    .special-one {
+        font-size: 30px;
+    }
+    .special-two {
+        font-size: 60px;
+    }
+    .special-three {
+    }
+}
