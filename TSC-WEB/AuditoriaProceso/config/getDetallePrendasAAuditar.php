@@ -28,7 +28,7 @@
 
 		if (oci_num_rows($stmt)==0) {			
 			$response->state=false;
-			$response->description="No hay fichas para el taller";
+			$response->description="No hay fichas para el tallers";
 		}else{
 			/* FICHA TALLA */
 			$sqlFichaTalla="SELECT ft.*,t.DESTAL FROM FICHATALLA ft ".

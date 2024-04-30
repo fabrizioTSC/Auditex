@@ -11,7 +11,7 @@
 		}
 		return $valor;
 	}
-	include('connection.php');
+	include('connection1.php');
 	$response=new stdClass();
 
 	session_start();
@@ -215,111 +215,7 @@
 		$i++;
 	}
 	$response->defectos=$defectos;
-/*
-	$observaciones1=array();
-	$i=0;
-	$sql="BEGIN SP_AUDTEL_SELECT_OBSPORTIP(:PARTIDA,:CODTEL,:CODPRV,:CODTAD,:NUMVEZ,:PARTE,:CODTIPOB,:OUTPUT_CUR); END;";
-	$stmt=oci_parse($conn, $sql);
-	oci_bind_by_name($stmt, ':PARTIDA', $_POST['partida']);
-	oci_bind_by_name($stmt, ':CODTEL', $codtel);
-	oci_bind_by_name($stmt, ':CODPRV', $codprv);
-	oci_bind_by_name($stmt, ':CODTAD', $codtad);
-	oci_bind_by_name($stmt, ':NUMVEZ', $numvez);
-	oci_bind_by_name($stmt, ':PARTE', $parte);
-	$codtipob=1;
-	oci_bind_by_name($stmt, ':CODTIPOB', $codtipob);
-	$OUTPUT_CUR=oci_new_cursor($conn);
-	oci_bind_by_name($stmt, ':OUTPUT_CUR', $OUTPUT_CUR,-1,OCI_B_CURSOR);
-	$result=oci_execute($stmt);
-	oci_execute($OUTPUT_CUR);
-	while($row=oci_fetch_assoc($OUTPUT_CUR)){
-		$obj=new stdClass();
-		$obj->CODOBS=$row['CODOBS'];
-		$obj->CODTIPOB=$row['CODTIPOB'];
-		$obj->DESOBS=utf8_encode($row['DESOBS']);
-		$observaciones1[$i]=$obj;
-		$i++;
-	}
-	$response->observaciones1=$observaciones1;
 
-	$observaciones2=array();
-	$i=0;
-	$sql="BEGIN SP_AUDTEL_SELECT_OBSPORTIP(:PARTIDA,:CODTEL,:CODPRV,:CODTAD,:NUMVEZ,:PARTE,:CODTIPOB,:OUTPUT_CUR); END;";
-	$stmt=oci_parse($conn, $sql);
-	oci_bind_by_name($stmt, ':PARTIDA', $_POST['partida']);
-	oci_bind_by_name($stmt, ':CODTEL', $codtel);
-	oci_bind_by_name($stmt, ':CODPRV', $codprv);
-	oci_bind_by_name($stmt, ':CODTAD', $codtad);
-	oci_bind_by_name($stmt, ':NUMVEZ', $numvez);
-	oci_bind_by_name($stmt, ':PARTE', $parte);
-	$codtipob=2;
-	oci_bind_by_name($stmt, ':CODTIPOB', $codtipob);
-	$OUTPUT_CUR=oci_new_cursor($conn);
-	oci_bind_by_name($stmt, ':OUTPUT_CUR', $OUTPUT_CUR,-1,OCI_B_CURSOR);
-	$result=oci_execute($stmt);
-	oci_execute($OUTPUT_CUR);
-	while($row=oci_fetch_assoc($OUTPUT_CUR)){
-		$obj=new stdClass();
-		$obj->CODOBS=$row['CODOBS'];
-		$obj->CODTIPOB=$row['CODTIPOB'];
-		$obj->DESOBS=utf8_encode($row['DESOBS']);
-		$observaciones2[$i]=$obj;
-		$i++;
-	}
-	$response->observaciones2=$observaciones2;
-
-	$observaciones3=array();
-	$i=0;
-	$sql="BEGIN SP_AUDTEL_SELECT_OBSPORTIP(:PARTIDA,:CODTEL,:CODPRV,:CODTAD,:NUMVEZ,:PARTE,:CODTIPOB,:OUTPUT_CUR); END;";
-	$stmt=oci_parse($conn, $sql);
-	oci_bind_by_name($stmt, ':PARTIDA', $_POST['partida']);
-	oci_bind_by_name($stmt, ':CODTEL', $codtel);
-	oci_bind_by_name($stmt, ':CODPRV', $codprv);
-	oci_bind_by_name($stmt, ':CODTAD', $codtad);
-	oci_bind_by_name($stmt, ':NUMVEZ', $numvez);
-	oci_bind_by_name($stmt, ':PARTE', $parte);
-	$codtipob=3;
-	oci_bind_by_name($stmt, ':CODTIPOB', $codtipob);
-	$OUTPUT_CUR=oci_new_cursor($conn);
-	oci_bind_by_name($stmt, ':OUTPUT_CUR', $OUTPUT_CUR,-1,OCI_B_CURSOR);
-	$result=oci_execute($stmt);
-	oci_execute($OUTPUT_CUR);
-	while($row=oci_fetch_assoc($OUTPUT_CUR)){
-		$obj=new stdClass();
-		$obj->CODOBS=$row['CODOBS'];
-		$obj->CODTIPOB=$row['CODTIPOB'];
-		$obj->DESOBS=utf8_encode($row['DESOBS']);
-		$observaciones3[$i]=$obj;
-		$i++;
-	}
-	$response->observaciones3=$observaciones3;
-
-	$observaciones4=array();
-	$i=0;
-	$sql="BEGIN SP_AUDTEL_SELECT_OBSPORTIP(:PARTIDA,:CODTEL,:CODPRV,:CODTAD,:NUMVEZ,:PARTE,:CODTIPOB,:OUTPUT_CUR); END;";
-	$stmt=oci_parse($conn, $sql);
-	oci_bind_by_name($stmt, ':PARTIDA', $_POST['partida']);
-	oci_bind_by_name($stmt, ':CODTEL', $codtel);
-	oci_bind_by_name($stmt, ':CODPRV', $codprv);
-	oci_bind_by_name($stmt, ':CODTAD', $codtad);
-	oci_bind_by_name($stmt, ':NUMVEZ', $numvez);
-	oci_bind_by_name($stmt, ':PARTE', $parte);
-	$codtipob=4;
-	oci_bind_by_name($stmt, ':CODTIPOB', $codtipob);
-	$OUTPUT_CUR=oci_new_cursor($conn);
-	oci_bind_by_name($stmt, ':OUTPUT_CUR', $OUTPUT_CUR,-1,OCI_B_CURSOR);
-	$result=oci_execute($stmt);
-	oci_execute($OUTPUT_CUR);
-	while($row=oci_fetch_assoc($OUTPUT_CUR)){
-		$obj=new stdClass();
-		$obj->CODOBS=$row['CODOBS'];
-		$obj->CODTIPOB=$row['CODTIPOB'];
-		$obj->DESOBS=utf8_encode($row['DESOBS']);
-		$observaciones4[$i]=$obj;
-		$i++;
-	}
-	$response->observaciones4=$observaciones4;
-*/
 	$numrollos=array();
 	$i=0;
 	$sql="BEGIN SP_AUDTEL_SELECT_PARROL(:PARTIDA,:CODTEL,:CODPRV,:CODTAD,:NUMVEZ,:PARTE,:OUTPUT_CUR); END;";

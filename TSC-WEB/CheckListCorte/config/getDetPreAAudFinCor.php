@@ -1,5 +1,120 @@
 <?php
 	include('connection.php');
+	$response = new stdClass();
+	$error = new stdClass();
+
+	$defectos = array();
+	$fichatallas = array();
+	$defectosPasados = array();
+	$fichas = array();
+	$i = 0;
+
+	$sql = "EXEC AUDITEX.SP_AFC_SELECT_FICHAXTALLER ?, ?, ?, ?, ?";
+	$params = array(
+		$_POST['codfic'], 
+		$_POST['numvez'], 
+		$_POST['parte'], 
+		$_POST['codtad'], 
+		$_POST['codaql']
+	);
+	$stmt = sqlsrv_prepare($conn, $sql, $params);
+	$result = sqlsrv_execute($stmt);
+	if ($result) {
+		while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+			$ficha = new stdClass();
+			$ficha->CANAUD = $row['CANAUD'];
+			$ficha->CANPAR = $row['CANPAR'];
+			$ficha->CANPRE = $row['CANPRE'];
+			$ficha->CANDEFMAX = $row['CANDEFMAX'];
+			$ficha->CODAQL = $row['CODAQL'];
+			$ficha->AQL = $row['AQL'];
+			$ficha->DESTLL = utf8_encode($row['DESTLL']);
+			$ficha->PEDIDO = $row['PEDIDO'];
+			$ficha->ESTTSC = $row['ESTTSC'];
+			$ficha->ESTCLI = $row['ESTCLI'];
+			$fichas[] = $ficha;
+		}
+		$response->fichas = $fichas;
+		$response->state = true;
+	} else {
+		$response->state = false;
+		$response->description = "No hay fichas para el taller";
+	}
+
+	if ($response->state) {
+		$sql = "EXEC AUDITEX.SP_AFC_SELECT_FICHATALLAS ?";
+		$params = array($_POST['codfic']);
+		$stmt = sqlsrv_prepare($conn, $sql, $params);
+		$result = sqlsrv_execute($stmt);
+		if ($result) {
+			while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+				$fichatalla = $row;
+				$fichatallas[] = $fichatalla;
+			}
+			$response->fichatallas = $fichatallas;
+		}
+
+
+		$sql = "EXEC AUDITEX.SP_AFC_SELECT_DEFECTOS";
+		$stmt = sqlsrv_prepare($conn, $sql);
+		$result = sqlsrv_execute($stmt);
+		if ($result) {
+			while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+				$defecto = new stdClass();
+				$defecto->coddef = $row['CODDEF'];
+				$defecto->desdef = utf8_encode($row['DESDEF']);
+				$defectos[] = $defecto;
+			}
+			$response->defectos = $defectos;
+		}
+
+		// Llamada al procedimiento almacenado para obtener los defectos pasados
+		$sql = "EXEC AUDITEX.SP_AFC_SELECT_AUDFINCORDETDEF ?, ?, ?, ?";
+		$params = array(
+			$_POST['codfic'], 
+			$_POST['numvez'], 
+			$_POST['parte'], 
+			$_POST['codtad']
+		);
+		$stmt = sqlsrv_prepare($conn, $sql, $params);
+		$result = sqlsrv_execute($stmt);
+		if ($result) {
+			while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+				$defectoPas = $row;
+				$defectosPasados[] = $defectoPas;
+			}
+			$response->defectosPasados = $defectosPasados;
+		}
+
+		// Llamada al procedimiento almacenado para obtener las observaciones de la ficha
+		$sql = "EXEC AUDITEX.SP_AFC_SELECT_OBSFICCOR ?, ?, ?, ?, ?";
+		$params = array(
+			$_POST['codfic'], 
+			$_POST['numvez'], 
+			$_POST['parte'], 
+			$_POST['codtad']
+		);
+
+		$stmt = sqlsrv_prepare($conn, $sql, $params);
+		$result = sqlsrv_execute($stmt);
+		if ($result) {
+			$obs = array();
+			while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+				$obj = new stdClass();
+				$obj->SEC = $row['SEC'];
+				$obj->OBS = utf8_encode($row['OBS']);
+				$obs[] = $obj;
+			}
+			$response->obs = $obs;
+		}
+	}
+
+	sqlsrv_close($conn);
+	header('Content-Type: application/json');
+	echo json_encode($response);
+
+
+/*	include('connection.php');
 	$response=new stdClass();
 	$error=new stdClass();
 
@@ -108,5 +223,5 @@
 
 	oci_close($conn);
 	header('Content-Type: application/json');
-	echo json_encode($response);
+	echo json_encode($response); */
 ?>

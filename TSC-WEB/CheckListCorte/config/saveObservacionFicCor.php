@@ -1,5 +1,34 @@
 <?php
 	include('connection.php');
+	$response = new stdClass();
+	
+	// Llamada al procedimiento almacenado para insertar observación
+	$sql = "EXEC AUDITEX.SP_AFC_INSERT_OBSFICCOR ?, ?, ?, ?, ?";
+	$params = array(
+		$_POST['codfic'], 
+		$_POST['numvez'], 
+		$_POST['parte'], 
+		$_POST['codtad'], 
+		$_POST['obs']
+	);
+	$stmt = sqlsrv_prepare($conn, $sql, $params);
+	$result = sqlsrv_execute($stmt);
+	
+	// Manejo de respuesta
+	if ($result) {
+		$response->state = true;
+		$response->detail = "¡Observación guardada!";
+	} else {
+		$response->state = false;
+		$response->detail = "¡No se pudo guardar la Observación!";
+	}
+	
+	sqlsrv_close($conn);
+	header('Content-Type: application/json');
+	echo json_encode($response);
+
+
+/*	include('connection.php');
 	$response=new stdClass();
 
 	$sql="BEGIN SP_AFC_INSERT_OBSFICCOR(:CODFIC,:NUMVEZ,:PARTE,:CODTAD,:OBS); END;";
@@ -20,5 +49,5 @@
 
 	oci_close($conn);
 	header('Content-Type: application/json');
-	echo json_encode($response);
+	echo json_encode($response); */
 ?>

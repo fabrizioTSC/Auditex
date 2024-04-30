@@ -1,5 +1,7 @@
-RewriteEngine On
+#Descomentar este código
 
-RewriteCond %{SERVER_PORT} 81
+#RewriteEngine On
 
-RewriteRule ^(.*)$ https://textilweb.tsc.com.pe/dashboard/$1 [R,L]
+#RewriteCond %{SERVER_PORT} 81
+
+#RewriteRule ^(.*)$ https://textilweb.tsc.com.pe/dashboard/$1 [R,L]

@@ -638,6 +638,7 @@
                     sede,tiposervicio,taller,fecha,proveedor,cliente,codtela
                 ]);
 
+
                 setTablaIndicador(response,"tblgeneral");
                 
                 // DATOS PARA EL PARETO 1 - NIVEL 1

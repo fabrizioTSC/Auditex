@@ -18,6 +18,10 @@
 	<script type="text/javascript" src="js/jquery/jquery-3.3.1.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/AuditoriaTela.css">
 	<style type="text/css">
+
+		.headerContent {
+			background-color: #922b21;
+		}
 		.item3-1{
 			width: calc(100% - 712px);
 		}

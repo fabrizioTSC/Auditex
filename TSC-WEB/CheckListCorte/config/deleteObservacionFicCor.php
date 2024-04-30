@@ -1,5 +1,34 @@
 <?php
 	include('connection.php');
+	$response = new stdClass();
+
+	// Llamada al procedimiento almacenado para eliminar observación
+	$sql = "EXEC AUDITEX.SP_AFC_DELETE_OBSFICCOR ?, ?, ?, ?, ?";
+	$params = array(
+		$_POST['codfic'], 
+		$_POST['numvez'], 
+		$_POST['parte'], 
+		$_POST['codtad'], 
+		$_POST['sec']
+	);
+	$stmt = sqlsrv_prepare($conn, $sql, $params);
+	$result = sqlsrv_execute($stmt);
+
+	// Manejo de respuesta
+	if ($result) {
+		$response->state = true;
+		$response->detail = "¡Observación eliminada!";
+	} else {
+		$response->state = false;
+		$response->detail = "¡No se pudo eliminar la Observación!";
+	}
+
+	sqlsrv_close($conn);
+	header('Content-Type: application/json');
+	echo json_encode($response);
+
+
+/*	include('connection.php');
 	$response=new stdClass();
 
 	$sql="BEGIN SP_AFC_DELETE_OBSFICCOR(:CODFIC,:NUMVEZ,:PARTE,:CODTAD,:SEC); END;";
@@ -20,5 +49,5 @@
 
 	oci_close($conn);
 	header('Content-Type: application/json');
-	echo json_encode($response);
+	echo json_encode($response); */
 ?>

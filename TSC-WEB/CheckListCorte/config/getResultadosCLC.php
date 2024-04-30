@@ -1,5 +1,28 @@
 <?php
 	include('connection.php');
+	$response = new stdClass();
+	
+	$sql = "EXEC AUDITEX.SP_CLC_SELECT_RESULTADOS ?, ?, ?, ?";
+	$stmt = sqlsrv_prepare($conn, $sql,array(
+		$_POST['codfic'], 
+		$_POST['codtad'], 
+		$_POST['numvez'], 
+		$_POST['parte']
+	));
+	$result = sqlsrv_execute($stmt);
+	while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+		$response->RESDOC = $row['RESDOC'];
+		$response->RESTEN = $row['RESTEN'];
+		$response->RESTIZ = $row['RESTIZ'];
+	}
+	$response->state=true;
+	
+	sqlsrv_close($conn);
+	header('Content-Type: application/json');
+	echo json_encode($response);
+
+
+/*	include('connection.php');
 	$response=new stdClass();
 
 	$sql="BEGIN SP_CLC_SELECT_RESULTADOS(:CODFIC,:CODTAD,:NUMVEZ,:PARTE,:OUTPUT_CUR); END;";
@@ -21,5 +44,5 @@
 
 	oci_close($conn);
 	header('Content-Type: application/json');
-	echo json_encode($response);
+	echo json_encode($response); */
 ?>

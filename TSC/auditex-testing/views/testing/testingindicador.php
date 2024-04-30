@@ -767,11 +767,11 @@
 
     // TRAE DATOS PARETOS
     async function getParetos(opcion,parametro,proveedor,cliente,programa,codtela,tipotela,fecha){
-
+        let intParametro = parametro === null ? null : parseInt(parametro);
         try{
 
             return await  get("auditex-testing","indicadortesting","getparetos",{
-                opcion,parametro,proveedor,cliente,programa,codtela,tipotela,fecha
+                opcion,parametro:intParametro,proveedor,cliente,programa,codtela,tipotela,fecha
             });
 
 

@@ -86,7 +86,7 @@
         // PORCENTAJE DE INDICADORES
         if($_GET["operacion"] == "getmantindicador"){
 
-            $response = $objModelo->getAll("AUDITEX.GETMANTINDICADORES",[
+            $response = $objModelo->getAllSQL("AUDITEX.GETMANTINDICADORES",[
                 $_GET["id"]
             ]);
 

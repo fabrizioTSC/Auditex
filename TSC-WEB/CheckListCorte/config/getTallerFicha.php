@@ -1,34 +1,26 @@
 <?php
-	include('connection.php');
-	$response=new stdClass();
+    include('connection.php');
+    $response = new stdClass();
 
-	$talleres=[];
-	$i=0;
-	$sql="begin SP_CLC_SELECT_TLLXFIC(:CODFIC,:OUTPUT_CUR); END;";
-	$stmt=oci_parse($conn,$sql);
-	oci_bind_by_name($stmt,':CODFIC', $_POST['codfic']);
-	$OUTPUT_CUR=oci_new_cursor($conn);
-	oci_bind_by_name($stmt,':OUTPUT_CUR', $OUTPUT_CUR,-1,OCI_B_CURSOR);
-	$result=oci_execute($stmt);
-	oci_execute($OUTPUT_CUR);
-	while($row=oci_fetch_assoc($OUTPUT_CUR)){
-		$response->CODTLL=$row['CODTLL'];
-		$response->DESTLL=utf8_encode($row['DESTLL']);
-	}
+    $sql = "EXEC AUDITEX.SP_CLC_SELECT_TLLXFIC ?";
+    $stmt = sqlsrv_prepare($conn, $sql, array($_POST['codfic']));
+    $result = sqlsrv_execute($stmt);
 
-	$sql="BEGIN SP_GEN_SELECT_NOMCEL(:CODFIC,:OUTPUT_CUR); END;";
-	$stmt=oci_parse($conn, $sql);
-	oci_bind_by_name($stmt, ':CODFIC', $_POST['codfic']);
-	$OUTPUT_CUR=oci_new_cursor($conn);
-	oci_bind_by_name($stmt, ':OUTPUT_CUR', $OUTPUT_CUR,-1,OCI_B_CURSOR);
-	$result=oci_execute($stmt);
-	oci_execute($OUTPUT_CUR);
-	$row=oci_fetch_assoc($OUTPUT_CUR);
-	$response->CODCEL=$row['CODTLL'];
-	$response->DESCEL=utf8_encode($row['DESTLL']);
-	$response->state=true;
+    $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+    $response->CODTLL = $row['CODTLL'];
+    $response->DESTLL = utf8_encode($row['DESTLL']);
 
-	oci_close($conn);
-	header('Content-Type: application/json');
-	echo json_encode($response);
+    $sql = "EXEC AUDITEX.SP_GEN_SELECT_NOMCEL ?";
+    $stmt = sqlsrv_prepare($conn, $sql, array($_POST['codfic']));
+    $result = sqlsrv_execute($stmt);
+
+    $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+    $response->CODCEL = $row['CODTLL'];
+    $response->DESCEL = utf8_encode($row['DESTLL']);
+    $response->state = true;
+
+    sqlsrv_close($conn);
+    header('Content-Type: application/json');
+    echo json_encode($response);
+	
 ?>

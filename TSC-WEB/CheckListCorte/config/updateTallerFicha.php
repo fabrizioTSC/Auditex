@@ -1,22 +1,25 @@
 <?php
 	include('connection.php');
-	$response=new stdClass();
+	$response = new stdClass();
 
-	$sql="begin SP_CLC_UPDATE_TLLXFIC(:CODFIC,:CODENV,:CODTLL,:CODCEL); END;";
-	$stmt=oci_parse($conn,$sql);
-	oci_bind_by_name($stmt,':CODFIC', $_POST['codfic']);
-	oci_bind_by_name($stmt,':CODENV', $_POST['codenv']);
-	oci_bind_by_name($stmt,':CODTLL', $_POST['codtll']);
-	oci_bind_by_name($stmt,':CODCEL', $_POST['codcel']);
-	$result=oci_execute($stmt);
-	if($result){
-		$response->state=true;
-	}else{
-		$response->state=false;
-		$response->detail="No se pudo actualizar la ficha";
+	$codfic = $_POST['codfic'];
+	$codenv = $_POST['codenv'];
+	$codtll = $_POST['codtll'];
+	$codcel = $_POST['codcel'];
+
+	$sql = "EXEC AUDITEX.SP_CLC_UPDATE_TLLXFIC ?, ?, ?, ?";
+	$stmt = sqlsrv_prepare($conn, $sql, array($codfic, $codenv, $codtll, $codcel));
+	$result = sqlsrv_execute($stmt);
+
+	if ($result) {
+		$response->state = true;
+	} else {
+		$response->state = false;
+		$response->detail = "No se pudo actualizar la ficha";
 	}
 
-	oci_close($conn);
+	sqlsrv_close($conn);
 	header('Content-Type: application/json');
 	echo json_encode($response);
+
 ?>

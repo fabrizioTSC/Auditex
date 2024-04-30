@@ -16,6 +16,12 @@
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
 	<style>
+		.modalTitle{
+			color:black;
+		}
+		.textMsgCarga{
+			color:black;
+		}
 		table{
 			border-collapse: collapse;			
 		}
@@ -78,7 +84,7 @@
 		<div class="modalBackground" style="width: 300px;margin-left: auto;margin-right: auto;">
 			<div class="modalTitle">Nueva observaci&oacute;n</div>
 			<div class="lineDecoration"></div>
-			<textarea style="font-family: sans-serif;width: calc(100% - 7px);height: 100px;" id="idTextObs"></textarea>
+			<textarea style="font-family: sans-serif;width: calc(100% - 7px);height: 100px;" id="idTextObs" maxlength="100"></textarea>
 			<div class="lineDecoration"></div>
 			<button class="btnModal" style="width: 100%;margin-bottom: 5px;" onclick="save_observacion()">Confimar</button>
 			<button class="btnModal" style="width: 100%;" onclick="hide_modal('modal-1')">Cancelar</button>
@@ -88,7 +94,7 @@
 		<div class="modalBackground" style="width: 300px;margin-left: auto;margin-right: auto;">
 			<div class="modalTitle">Editar observaci&oacute;n</div>
 			<div class="lineDecoration"></div>
-			<textarea style="font-family: sans-serif;width: calc(100% - 7px);height: 100px;" id="idTextObsEdit"></textarea>
+			<textarea style="font-family: sans-serif;width: calc(100% - 7px);height: 100px;" id="idTextObsEdit" maxlength="100"></textarea>
 			<div class="lineDecoration"></div>
 			<button class="btnModal" style="width: 100%;margin-bottom: 5px;" onclick="save_edit_observacion()">Confimar</button>
 			<button class="btnModal" style="width: 100%;" onclick="hide_modal('modal-2')">Cancelar</button>

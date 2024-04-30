@@ -21,7 +21,8 @@
         if($_POST["operacion"] == "getindicadorgeneral"){
             
             $parameters = $_POST["parameters"];
-            $response = $objModelo->getAll("AUDITEX.PQ_MOLDES.SPU_GETINDICADOR",$parameters);
+           // $response = $objModelo->getAll("AUDITEX.PQ_MOLDES.SPU_GETINDICADOR",$parameters);
+             $response = $objModelo->getSQL("AUDITEX.PQ_MOLDES_SPU_GETINDICADOR",$parameters);
             $_SESSION["indicadorgeneral_moldes"] = $response;
             echo json_encode($response);
 
@@ -31,7 +32,7 @@
         if($_POST["operacion"] == "getindicadorgeneral-cantfichas"){
             
             $parameters = $_POST["parameters"];
-            $response = $objModelo->getAll("AUDITEX.PQ_MOLDES.SPU_GETINDICADORCANTFICHAS",$parameters);
+            $response = $objModelo->getSQL("AUDITEX.PQ_MOLDES_SPU_GETINDICADORCANTFICHAS",$parameters);
             $_SESSION["indicadorgeneral_moldes_cantidad"] = $response;
             echo json_encode($response);
 
@@ -42,7 +43,7 @@
          if($_POST["operacion"] == "getindicadorclientes"){
             
             $parameters = $_POST["parameters"];
-            $response = $objModelo->getAll("AUDITEX.PQ_MOLDES.SPU_GETINDICADOR_CLIENTES",$parameters);
+            $response = $objModelo->getSQL("AUDITEX.PQ_MOLDES_SPU_GETINDICADOR_CLIENTES",$parameters);
 
             $_SESSION["indicadorclientes_moldes"] = $response;
             echo json_encode($response);
@@ -53,7 +54,7 @@
         if($_POST["operacion"] == "getindicadorclientes-cantfichas"){
             
             $parameters = $_POST["parameters"];
-            $response = $objModelo->getAll("AUDITEX.PQ_MOLDES.SPU_GETINDICADOR_CLICANTFICHAS",$parameters);
+            $response = $objModelo->getSQL("AUDITEX.PQ_MOLDES_SPU_GETINDICADOR_CLICANTFICHAS",$parameters);
 
             $_SESSION["indicadorclientes_moldes_cantidad"] = $response;
             echo json_encode($response);

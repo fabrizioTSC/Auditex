@@ -1,33 +1,41 @@
 <?php
-	include('connection.php');
-	$response=new stdClass();
+    include('connection.php'); // Asegúrate de que este archivo establece una conexión con SQL Server
+    $response = new stdClass();
 
-	$table='';
-	$sql="BEGIN SP_AFC_SELECT_ENCOGIMIENTO(:ESTTSC,:OUTPUT_CUR); END;";
-	$stmt=oci_parse($conn, $sql);
-	oci_bind_by_name($stmt, ':ESTTSC', $_POST['esttsc']);
-	$OUTPUT_CUR=oci_new_cursor($conn);
-	oci_bind_by_name($stmt, ':OUTPUT_CUR', $OUTPUT_CUR,-1,OCI_B_CURSOR);
-	$result=oci_execute($stmt);
-	oci_execute($OUTPUT_CUR);
-	while($row=oci_fetch_assoc($OUTPUT_CUR)){
-		$obj=new stdClass();
-		$table.=
-		'<tr onclick="show_medidas(\''.str_replace(",",".",$row['HILO']).'\',\''.str_replace(",",".",$row['TRAVEZ']).'\',\''.str_replace(",",".",$row['LARGMANGA']).'\')">
-			<td>'.str_replace(",",".",$row['HILO']).'</td>
-			<td>'.str_replace(",",".",$row['TRAVEZ']).'</td>
-			<td>'.str_replace(",",".",$row['LARGMANGA']).'</td>
-		</tr>';
-	}
-	if (oci_num_rows($OUTPUT_CUR)!=0) {
-		$response->state=true;
-		$response->detail=$table;
-	}else{
-		$response->state=false;
-		$response->detail='No hay encogimientos';
-	}	
+    $table = '';
+    $params = array(
+        array(&$_POST['esttsc'], SQLSRV_PARAM_IN)
+    );
 
-	oci_close($conn);
-	header('Content-Type: application/json');
-	echo json_encode($response);
+    $sql = "{CALL AUDITEX.SP_AFC_SELECT_ENCOGIMIENTO(?)}";
+    $stmt = sqlsrv_prepare($conn, $sql, $params);
+
+    if (!sqlsrv_execute($stmt)) {
+        die(print_r(sqlsrv_errors(), true));
+    }
+
+    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+        $obj = new stdClass(); // Si necesitas hacer algo con este objeto, aquí sería
+        $hilo = str_replace(",", ".", $row['hilo']);
+        $travez = str_replace(",", ".", $row['travez']);
+        $largmanga = str_replace(",", ".", $row['LARGMANGA']);
+        
+        $table .= "<tr onclick=\"show_medidas('$hilo','$travez','$largmanga')\">
+            <td>$hilo</td>
+            <td>$travez</td>
+            <td>$largmanga</td>
+        </tr>";
+    }
+
+    if (sqlsrv_has_rows($stmt)) {
+        $response->state = true;
+        $response->detail = $table;
+    } else {
+        $response->state = false;
+        $response->detail = 'No hay encogimientos';
+    }
+
+    sqlsrv_close($conn);
+    header('Content-Type: application/json');
+    echo json_encode($response);
 ?>

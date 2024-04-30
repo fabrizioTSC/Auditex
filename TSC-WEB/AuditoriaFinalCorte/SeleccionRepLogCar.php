@@ -91,7 +91,9 @@
 					esttsc=data.esttsc;
 					var html='';
 					for (var i = 0; i < esttsc.length; i++) {
-						html+='<div class="taller" onclick="selectEsttsc(\''+esttsc[i].ESTTSC+'\',\''+formatText(esttsc[i].DESESTTSC)+'\')">'+esttsc[i].DESESTTSC+'</div>';
+						/* html+='<div class="taller" onclick="selectEsttsc(\''+esttsc[i].ESTTSC+'\',\''+formatText(esttsc[i].DESESTTSC)+'\')">'+esttsc[i].DESESTTSC+'</div>'; */
+						html += '<div class="taller" onclick="selectEsttsc(\'' + esttsc[i].ESTTSC + '\',\'' + (esttsc[i].DESESTTSC ? formatText(esttsc[i].DESESTTSC) : '') + '\')">' + esttsc[i].DESESTTSC + '</div>';
+
 					}
 					$("#spaceEsttsc").empty();
 					$("#spaceEsttsc").append(html);
@@ -99,7 +101,9 @@
 					usuario=data.usuario;
 					var html='';
 					for (var i = 0; i < usuario.length; i++) {
-						html+='<div class="taller" onclick="selectUsuario(\''+usuario[i].CODUSU+'\',\''+formatText(usuario[i].DESUSU)+'\')">'+usuario[i].DESUSU+'</div>';
+						/* html+='<div class="taller" onclick="selectUsuario(\''+usuario[i].CODUSU+'\',\''+formatText(usuario[i].DESUSU)+'\')">'+usuario[i].DESUSU+'</div>'; */
+						html += '<div class="taller" onclick="selectUsuario(\'' + usuario[i].CODUSU + '\',\'' + (usuario[i].DESUSU ? formatText(usuario[i].DESUSU) : '') + '\')">' + (usuario[i].DESUSU ? usuario[i].DESUSU : 'Sin nombre') + '</div>';
+
 					}
 					$("#spaceUsuario").empty();
 					$("#spaceUsuario").append(html);

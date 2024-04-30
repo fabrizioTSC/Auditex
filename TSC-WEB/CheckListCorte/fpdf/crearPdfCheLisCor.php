@@ -77,24 +77,36 @@ $pdf->Ln();
 $pdf->Cell($pdf->get_max_width_to_white(),6,utf8_decode("Ruta prenda: ".$_GET['ruttel']),0,0,'L');
 $pdf->Ln();
 
-$sql="BEGIN SP_CLC_SELECT_RESULTADOS(:CODFIC,:CODTAD,:NUMVEZ,:PARTE,:OUTPUT_CUR); END;";
-$stmt=oci_parse($conn, $sql);
-oci_bind_by_name($stmt, ':CODFIC', $_GET['codfic']);
-oci_bind_by_name($stmt, ':CODTAD', $_GET['codtad']);
-oci_bind_by_name($stmt, ':NUMVEZ', $_GET['numvez']);
-oci_bind_by_name($stmt, ':PARTE', $_GET['parte']);
-$OUTPUT_CUR=oci_new_cursor($conn);
-oci_bind_by_name($stmt, ':OUTPUT_CUR', $OUTPUT_CUR,-1,OCI_B_CURSOR);
-$result=oci_execute($stmt);
-oci_execute($OUTPUT_CUR);
-$resdoc="";
-$resten="";
-$restiz="";
-while($row=oci_fetch_assoc($OUTPUT_CUR)){
-	$resdoc=process_resultado($row['RESDOC']);
-	$resten=process_resultado($row['RESTEN']);
-	$restiz=process_resultado($row['RESTIZ']);
+
+$codfic = $_GET['codfic'];
+$codtad = $_GET['codtad'];
+$numvez = $_GET['numvez'];
+$parte = $_GET['parte'];
+
+$sql = "EXEC AUDITEX.SP_CLC_SELECT_RESULTADOS @CODFIC = ?, @CODTAD = ?, @NUMVEZ = ?, @PARTE = ?";
+$params = array($codfic, $codtad, $numvez, $parte);
+
+$stmt = sqlsrv_prepare($conn, $sql, $params);
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
 }
+
+$result = sqlsrv_execute($stmt);
+if ($result === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+
+$resdoc = "";
+$resten = "";
+$restiz = "";
+
+while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+    $resdoc = process_resultado($row['RESDOC']);
+    $resten = process_resultado($row['RESTEN']);
+    $restiz = process_resultado($row['RESTIZ']);
+}
+
+
 
 $pdf->Ln();
 $pdf->SetFont('Arial','B',9);
@@ -124,22 +136,41 @@ $pdf->Ln();
 $pdf->SetFillColor(255);
 $pdf->SetTextColor(0);
 
-$sql="BEGIN SP_CLC_SELECT_CHEDOCGUA(:CODFIC,:CODTAD,:NUMVEZ,:PARTE,:OUTPUT_CUR); END;";
-$stmt=oci_parse($conn, $sql);
-oci_bind_by_name($stmt, ':CODFIC', $_GET['codfic']);
-oci_bind_by_name($stmt, ':CODTAD', $_GET['codtad']);
-oci_bind_by_name($stmt, ':NUMVEZ', $_GET['numvez']);
-oci_bind_by_name($stmt, ':PARTE', $_GET['parte']);
-$OUTPUT_CUR=oci_new_cursor($conn);
-oci_bind_by_name($stmt, ':OUTPUT_CUR', $OUTPUT_CUR,-1,OCI_B_CURSOR);
-$result=oci_execute($stmt);
-oci_execute($OUTPUT_CUR);
-while($row=oci_fetch_assoc($OUTPUT_CUR)){
-	$pdf->Cell(120,6,utf8_encode($row['DESDOC']),1,0,'L',true);
-	$pdf->Cell(35,6,process_res($row['RESDOC']),1,0,'L',true);
-	//$pdf->Cell(35,6,str_replace(",",".",$row['REPOSO']),1,0,'L',true);
-	$pdf->Ln();
+$codfic = $_GET['codfic'];
+$codtad = $_GET['codtad'];
+$numvez = $_GET['numvez'];
+$parte = $_GET['parte'];
+
+$sql = "EXEC AUDITEX.SP_CLC_SELECT_CHEDOCGUA @CODFIC = ?, @CODTAD = ?, @NUMVEZ = ?, @PARTE = ?";
+$params = array($codfic, $codtad, $numvez, $parte);
+
+$stmt = sqlsrv_prepare($conn, $sql, $params);
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
 }
+
+$result = sqlsrv_execute($stmt);
+if ($result === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+
+while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+    $pdf->Cell(120, 6, utf8_encode($row['DESDOC']), 1, 0, 'L', true);
+    $pdf->Cell(35, 6, process_res($row['RESDOC']), 1, 0, 'L', true);
+    // Uncomment below line if needed
+    // $pdf->Cell(35, 6, str_replace(",", ".", $row['REPOSO']), 1, 0, 'L', true);
+    $pdf->Ln();
+}
+
+if ($_GET['obs1'] != "") {
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->Cell($pdf->get_max_width_to_white(), 6, "Observacion", 0, 0, 'L');
+    $pdf->Ln();
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->Cell($pdf->get_max_width_to_white(), 6, $_GET['obs1'], 0, 0, 'L');
+    $pdf->Ln();
+}
+$pdf->Ln();
 
 if ($_GET['obs1']!="") {
 	$pdf->SetFont('Arial','B',9);
@@ -168,22 +199,31 @@ $pdf->Ln();
 $pdf->SetFillColor(255);
 $pdf->SetTextColor(0);
 
-$sql="BEGIN SP_CLC_SELECT_CHETIZGUA(:CODFIC,:CODTAD,:NUMVEZ,:PARTE,:OUTPUT_CUR); END;";
-$stmt=oci_parse($conn, $sql);
-oci_bind_by_name($stmt, ':CODFIC', $_GET['codfic']);
-oci_bind_by_name($stmt, ':CODTAD', $_GET['codtad']);
-oci_bind_by_name($stmt, ':NUMVEZ', $_GET['numvez']);
-oci_bind_by_name($stmt, ':PARTE', $_GET['parte']);
-$OUTPUT_CUR=oci_new_cursor($conn);
-oci_bind_by_name($stmt, ':OUTPUT_CUR', $OUTPUT_CUR,-1,OCI_B_CURSOR);
-$result=oci_execute($stmt);
-oci_execute($OUTPUT_CUR);
-while($row=oci_fetch_assoc($OUTPUT_CUR)){
-	$pdf->Cell(120,6,utf8_encode($row['DESTIZ']),1,0,'L',true);
-	$pdf->Cell(35,6,str_replace(",",".",$row['VECES']),1,0,'L',true);
-	$pdf->Cell(35,6,process_res($row['RESTIZ']),1,0,'L',true);
-	$pdf->Ln();
+$codfic = $_GET['codfic'];
+$codtad = $_GET['codtad'];
+$numvez = $_GET['numvez'];
+$parte = $_GET['parte'];
+
+$sql = "EXEC AUDITEX.SP_CLC_SELECT_CHETIZGUA @CODFIC = ?, @CODTAD = ?, @NUMVEZ = ?, @PARTE = ?";
+$params = array($codfic, $codtad, $numvez, $parte);
+
+$stmt = sqlsrv_prepare($conn, $sql, $params);
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
 }
+
+$result = sqlsrv_execute($stmt);
+if ($result === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+
+while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+    $pdf->Cell(120, 6, utf8_encode($row['DESTIZ']), 1, 0, 'L', true);
+    $pdf->Cell(35, 6, str_replace(",", ".", $row['VECES']), 1, 0, 'L', true);
+    $pdf->Cell(35, 6, process_res($row['RESTIZ']), 1, 0, 'L', true);
+    $pdf->Ln();
+}
+
 
 if ($_GET['obs2']!="") {
 	$pdf->SetFont('Arial','B',9);
@@ -211,20 +251,28 @@ $pdf->Ln();
 $pdf->SetFillColor(255);
 $pdf->SetTextColor(0);
 
-$sql="BEGIN SP_CLC_SELECT_CHETENGUA(:CODFIC,:CODTAD,:NUMVEZ,:PARTE,:OUTPUT_CUR); END;";
-$stmt=oci_parse($conn, $sql);
-oci_bind_by_name($stmt, ':CODFIC', $_GET['codfic']);
-oci_bind_by_name($stmt, ':CODTAD', $_GET['codtad']);
-oci_bind_by_name($stmt, ':NUMVEZ', $_GET['numvez']);
-oci_bind_by_name($stmt, ':PARTE', $_GET['parte']);
-$OUTPUT_CUR=oci_new_cursor($conn);
-oci_bind_by_name($stmt, ':OUTPUT_CUR', $OUTPUT_CUR,-1,OCI_B_CURSOR);
-$result=oci_execute($stmt);
-oci_execute($OUTPUT_CUR);
-while($row=oci_fetch_assoc($OUTPUT_CUR)){
-	$pdf->Cell(140,6,utf8_encode($row['DESTEN']),1,0,'L',true);
-	$pdf->Cell(50,6,process_res($row['RESTEN']),1,0,'L',true);
-	$pdf->Ln();
+$codfic = $_GET['codfic'];
+$codtad = $_GET['codtad'];
+$numvez = $_GET['numvez'];
+$parte = $_GET['parte'];
+
+$sql = "EXEC AUDITEX.SP_CLC_SELECT_CHETENGUA @CODFIC = ?, @CODTAD = ?, @NUMVEZ = ?, @PARTE = ?";
+$params = array($codfic, $codtad, $numvez, $parte);
+
+$stmt = sqlsrv_prepare($conn, $sql, $params);
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+
+$result = sqlsrv_execute($stmt);
+if ($result === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+
+while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+    $pdf->Cell(140, 6, utf8_encode($row['DESTEN']), 1, 0, 'L', true);
+    $pdf->Cell(50, 6, process_res($row['RESTEN']), 1, 0, 'L', true);
+    $pdf->Ln();
 }
 
 if ($_GET['obs3']!="") {
@@ -238,6 +286,5 @@ if ($_GET['obs3']!="") {
 
 $pdf->Output('D','Check list corte - '.str_replace("/","-",$_GET['codfic']).'.pdf',true);
 //$pdf->Output('','',true);
-
-oci_close($conn);
+//oci_close($conn);
 ?>

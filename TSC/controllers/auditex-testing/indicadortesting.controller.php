@@ -17,10 +17,19 @@
     if(isset($_POST["operacion"])){
 
         // INDICADOR GENERAL
-        if($_POST["operacion"] == "getindicadorgeneral"){
-            
+        if($_POST["operacion"] == "getindicadorgeneral"){ 
             $parameters = $_POST["parameters"];
-            $response = $objModelo->getAll("AUDITEX.SPU_GETINDICADORTESTING",$parameters);
+
+            $parametros = array(
+                'I_PROVEEDOR' => $parameters[0] !== "" ? $parameters[0] : null,
+                'I_CLIENTE' => $parameters[1] !== "" ? $parameters[1] : null,
+                'I_PROGRAMA' => $parameters[2] !== "" ? $parameters[2] : null,
+                'I_CODTELA' => $parameters[3] !== "" ? $parameters[3] : null,
+                'I_TIPOTELA' => $parameters[4] !== "" ? $parameters[4] : null,
+                'I_FECHA' => $parameters[5] !== "" ? $parameters[5] : null 
+            );
+
+            $response = $objModelo->getAllSQL_Indicador("AUDITEX.SPU_GETINDICADORTESTING",$parametros);
             echo json_encode($response);
 
         }
@@ -29,16 +38,33 @@
         if($_POST["operacion"] == "getindicadorproveedores"){
             
             $parameters = $_POST["parameters"];
-            $response = $objModelo->getAll("AUDITEX.SPU_GETINDICADORTESTINGPROV",$parameters);
+
+            $parametros = array(
+                'I_PROVEEDOR' => $parameters[0] !== "" ? $parameters[0] : null,
+                'I_CLIENTE' => $parameters[1] !== "" ? $parameters[1] : null,
+                'I_PROGRAMA' => $parameters[2] !== "" ? $parameters[2] : null,
+                'I_CODTELA' => $parameters[3] !== "" ? $parameters[3] : null,
+                'I_TIPOTELA' => $parameters[4] !== "" ? $parameters[4] : null,
+                'I_FECHA' => $parameters[5] !== "" ? $parameters[5] : null 
+            );
+            $response = $objModelo->getAllSQL_Indicador("AUDITEX.SPU_GETINDICADORTESTINGPROV",$parametros);
             echo json_encode($response);
 
         }
 
         // INDICADOR CLIENTES
          if($_POST["operacion"] == "getindicadorclientes"){
-            
             $parameters = $_POST["parameters"];
-            $response = $objModelo->getAll("AUDITEX.SPU_GETINDICADORTESTINGCLI",$parameters);
+
+            $parametros = array(
+                'I_PROVEEDOR' => $parameters[0] !== "" ? $parameters[0] : null,
+                'I_CLIENTE' => $parameters[1] !== "" ? $parameters[1] : null,
+                'I_PROGRAMA' => $parameters[2] !== "" ? $parameters[2] : null,
+                'I_CODTELA' => $parameters[3] !== "" ? $parameters[3] : null,
+                'I_TIPOTELA' => $parameters[4] !== "" ? $parameters[4] : null,
+                'I_FECHA' => $parameters[5] !== "" ? $parameters[5] : null 
+            );
+            $response = $objModelo->getAllSQL_Indicador("AUDITEX.SPU_GETINDICADORTESTINGCLI",$parametros);
             echo json_encode($response);
 
         }
@@ -120,13 +146,19 @@
     if(isset($_GET["operacion"])){
 
         // GET PARETOS
-        if($_GET["operacion"] == "getparetos"){
+        if($_GET["operacion"] == "getparetos"){ 
+            $parametros = array(
+                'I_OPCION' => $_GET["opcion"] !== "" ? $_GET["opcion"] : null,
+                'I_PARAMETRO' =>$_GET["parametro"]!== "" ?$_GET["parametro"] : null,
+                'I_PROVEEDOR' => $_GET["proveedor"] !== "" ? $_GET["proveedor"] : null,
+                'I_CLIENTE' => $_GET["cliente"] !== "" ? $_GET["cliente"] : null,
+                'I_PROGRAMA' => $_GET["programa"]!== "" ? $_GET["programa"] : null,
+                'I_CODTELA' => $_GET["codtela"] !== "" ? $_GET["codtela"] : null,
+                'I_TIPOTELA' => $_GET["tipotela"] !== "" ? $_GET["tipotela"] : null ,
+                'I_FECHA' => $_GET["fecha"] !== "" ? $_GET["fecha"] : null 
+            );
 
-            $response = $objModelo->getAll("AUDITEX.SPU_GETPARETOS_TESTING",[
-                $_GET["opcion"],$_GET["parametro"],$_GET["proveedor"],
-                $_GET["cliente"],$_GET["programa"],$_GET["codtela"],
-                $_GET["tipotela"],$_GET["fecha"]
-            ]);
+            $response = $objModelo->getAllSQL_Indicador("AUDITEX.SPU_GETPARETOS_TESTING",$parametros);
 
             echo json_encode($response);
 
@@ -134,11 +166,14 @@
 
         // GET INDICADOR 2
         if($_GET["operacion"] == "getindicadordimensional"){
+            $parametros = array(
+                'I_FECHAI' => $_GET["fechai"] !== "" ? $_GET["fechai"] : null,
+                'I_FECHAF' =>$_GET["fechaf"]!== "" ?$_GET["fechaf"] : null,
+                'I_PROVEEDOR' => $_GET["proveedor"] !== "" ? $_GET["proveedor"] : null,
+                'I_CLIENTE' => $_GET["cliente"] !== "" ? $_GET["cliente"] : null,
+            );
 
-            $response = $objModelo->getAll("AUDITEX.SPU_TESTING_INDI_ESTABI",[
-                $_GET["fechai"],$_GET["fechaf"],$_GET["proveedor"],
-                $_GET["cliente"]
-            ]);
+            $response = $objModelo->getAllSQL_Indicador("AUDITEX.SPU_TESTING_INDI_ESTABI",$parametros);
 
             echo json_encode($response);
 
@@ -146,12 +181,14 @@
 
         // GET INDICADOR 2 DATOS
         if($_GET["operacion"] == "getindicadordimensionaldatos"){
+            $parametros = array(
+                'I_FECHAI' => $_GET["fechai"] !== "" ? $_GET["fechai"] : null,
+                'I_FECHAF' =>$_GET["fechaf"]!== "" ?$_GET["fechaf"] : null,
+                'I_PROVEEDOR' => $_GET["proveedor"] !== "" ? $_GET["proveedor"] : null,
+                'I_CLIENTE' => $_GET["cliente"] !== "" ? $_GET["cliente"] : null,
+            );
 
-            $response = $objModelo->getAll("AUDITEX.SPU_TESTING_INDI_ESTABI_D",[
-                $_GET["fechai"],$_GET["fechaf"],$_GET["proveedor"],
-                $_GET["cliente"]
-            ]);
-
+            $response = $objModelo->getAllSQL_Indicador("AUDITEX.SPU_TESTING_INDI_ESTABI_D",$parametros);
             echo json_encode($response);
 
         }

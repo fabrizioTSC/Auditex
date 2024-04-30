@@ -11,6 +11,49 @@
 	}
 
 	$fichas=array();
+	$codfic = $_POST['codfic'];
+	$i=0;		
+	$sql="EXEC AUDITEX.SP_APCR_SELECT_FICHAS ?";
+	$stmt=sqlsrv_prepare($conn, $sql, array(&$codfic));
+	$result=sqlsrv_execute($stmt);
+	while($row=sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
+		$ficha=new stdClass();
+		$ficha->CODFIC=$row['CODFIC'];
+		$ficha->CANPAR=$row['CANPAR'];
+		$ficha->PARTE=$row['PARTE'];
+		$ficha->NUMVEZ=$row['NUMVEZ'];
+		$ficha->CODAQL=$row['CODAQL'];
+		$ficha->AQL=str_replace(",",".",$row['AQL']);
+		$ficha->CODTAD=$row['CODTAD'];
+		$ficha->CODUSU=replace_null($row['CODUSU']);
+		$fichas[$i]=$ficha;
+		$i++;
+	}
+	if ($i==0) {			
+		$response->state=false;
+		$response->description="No hay fichas!";
+	}else{
+		$response->state=true;
+		$response->fichas=$fichas;
+	}
+
+	sqlsrv_close($conn);
+	header('Content-Type: application/json');
+	echo json_encode($response);
+
+	
+/*	include('connection.php');
+	$response=new stdClass();
+
+	function replace_null($text){
+		if ($text==null || $text=="null") {
+			return "";
+		}else{
+			return $text;
+		}
+	}
+
+	$fichas=array();
 	$i=0;		
 	$sql="BEGIN SP_APCR_SELECT_FICHAS(:CODFIC,:OUTPUT_CUR); END;";
 	$stmt=oci_parse($conn, $sql);
@@ -42,5 +85,5 @@
 
 	oci_close($conn);
 	header('Content-Type: application/json');
-	echo json_encode($response);
+	echo json_encode($response);  */
 ?>

@@ -99,7 +99,8 @@
 
         // var_dump($parametros);
 
-        $response = $objModelo->getAll("USYSTEX.SPU_GET_TESTING",$parametros);
+        //$response = $objModelo->getAll("USYSTEX.SPU_GET_TESTING",$parametros);
+        $response = $objModelo->getSQL("AUDITEX.SPU_GET_TESTING",$parametros);
         // $response = [];
         // GUARDAMOS EN SESION PARA EXPORTAR
         $_SESSION["reportetesting"] = $response;
@@ -472,192 +473,198 @@
                 <div class="container-general float-left w-100">
 
 
-                    <div class="header float-left w-750 width" id="header1" >
+                 <div class="header float-left w-750 width" id="header1" >
 
-                        <div class="bg-primary text-white text-center w-750 width" style="padding:0px">
-                            INFORMACIÓN DE LA PARTIDA
-                        </div>
+                <div class="bg-header1 text-center w-750 width font-weight-bold" style="padding:0px">
+                    INFORMACIÓN DE LA PARTIDA
+                </div>
 
-                            <div class="th-tela bg-primary " style="width: 30px;"> <label class="text-white">N°</label>
-                            </div><div class="th-tela bg-primary " style="width: 40px;"> <label class="text-white">Status</label>
-                            </div><div class="th-tela bg-primary columnakilos " style="width: 40px;"> <label class="text-white">Kilos</label>
-                            </div><div class="th-tela bg-primary" style="width: 60px;"> <label class="text-white">Programa</label>
-                            </div><div class="th-tela bg-primary" style="width: 75px;"> <label class="text-white">Cod Tela</label> 
-                            </div><div class="th-tela bg-primary" style="width: 50px;"> <label class="text-white">Partida</label> 
-                            </div><div class="th-tela bg-primary" style="width: 50px;"> <label class="text-white">Resultado</label> 
-                            </div><div class="th-tela bg-primary" style="width: 40px;"> <label class="text-white">Fecha</label> 
-                            </div><div class="th-tela bg-primary" style="width: 65px;"> <label class="text-white">Proveedor</label> 
-                            </div><div class="th-tela bg-primary" style="width: 100px;"> <label class="text-white">Tipo de Tela</label> 
-                            </div><div class="th-tela bg-primary" style="width: 50px;"> <label class="text-white">Color</label> 
-                            </div><div class="th-tela bg-primary" style="width: 50px;"> <label class="text-white">Cod Color</label> 
-                            </div><div class="th-tela bg-primary" style="width: 50px;"> <label class="text-white">Lavado</label> 
-                            </div><div class="th-tela bg-primary" style="width: 50px;"> <label class="text-white">Ruta ERP</label> 
-
-                            </div>
-                    </div>
-
-                    <div class="header float-left calc-750 calc" id="header2">
-
-                        <div class="bg-danger text-white text-center" style="width: 400px;padding:0px;display: inline-block;">
-                            ENCOGIMIENTO ESTÁNDAR PRIMERA
-                        </div><!--
-                        --><div class="bg-warning text-white text-center" style="width: 400px;padding:0px;display: inline-block;">
-                            ENCOGIMIENTO TSC - TEXTIL PRIMERA
-                        </div><!--
-                        --><div class="bg-success-light text-white text-center" style="width: 384px;padding:0px;display: inline-block;">
-                        DATOS REALES TSC - 1RA LAVADA
-                        </div><!--
-                        --><div class="bg-danger text-white text-center" style="width: 401px;padding:0px;display: inline-block;">
-                            ENCOGIMIENTO ESTÁNDAR TERCERA
-                        </div><!--
-                        --><div class="bg-warning text-white text-center" style="width: 400px;padding:0px;display: inline-block;">
-                        ENCOGIMIENTO TSC - TEXTIL TERCERA
-                        </div><!--
-                        --><div class="bg-info text-white text-center" style="width: 400px;padding:0px;display: inline-block;">
-                            TOLERANCIAS
-                        </div><!--
-                        --><div class="bg-success-light text-white text-center" style="width: 425px;padding:0px;display: inline-block;">
-                            DATOS REALES TSC - 3RA LAVADA
-                        </div><!--
-                        --><div class="bg-danger text-white text-center" style="width: 160px;padding:0px;display: inline-block;">
-                            <!-- Tolerancias B/W + - 5% --> TOL-DENSIDAD
-                        </div><!--
-                        --><div class="bg-success-light text-white text-center" style="width: 185px;padding:0px;display: inline-block;">
-                            Encog. De Paños Lavados
-                        </div><!--
-                        --><div class="bg-warning text-white text-center" style="width: 265px;padding:0px;display: inline-block;">
-                            Residual Paño
-                        </div><!--
-                        --><div class="bg-success-light text-white text-center" style="width: 384px;padding:0px;display: inline-block;">
-                        1RA LAVADA(SECADA TAMBOR)
-                        </div><!--
-                        --><div class="bg-warning text-white text-center" style="width: 384px;padding:0px;display: inline-block;">
-                        3RA LAVADA(SECADA TAMBOR)
-                        </div><!--
-                        --><div class="bg-info text-white text-center" style="width: 180px;padding:0px;display: inline-block;">
-                            Datos Extra
-                        </div>
-
-                        <br>
-
-                        <!-- ENCOGIMIENTO PRIMERA -->
-                        <div class="bg-danger th">
-                            <label class="verticalText text-white">Hilo</label>
-                            <!-- Hilo -->
-                        </div><div class="bg-danger th">
-                            <label class="verticalText text-white">Trama</label>
-                            <!-- Trama -->
-                        </div><div class="bg-danger th"><label class="verticalText text-white">Densidad B/W</label>
-                        </div><div class="bg-danger th"><label class="verticalText text-white">Densidad (A/W)</label>
-                        </div><div class="bg-danger th"><label class="verticalText text-white">Ancho (B/W)</label>
-                        </div><div class="bg-danger th"><label class="verticalText text-white">Ancho (A/W)</label>
-                        </div><div class="bg-danger th"><label class="verticalText text-white">Incli Acabados (B/W)</label>
-                        </div><div class="bg-danger th"><label class="verticalText text-white">Incli Acabados (A/W)</label>
-                        </div><div class="bg-danger th"><label class="verticalText text-white">Solides</label>
-                        </div><div class="bg-danger th"><label class="verticalText text-white">Revirado</label></div><!--
-                        ENCOGIMIENTO PRIMERA TSC--><div class="bg-warning th"><label class="verticalText text-white">Hilo</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Trama</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Densidad B/W</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Densidad (A/W)</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Ancho (B/W)</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Ancho (A/W)</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Incli Acabados (B/W)</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Incli Acabados (A/W)</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Solides</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Revirado</label></div><!-- 
-                        REALES TSC PRIMERA --><div class="bg-success-light th" style='width: 25px;padding-left:0px'><label class="text-white">OP</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Hilo</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Trama</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Densidad B/W</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">º de Inclinacion</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Ancho Total (B/W)</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Ancho Util (B/W)</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Revirado 1</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Revirado 2</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Revirado 3</label></div><!--
-                        ENCOGIMIENTO TERCERA --><div class="bg-danger th"><label class="verticalText text-white">Hilo</label>
-                        </div><div class="bg-danger th"><label class="verticalText text-white">Trama</label>
-                        </div><div class="bg-danger th"><label class="verticalText text-white">Densidad B/W</label>
-                        </div><div class="bg-danger th"><label class="verticalText text-white">Densidad (A/W)</label>
-                        </div><div class="bg-danger th"><label class="verticalText text-white">Ancho (B/W)</label>
-                        </div><div class="bg-danger th"><label class="verticalText text-white">Ancho (A/W)</label>
-                        </div><div class="bg-danger th"><label class="verticalText text-white">Incli Acabados (B/W)</label>
-                        </div><div class="bg-danger th"><label class="verticalText text-white">Incli Acabados (A/W)</label>
-                        </div><div class="bg-danger th"><label class="verticalText text-white">Solides</label>
-                        </div><div class="bg-danger th"><label class="verticalText text-white">Revirado</label></div><!--
-                        ENCOGIMIENTO TERCERA TSC--><div class="bg-warning th"><label class="verticalText text-black">Hilo</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-black">Trama</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-black">Densidad B/W</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-black">Densidad (A/W)</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-black">Ancho (B/W)</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-black">Ancho (A/W)</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-black">Incli Acabados (B/W)</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-black">Incli Acabados (A/W)</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-black">Solides</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-black">Revirado</label></div><!--
-                        TOLERANCIA ENCOGIMIENTO TERCERA --><div class="bg-info th"><label class="verticalText text-black">Hilo</label>
-                        </div><div class="bg-info th"><label class="verticalText text-black">Trama</label>
-                        </div><div class="bg-info th"><label class="verticalText text-black">Densidad B/W</label>
-                        </div><div class="bg-info th"><label class="verticalText text-black">Densidad (A/W)</label>
-                        </div><div class="bg-info th"><label class="verticalText text-black">Ancho (B/W)</label>
-                        </div><div class="bg-info th"><label class="verticalText text-black">Ancho (A/W)</label>
-                        </div><div class="bg-info th"><label class="verticalText text-black">Incli Acabados (B/W)</label>
-                        </div><div class="bg-info th"><label class="verticalText text-black">Incli Acabados (A/W)</label>
-                        </div><div class="bg-info th"><label class="verticalText text-black">Solides</label>
-                        </div><div class="bg-info th"><label class="verticalText text-black">Revirado</label></div><!--
-                        REALES TSC TERCERA --><div class="bg-success-light th" style='width: 25px;padding-left:0px'><label class="text-white">OP</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Hilo</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Trama</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Densidad A/W</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">º de Inclinacion</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Ancho Total (A/W)</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Ancho Util (A/W)</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Revirado 1</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Revirado 2</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Revirado 3</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Solidez</label></div><!--
-                        TOLERANCIAS BEFORE --><div class="bg-danger th"><label class="text-white">B/W +5%</label>
-                        </div><div class="bg-danger th"><label class="verticalText text-white">B/W -5%</label></div><!--                
-                        TOLERANCIAS AFTER --><div class="bg-danger th"><label class="text-white">A/W +5%</label>
-                        </div><div class="bg-danger th"><label class="verticalText text-white">A/W -5%</label></div><!--
-                        Encog. De Paños Lavados --><div class="bg-success-light th" style='width: 25px;padding-left:0px'><label class="text-white">OP</label>
-                        </div><div class="bg-success-light th"><label class="text-white">Hilo</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Trama</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">° INCLINACIÓN B/W</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">° INCLINACIÓN A/W</label></div><!-- 
-                        RESIDUALES PAÑO --><div class="bg-warning th" style='width: 25px;padding-left:0px'><label class="text-white">OP</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Hilo</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Trama</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">º de Inclinacion</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Revirado 1</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Revirado 2</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Revirado 3</label></div><!--
-                        1RA LAVADA SECADO TAMBOR--><div class="bg-success-light th" style='width: 25px;padding-left:0px'><label class="text-white">OP</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Hilo</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Trama</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Densidad A/W</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">º de Inclinacion</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Ancho Total (A/W)</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Ancho Util (A/W)</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Revirado 1</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Revirado 2</label>
-                        </div><div class="bg-success-light th"><label class="verticalText text-white">Revirado 3</label></div><!--
-                        3RA LAVADA SECADO TAMBOR--><div class="bg-warning th" style='width: 25px;padding-left:0px'><label class="text-white">OP</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Hilo</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Trama</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Densidad A/W</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">º de Inclinacion</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Ancho Total (A/W)</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Ancho Util (A/W)</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Revirado 1</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Revirado 2</label>
-                        </div><div class="bg-warning th"><label class="verticalText text-white">Revirado 3</label></div><!--
-                        FECHA DE LIBERACIÓN --><div class="bg-info th"><label class="text-white">F. LIBERACIÓN</label>
-                        </div><!-- LIBERADO POR --><div class="bg-info th"><label class="text-white">LIBERADO POR</label>
-                        </div><!-- OBSERVACIONES TSC --><div class="bg-info th" style="width:100px !important"><label class="text-white">OBSERVACIONES</label>
-                        </div>
+                    <div class="th-tela bg-header1 " style="width: 30px;"> <label class="font-weight-bold">N°</label>
+                    </div><div class="th-tela bg-header1 " style="width: 40px;"> <label class="font-weight-bold">Status</label>
+                    </div><div class="th-tela bg-header1 columnakilos " style="width: 40px;"> <label class="font-weight-bold">Kilos</label>
+                    </div><div class="th-tela bg-header1" style="width: 60px;"> <label class="font-weight-bold">Programa</label>
+                    </div><div class="th-tela bg-header1" style="width: 75px;"> <label class="font-weight-bold">Cod Tela</label> 
+                    </div><div class="th-tela bg-header1" style="width: 50px;"> <label class="font-weight-bold">Partida</label> 
+                    </div><div class="th-tela bg-header1" style="width: 50px;"> <label class="font-weight-bold">Resultado</label> 
+                    </div><div class="th-tela bg-header1" style="width: 40px;"> <label class="font-weight-bold">Fecha</label> 
+                    </div><div class="th-tela bg-header1" style="width: 65px;"> <label class="font-weight-bold">Proveedor</label> 
+                    </div><div class="th-tela bg-header1" style="width: 100px;"> <label class="font-weight-bold">Tipo de Tela</label> 
+                    </div><div class="th-tela bg-header1" style="width: 50px;"> <label class="font-weight-bold">Color</label> 
+                    </div><div class="th-tela bg-header1" style="width: 50px;"> <label class="font-weight-bold">Cod Color</label> 
+                    </div><div class="th-tela bg-header1" style="width: 50px;"> <label class="font-weight-bold">Lavado</label> 
+                    </div><div class="th-tela bg-header1" style="width: 50px;"> <label class="font-weight-bold">Ruta ERP</label> 
 
                     </div>
+            </div>
+
+            <div class="header float-left calc-750 calc" id="header2">
+
+                <div class="bg-header2 font-weight-bold text-center" style="width: 400px;padding:0px;display: inline-block;">
+                    ENCOGIMIENTO ESTÁNDAR PRIMERA
+                </div><!--
+                --><div class="bg-header3 text-white font-weight-bold text-center" style="width: 400px;padding:0px;display: inline-block;">
+                    ENCOGIMIENTO TSC - TEXTIL PRIMERA
+                </div><!--
+                --><div class="bg-header4 font-weight-bold text-white text-center" style="width: 384px;padding:0px;display: inline-block;">
+                DATOS REALES TSC - 1RA LAVADA
+                </div><!--
+                --><div class="bg-header1 font-weight-bold text-center" style="width: 401px;padding:0px;display: inline-block;">
+                    ENCOGIMIENTO ESTÁNDAR TERCERA
+                </div><!--
+                --><div class="bg-header3 font-weight-bold text-white text-center" style="width: 400px;padding:0px;display: inline-block;">
+                ENCOGIMIENTO TSC - TEXTIL TERCERA
+                </div><!--
+                --><div class="bg-tolerancias font-weight-bold text-white text-center" style="width: 400px;padding:0px;display: inline-block;">
+                    TOLERANCIAS
+                </div><!--
+                --><div class="bg-header4 font-weight-bold text-white text-center" style="width: 425px;padding:0px;display: inline-block;">
+                    DATOS REALES TSC - 3RA / 5TA LAVADA
+                </div><!--
+                --><div class="bg-header1 font-weight-bold  text-center" style="width: 160px;padding:0px;display: inline-block;">
+                    <!-- Tolerancias B/W + - 5% --> TOL-DENSIDAD
+                </div><!--
+                --><div class="bg-header4 text-white text-center" style="width: 185px;padding:0px;display: inline-block;">
+                    Encog. De Paños Lavados
+                </div><!--
+                --><div class="bg-header3 font-weight-bold text-white text-center" style="width: 265px;padding:0px;display: inline-block;">
+                    Residual Paño
+                </div><!--
+                --><div class="bg-header4 font-weight-bold text-white text-center" style="width: 384px;padding:0px;display: inline-block;">
+                1RA LAVADA (SECADO TAMBOR)
+                </div><!--
+                --><div class="bg-header2 font-weight-bold text-center" style="width: 384px;padding:0px;display: inline-block;">
+                <!-- 3RA LAVADA (SECADO TAMBOR) -->
+                5TA LAVADA (SECADO TAMBOR)
+                </div><!--
+                --><div class="bg-tolerancias  font-weight-bold text-white text-center" style="width: 180px;padding:0px;display: inline-block;">
+                    Datos Extra
+                </div>
+
+                <br>
+
+                <!-- ENCOGIMIENTO PRIMERA -->
+                <div class="bg-header2 th">
+                    <label class="verticalText ">Hilo</label>
+                    <!-- Hilo -->
+                </div><div class="bg-header2 th">
+                    <label class="verticalText ">Trama</label>
+                    <!-- Trama -->
+                </div><div class="bg-header2 th"><label class="verticalText ">Densidad B/W</label>
+                </div><div class="bg-header2 th"><label class="verticalText ">Densidad (A/W)</label>
+                </div><div class="bg-header2 th"><label class="verticalText ">Ancho (B/W)</label>
+                </div><div class="bg-header2 th"><label class="verticalText ">Ancho (A/W)</label>
+                </div><div class="bg-header2 th"><label class="verticalText ">Incli Acabados (B/W)</label>
+                </div><div class="bg-header2 th"><label class="verticalText ">Incli Acabados (A/W)</label>
+                </div><div class="bg-header2 th"><label class="verticalText ">Solides</label>
+                </div><div class="bg-header2 th"><label class="verticalText ">Revirado</label></div><!--
+                ENCOGIMIENTO PRIMERA TSC--><div class="bg-header3 th"><label class="verticalText text-white">Hilo</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Trama</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Densidad B/W</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Densidad (A/W)</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Ancho (B/W)</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Ancho (A/W)</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Incli Acabados (B/W)</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Incli Acabados (A/W)</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Solides</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Revirado</label></div><!--
+                REALES TSC PRIMERA -->
+                <div class="bg-header4 th" style='width: 25px;padding-left:0px'><label class="text-white">OP</label>
+                
+            </div><div class="bg-header4 th"><label class="verticalText text-white">Hilo</label>
+                </div><div class="bg-header4 th"><label class="verticalText text-white">Trama</label>
+                </div><div class="bg-header4 th"><label class="verticalText text-white">Densidad B/W</label>
+                </div><div class="bg-header4 th"><label class="verticalText text-white">º de Inclinacion</label>
+                </div><div class="bg-header4 th"><label class="verticalText text-white">Ancho Total (B/W)</label>
+                </div><div class="bg-header4 th"><label class="verticalText text-white">Ancho Util (B/W)</label>
+                </div><div class="bg-header4 th"><label class="verticalText text-white">Revirado 1</label>
+                </div><div class="bg-header4 th"><label class="verticalText text-white">Revirado 2</label>
+                </div><div class="bg-header4 th"><label class="verticalText text-white">Revirado 3</label></div><!--
+                ENCOGIMIENTO TERCERA --><div class="bg-header1 th"><label class="verticalText ">Hilo</label>
+                </div><div class="bg-header1 th"><label class="verticalText ">Trama</label>
+                </div><div class="bg-header1 th"><label class="verticalText ">Densidad B/W</label>
+                </div><div class="bg-header1 th"><label class="verticalText ">Densidad (A/W)</label>
+                </div><div class="bg-header1 th"><label class="verticalText ">Ancho (B/W)</label>
+                </div><div class="bg-header1 th"><label class="verticalText ">Ancho (A/W)</label>
+                </div><div class="bg-header1 th"><label class="verticalText ">Incli Acabados (B/W)</label>
+                </div><div class="bg-header1 th"><label class="verticalText ">Incli Acabados (A/W)</label>
+                </div><div class="bg-header1 th"><label class="verticalText ">Solides</label>
+                </div><div class="bg-header1 th"><label class="verticalText ">Revirado</label></div><!--
+                ENCOGIMIENTO TERCERA TSC--><div class="bg-header3 th"><label class="verticalText text-white">Hilo</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Trama</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Densidad B/W</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Densidad (A/W)</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Ancho (B/W)</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Ancho (A/W)</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Incli Acabados (B/W)</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Incli Acabados (A/W)</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Solides</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Revirado</label></div><!--
+                TOLERANCIA ENCOGIMIENTO TERCERA --><div class="bg-tolerancias th"><label class="verticalText text-white">Hilo</label>
+                </div><div class="bg-tolerancias th"><label class="verticalText text-white">Trama</label>
+                </div><div class="bg-tolerancias th"><label class="verticalText text-white">Densidad B/W</label>
+                </div><div class="bg-tolerancias th"><label class="verticalText text-white">Densidad (A/W)</label>
+                </div><div class="bg-tolerancias th"><label class="verticalText text-white">Ancho (B/W)</label>
+                </div><div class="bg-tolerancias th"><label class="verticalText text-white">Ancho (A/W)</label>
+                </div><div class="bg-tolerancias th"><label class="verticalText text-white">Incli Acabados (B/W)</label>
+                </div><div class="bg-tolerancias th"><label class="verticalText text-white">Incli Acabados (A/W)</label>
+                </div><div class="bg-tolerancias th"><label class="verticalText text-white">Solides</label>
+                </div><div class="bg-tolerancias th"><label class="verticalText text-white">Revirado</label></div><!--
+                REALES TSC TERCERA --><div class="bg-header4  th" style='width: 25px;padding-left:0px'><label class="text-white">OP</label>
+                </div><div class="bg-header4  th"><label class="verticalText text-white">Hilo</label>
+                </div><div class="bg-header4  th"><label class="verticalText text-white">Trama</label>
+                </div><div class="bg-header4  th"><label class="verticalText text-white">Densidad A/W</label>
+                </div><div class="bg-header4  th"><label class="verticalText text-white">º de Inclinacion</label>
+                </div><div class="bg-header4  th"><label class="verticalText text-white">Ancho Total (A/W)</label>
+                </div><div class="bg-header4  th"><label class="verticalText text-white">Ancho Util (A/W)</label>
+                </div><div class="bg-header4  th"><label class="verticalText text-white">Revirado 1</label>
+                </div><div class="bg-header4  th"><label class="verticalText text-white">Revirado 2</label>
+                </div><div class="bg-header4  th"><label class="verticalText text-white">Revirado 3</label>
+                </div><div class="bg-header4  th"><label class="verticalText text-white">Solidez</label></div><!--
+                TOLERANCIAS BEFORE --><div class="bg-header1 th"><label class="">B/W +5%</label>
+                </div><div class="bg-header1 th"><label class="verticalText ">B/W -5%</label></div><!--                
+                TOLERANCIAS AFTER --><div class="bg-header1 th"><label class="">A/W +5%</label>
+                </div><div class="bg-header1 th"><label class="verticalText ">A/W -5%</label></div><!--
+                Encog. De Paños Lavados --><div class="bg-header4  th" style='width: 25px;padding-left:0px'><label class="text-white">OP</label>
+                </div><div class="bg-header4  th"><label class="text-white">Hilo</label>
+                </div><div class="bg-header4  th"><label class="verticalText text-white">Trama</label>
+                </div><div class="bg-header4  th"><label class="verticalText text-white">° INCLINACIÓN B/W</label>
+                </div><div class="bg-header4  th"><label class="verticalText text-white">° INCLINACIÓN A/W</label></div><!-- 
+                RESIDUALES PAÑO --><div class="bg-header3 th" style='width: 25px;padding-left:0px'><label class="text-white">OP</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Hilo</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Trama</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">º de Inclinacion</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Revirado 1</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Revirado 2</label>
+                </div><div class="bg-header3 th"><label class="verticalText text-white">Revirado 3</label></div><!--
+                REALES TSC PRIMERA --><div class="bg-header4 th" style='width: 25px;padding-left:0px'><label class="text-white">OP</label>
+                </div><div class="bg-header4 th"><label class="verticalText text-white">Hilo</label>
+                </div><div class="bg-header4 th"><label class="verticalText text-white">Trama</label>
+                </div><div class="bg-header4 th"><label class="verticalText text-white">Densidad B/W</label>
+                </div><div class="bg-header4 th"><label class="verticalText text-white">º de Inclinacion</label>
+                </div><div class="bg-header4 th"><label class="verticalText text-white">Ancho Total (B/W)</label>
+                </div><div class="bg-header4 th"><label class="verticalText text-white">Ancho Util (B/W)</label>
+                </div><div class="bg-header4 th"><label class="verticalText text-white">Revirado 1</label>
+                </div><div class="bg-header4 th"><label class="verticalText text-white">Revirado 2</label>
+                </div><div class="bg-header4 th"><label class="verticalText text-white">Revirado 3</label></div><!--
+                REALES TSC TERCERA --><div class="bg-header2  th" style='width: 25px;padding-left:0px'><label class="">OP</label>
+                </div><div class="bg-header2  th"><label class="verticalText ">Hilo</label>
+                </div><div class="bg-header2  th"><label class="verticalText ">Trama</label>
+                </div><div class="bg-header2  th"><label class="verticalText ">Densidad A/W</label>
+                </div><div class="bg-header2  th"><label class="verticalText ">º de Inclinacion</label>
+                </div><div class="bg-header2  th"><label class="verticalText ">Ancho Total (A/W)</label>
+                </div><div class="bg-header2  th"><label class="verticalText ">Ancho Util (A/W)</label>
+                </div><div class="bg-header2  th"><label class="verticalText ">Revirado 1</label>
+                </div><div class="bg-header2  th"><label class="verticalText ">Revirado 2</label>
+                </div><div class="bg-header2  th"><label class="verticalText ">Revirado 3</label>
+                </div>
+              <!--
+                FECHA DE LIBERACIÓN --><div class="bg-tolerancias th"><label class="text-white">F. LIBERACIÓN</label>
+                </div><!-- LIBERADO POR --><div class="bg-tolerancias th"><label class="text-white">LIBERADO POR</label>
+                </div><!-- OBSERVACIONES TSC --><div class="bg-tolerancias th" style="width:100px !important"><label class="text-white">OBSERVACIONES</label>
+                </div><!-- CONCESION --><!-- <div class="bg-tolerancias th" ><label class="text-white">CONCESIÓN</label>
+                </div> -->
+
+            </div>
 
                     <!-- BODY DATOS TELA -->
                     <div id="container-datos-tela" class="float-left w-750 width">
@@ -761,9 +768,9 @@
                         </div>
 
                         <div class="col-md-12">
-
+                           
                             <button class="btn btn-sm  btn-primary float-right ml-2" type="submit">Buscar</button>
-
+                            <button id="buttonLimpiar"  class="btn btn-sm  btn-secondary float-right ml-2" type="button">Limpiar</button>
                         </div>
                     
                     </div>
@@ -786,6 +793,18 @@
 <!-- SCRIPTS -->
 <?php require_once '../../../plantillas/script.view.php'; ?>
 
+
+<script>
+    $(document).ready(function() {
+        // Asignar evento click al botón Limpiar
+        $("#buttonLimpiar").click(function() {
+            // Limpiar todos los inputs del tipo text, date y number en el documento
+            $("input[type='text'], input[type='date'], input[type='week'], input[type='number']").val("");
+            // Restablecer todos los selectores en el documento
+            $("select").val(null).trigger('change');
+        });
+    });
+</script>
 
 <script >
     let mostrar = true;

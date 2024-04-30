@@ -23,20 +23,23 @@
 	$stmt=oci_parse($conn,$sql);
 	oci_bind_by_name($stmt,":HORAACTUAL", $horaactual,40);
 	$result=oci_execute($stmt);
-
+	
 	if ($ar_lineas[0]=="0") {	
-		// echo "entre gaa123a";
-
 		$k=0;
 		$sql="BEGIN SP_INSP_SELECT_LEHORFINTURALL(:FECHA,:FECHAFIN,:OUTPUT_CUR); END;";		
 		$stmt=oci_parse($conn,$sql);
 		oci_bind_by_name($stmt,":FECHA", $fecha);
 		oci_bind_by_name($stmt,":FECHAFIN", $fechafin);
+
+	
+
 		$OUTPUT_CUR=oci_new_cursor($conn);
 		oci_bind_by_name($stmt,":OUTPUT_CUR", $OUTPUT_CUR,-1,OCI_B_CURSOR);
 		$result=oci_execute($stmt);
 		oci_execute($OUTPUT_CUR);
 		while($row=oci_fetch_assoc($OUTPUT_CUR)){
+
+			
 			if ($fecha_hoy==$row['FECHA']) {
 				$uno=new stdClass();
 
@@ -163,6 +166,9 @@
 				$uno->numope=$numope;
 				$lineas[$k]=$uno;
 				$k++;
+
+				
+				
 			}else{
 				$stmt2 = oci_parse($conn,'BEGIN SP_INSP_SELECT_HISEFILIN(:LINEA,:TURNO,:FECHA, :OUTPUT); END;');	
 				oci_bind_by_name($stmt2,':LINEA',$row['LINEA']);
@@ -224,10 +230,13 @@
 					$lineas[$k]=$uno;
 					$k++;
 				}
+
+				
 			}
 		}
 	}else{
-		// echo "entre gaaa";
+
+		/* SE ESTÁ CUMPLIENDO ESTA CONDICIÓN */
 		$k=0;
 		for ($i=0; $i < count($ar_lineas) ; $i++) {		
 			$sql="BEGIN SP_INSP_SELECT_LINETOHORFINTUR(:LINEA,:FECHA,:FECHAFIN,:OUTPUT_CUR); END;";		
@@ -241,6 +250,8 @@
 			oci_execute($OUTPUT_CUR);
 			while($row=oci_fetch_assoc($OUTPUT_CUR)){
 				if ($fecha_hoy==$row['FECHA']) {
+
+					
 					$uno=new stdClass();
 
 					$hora=((int)$row['HORFIN'])*100;
@@ -367,10 +378,18 @@
 					$lineas[$k]=$uno;
 					$k++;
 				}else{
+					echo "Se cumple esta condición";
 					$stmt2 = oci_parse($conn,'BEGIN SP_INSP_SELECT_HISEFILIN(:LINEA,:TURNO,:FECHA, :OUTPUT); END;');	
 					oci_bind_by_name($stmt2,':LINEA',$ar_lineas[$i]);
 					oci_bind_by_name($stmt2,':TURNO',$row['TURNO']);
 					oci_bind_by_name($stmt2,':FECHA',$row['FECHA']);
+
+					echo $ar_lineas[$i] . "\n";
+					echo $row['TURNO'] . "\n";
+					echo $row['FECHA'] . "\n";
+					
+
+
 					$OUTPUT_CUR2=oci_new_cursor($conn);
 					oci_bind_by_name($stmt2,':OUTPUT',$OUTPUT_CUR2,-1,OCI_B_CURSOR);
 					$result2=oci_execute($stmt2);

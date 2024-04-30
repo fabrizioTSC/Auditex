@@ -270,6 +270,8 @@
 								html+=
 									'<input type="number" id="cheval-'+data.chkblo1[i].CODDOC+'" style="width: calc(100% - 12px);font-size: 12px;padding: 4px;" disabled value="0"/>';
 							}
+
+							///DONSE ESTA EL CHECBOX INICIAL 264165
 							html+=
 								'</div>'+
 								'<div class="check-content">'+
@@ -347,18 +349,23 @@
 						for (var i = 0; i < ar1_automatic.length; i++) {
 							validar_ruta(ar1_automatic[i][0],ar1_automatic[i][1]);
 						}
-
+		
 						for (var i = 0; i < data.chkblosave.length; i++) {
 							if (data.chkblosave[i].RESDOC=="1") {
-								var ele=document.getElementById("cheblo1-"+data.chkblosave[i].CODDOC);
-								if (ele.dataset.value=="0") {
-									change_check1(ele,1);
+							//console.log('data.chkblosave[i].RESDOC',data.chkblosave[i].CODDOC); 
+								 var ele=document.getElementById("cheblo1-"+data.chkblosave[i].CODDOC);
+								 if (ele.dataset.value=="0") {
+
+									 change_check1(ele,1); 
 									if (data.chkblosave[i].REPOSO!="0") {
 										document.getElementById("cheval-"+data.chkblosave[i].CODDOC).value=data.chkblosave[i].REPOSO;
 									}
-								}
+								} 
+
 							}
 						}
+
+						
 						for (var i = 0; i < data.chkblosave2.length; i++) {
 							$("#cheblonum2-"+data.chkblosave2[i].CODTIZ).text(data.chkblosave2[i].VECES);
 							if (data.chkblosave2[i].RESTIZ=="1") {
@@ -397,7 +404,7 @@
 			while(i<end && validate){
 				if (ar_ruta[i].CODETAPA==value) {
 					validate=false;
-					change_check1(document.getElementById("cheblo1-"+coddoc),1);
+					/* change_check1(document.getElementById("cheblo1-"+coddoc),1); */
 				}
 				i++;
 			}
@@ -405,7 +412,7 @@
 		function change_check1(dom,permiso){
 			if (permiso==1) {
 				var text=dom.innerHTML;
-				if (text=="NO") {
+					 if (text=="NO") {
 					text="SI";
 					dom.dataset.value="1";
 					dom.style.left="20px";
@@ -422,9 +429,10 @@
 						$("#cheval-"+dom.dataset.coddoc).attr("disabled",true);
 					}
 				}
-				dom.innerHTML=text;	
+				dom.innerHTML=text;	 
 			}else{
-				if (dom.dataset.editable=="1") {
+
+						if (dom.dataset.editable=="1") {
 					var text=dom.innerHTML;
 					if (text=="NO") {
 						text="SI";
@@ -542,7 +550,7 @@
 				if (con_r>0) {
 					resultado=state_r;
 				}
-				console.log(ar_send);
+				console.log('ar_send',ar_send);
 				$(".panelCarga").fadeIn(100);
 				$.ajax({
 					type:'POST',
@@ -557,7 +565,7 @@
 						obs:obs
 					},
 					success:function(data){
-						console.log(data);
+						console.log('data',data);
 						if (data.state) {
 							if (resultado==state_a) {
 								ar_allow_forms.push(2);

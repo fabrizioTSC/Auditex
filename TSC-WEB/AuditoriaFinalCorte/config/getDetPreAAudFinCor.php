@@ -3,45 +3,28 @@
 	$response=new stdClass();
 	$error=new stdClass();
 	
-	/*$sql="BEGIN SP_AFC_VAL_FICINFTEL(:CODFIC,:CONTADOR); END;";
-	$stmt=oci_parse($conn, $sql);
-	oci_bind_by_name($stmt,':CODFIC',$_POST['codfic']);
-	oci_bind_by_name($stmt,':CONTADOR',$contador,40);
-	$result=oci_execute($stmt);
-	if ($contador>0) {*/
-		$partidaclass=new stdClass();
-		$sql="BEGIN SP_AFC_GET_INFOPARTIDA(:CODFIC,:OUTPUT_CUR); END;";
-		$stmt=oci_parse($conn, $sql);
-		oci_bind_by_name($stmt,':CODFIC',$_POST['codfic']);
-		$OUTPUT_CUR=oci_new_cursor($conn);
-		oci_bind_by_name($stmt,':OUTPUT_CUR',$OUTPUT_CUR,-1,OCI_B_CURSOR);
-		$result=oci_execute($stmt);
-		oci_execute($OUTPUT_CUR);
-		$row=oci_fetch_assoc($OUTPUT_CUR);
-		$partidaclass->partida=$row['PARTIDA'];
-		$partidaclass->tiptel=$row['ARTICULO'];
-		$partidaclass->color=$row['COLOR'];
-		$partidaclass->codtel=$row['CODTEL'];
-		$partidaclass->descli=utf8_encode($row['DESCLI']);
+	$partidaclass=new stdClass();
+	$sql="EXEC AUDITEX.SP_AFC_GET_INFOPARTIDA ?;";
+	$stmt=sqlsrv_prepare($conn, $sql, array(&$_POST['codfic']));
+	$result=sqlsrv_execute($stmt);
+	$row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+	$partidaclass->partida=$row['PARTIDA'];
+	$partidaclass->tiptel=$row['ARTICULO'];
+	$partidaclass->color=$row['COLOR'];
+	$partidaclass->codtel=$row['CODTEL'];
+	$partidaclass->descli=utf8_encode($row['DESCLI']);
 
-		$sql="BEGIN SP_AFC_GET_INFOPARTIDA2(:PARTIDA,:CODTEL,:OUTPUT_CUR); END;";
-		$stmt=oci_parse($conn, $sql);
-		oci_bind_by_name($stmt,':PARTIDA',$partidaclass->partida);
-		oci_bind_by_name($stmt,':CODTEL',$partidaclass->codtel);
-		$OUTPUT_CUR=oci_new_cursor($conn);
-		oci_bind_by_name($stmt,':OUTPUT_CUR',$OUTPUT_CUR,-1,OCI_B_CURSOR);
-		$result=oci_execute($stmt);
-		oci_execute($OUTPUT_CUR);
-		$row=oci_fetch_assoc($OUTPUT_CUR);
+	$sql="EXEC AUDITEX.SP_AFC_GET_INFOPARTIDA2 ?, ?;";
+	$stmt=sqlsrv_prepare($conn, $sql, array(&$partidaclass->partida, &$partidaclass->codtel));
+	$result=sqlsrv_execute($stmt);
+	$row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
 
-		if($row){
-			$partidaclass->codprv=$row['CODPRV'];
-			$partidaclass->numvez=$row['NUMVEZ'];
-			$partidaclass->parte=$row['PARTE'];
-			$partidaclass->codtad=$row['CODTAD'];
-		}
-	
-	//}
+	if($row){
+		$partidaclass->codprv=$row['CODPRV'];
+		$partidaclass->numvez=$row['NUMVEZ'];
+		$partidaclass->parte=$row['PARTE'];
+		$partidaclass->codtad=$row['CODTAD'];
+	}
 	$response->partida=$partidaclass;
 
 	$defectos=array();
@@ -49,18 +32,10 @@
 	$defectosPasados=array();
 	$fichas=[];
 	$i=0;
-	$sql="BEGIN SP_AFC_SELECT_FICHAXTALLER(:CODFIC,:NUMVEZ,:PARTE,:CODTAD,:CODAQL,:OUTPUT_CUR); END;";
-	$stmt=oci_parse($conn, $sql);
-	oci_bind_by_name($stmt,':CODFIC',$_POST['codfic']);
-	oci_bind_by_name($stmt,':NUMVEZ',$_POST['numvez']);
-	oci_bind_by_name($stmt,':PARTE',$_POST['parte']);
-	oci_bind_by_name($stmt,':CODTAD',$_POST['codtad']);
-	oci_bind_by_name($stmt,':CODAQL',$_POST['codaql']);
-	$OUTPUT_CUR=oci_new_cursor($conn);
-	oci_bind_by_name($stmt,':OUTPUT_CUR',$OUTPUT_CUR,-1,OCI_B_CURSOR);
-	$result=oci_execute($stmt);
-	oci_execute($OUTPUT_CUR);
-	while($row=oci_fetch_assoc($OUTPUT_CUR)){
+	$sql="EXEC AUDITEX.SP_AFC_SELECT_FICHAXTALLER ?, ?, ?, ?, ?;";
+	$stmt=sqlsrv_prepare($conn, $sql, array(&$_POST['codfic'], &$_POST['numvez'], &$_POST['parte'], &$_POST['codtad'], &$_POST['codaql']));
+	$result=sqlsrv_execute($stmt);
+	while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
 		$ficha=new stdClass();
 		$ficha->CANAUD=$row['CANAUD'];
 		$ficha->CANPAR=$row['CANPAR'];
@@ -76,55 +51,37 @@
 		$i++;
 	}
 	$response->fichas=$fichas;
-	$sql="BEGIN SP_GEN_SELECT_NOMCEL(:CODFIC,:OUTPUT_CUR); END;";
-	$stmt=oci_parse($conn, $sql);
-	oci_bind_by_name($stmt, ':CODFIC', $_POST['codfic']);
-	$OUTPUT_CUR=oci_new_cursor($conn);
-	oci_bind_by_name($stmt, ':OUTPUT_CUR', $OUTPUT_CUR,-1,OCI_B_CURSOR);
-	$result=oci_execute($stmt);
-	oci_execute($OUTPUT_CUR);
-	$row=oci_fetch_assoc($OUTPUT_CUR);
+	$sql="EXEC AUDITEX.SP_GEN_SELECT_NOMCEL ?;";
+	$stmt=sqlsrv_prepare($conn, $sql, array(&$_POST['codfic']));
+	$result=sqlsrv_execute($stmt);
+	$row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
 	$response->DESCEL=utf8_encode($row['DESTLL']);
 
-	if (oci_num_rows($stmt)==0) {			
+	if (count($fichas) == 0) {			
 		$response->state=false;
 		$response->description="No hay fichas para el taller";
 	}else{
-		$sql="BEGIN SP_AFC_SELECT_FICHATALLAS(:CODFIC,:OUTPUT_CUR); END;";
-		$stmt=oci_parse($conn, $sql);
-		oci_bind_by_name($stmt,':CODFIC',$_POST['codfic']);
-		$OUTPUT_CUR=oci_new_cursor($conn);
-		oci_bind_by_name($stmt,':OUTPUT_CUR',$OUTPUT_CUR,-1,OCI_B_CURSOR);
-		$result=oci_execute($stmt);
-		oci_execute($OUTPUT_CUR);
-		while ($row=oci_fetch_assoc($OUTPUT_CUR)) {
+		$sql="EXEC AUDITEX.SP_AFC_SELECT_FICHATALLAS ?;";
+		$stmt=sqlsrv_prepare($conn, $sql, array(&$_POST['codfic']));
+		$result=sqlsrv_execute($stmt);
+		while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
 			$fichatalla=new stdClass();
 			$fichatalla=$row;
 			array_push($fichatallas,$fichatalla);
 		}
-		$sql="BEGIN SP_AFC_SELECT_DEFECTOS(:OUTPUT_CUR); END;";
-		$stmt=oci_parse($conn, $sql);
-		$OUTPUT_CUR=oci_new_cursor($conn);
-		oci_bind_by_name($stmt,':OUTPUT_CUR',$OUTPUT_CUR,-1,OCI_B_CURSOR);
-		$result=oci_execute($stmt);
-		oci_execute($OUTPUT_CUR);
-		while($row=oci_fetch_assoc($OUTPUT_CUR)){
+		$sql="EXEC AUDITEX.SP_AFC_SELECT_DEFECTOS;";
+		$stmt=sqlsrv_prepare($conn, $sql);
+		$result=sqlsrv_execute($stmt);
+		while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
 			$defecto=new stdClass();
 			$defecto->coddef=$row['CODDEF'];
 			$defecto->desdef=utf8_encode($row['DESDEF']);
 			array_push($defectos,$defecto);
 		}
-		$sql="BEGIN SP_AFC_SELECT_AUDFINCORDETDEF(:CODFIC,:NUMVEZ,:PARTE,:CODTAD,:OUTPUT_CUR); END;";
-		$stmt=oci_parse($conn, $sql);
-		oci_bind_by_name($stmt,':CODFIC',$_POST['codfic']);
-		oci_bind_by_name($stmt,':NUMVEZ',$_POST['numvez']);
-		oci_bind_by_name($stmt,':PARTE',$_POST['parte']);
-		oci_bind_by_name($stmt,':CODTAD',$_POST['codtad']);
-		$OUTPUT_CUR=oci_new_cursor($conn);
-		oci_bind_by_name($stmt,':OUTPUT_CUR',$OUTPUT_CUR,-1,OCI_B_CURSOR);
-		$result=oci_execute($stmt);
-		oci_execute($OUTPUT_CUR);
-		while($row=oci_fetch_assoc($OUTPUT_CUR)){				
+		$sql="EXEC AUDITEX.SP_AFC_SELECT_AUDFINCORDETDEF ?, ?, ?, ?;";
+		$stmt=sqlsrv_prepare($conn, $sql, array(&$_POST['codfic'], &$_POST['numvez'], &$_POST['parte'], &$_POST['codtad']));
+		$result=sqlsrv_execute($stmt);
+		while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){				
 			$defectoPas=new stdClass();
 			$defectoPas=$row;
 			array_push($defectosPasados,$defectoPas);
@@ -134,19 +91,12 @@
 		$response->defectosPasados=$defectosPasados;
 		$response->state=true;
 
-		$sql="BEGIN SP_AFC_SELECT_OBSFICCOR(:CODFIC,:NUMVEZ,:PARTE,:CODTAD,:OUTPUT_CUR); END;";
-		$stmt=oci_parse($conn, $sql);
-		oci_bind_by_name($stmt,':CODFIC',$_POST['codfic']);
-		oci_bind_by_name($stmt,':NUMVEZ',$_POST['numvez']);
-		oci_bind_by_name($stmt,':PARTE',$_POST['parte']);
-		oci_bind_by_name($stmt,':CODTAD',$_POST['codtad']);
-		$OUTPUT_CUR=oci_new_cursor($conn);
-		oci_bind_by_name($stmt,':OUTPUT_CUR',$OUTPUT_CUR,-1,OCI_B_CURSOR);
-		$result=oci_execute($stmt);
-		oci_execute($OUTPUT_CUR);
+		$sql="EXEC AUDITEX.SP_AFC_SELECT_OBSFICCOR  ?, ?, ?, ?;";
+		$stmt=sqlsrv_prepare($conn, $sql, array(&$_POST['codfic'], &$_POST['numvez'], &$_POST['parte'], &$_POST['codtad']));
+		$result=sqlsrv_execute($stmt);
 		$obs=[];
 		$i=0;
-		while($row=oci_fetch_assoc($OUTPUT_CUR)){				
+		while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){				
 			$obj=new stdClass();
 			$obj->SEC=$row['SEC'];
 			$obj->OBS=utf8_encode($row['OBS']);
@@ -156,7 +106,7 @@
 		$response->obs=$obs;
 	}
 
-	oci_close($conn);
+	sqlsrv_close($conn);
 	header('Content-Type: application/json');
 	echo json_encode($response);
 ?>

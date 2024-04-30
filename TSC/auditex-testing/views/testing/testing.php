@@ -91,7 +91,7 @@
 
                         <div class="col-md-3">
                             <label for="">Proveedor</label>
-                            <select name="" id="cboproveedor" class="custom-select custom-select-sm select2" multiple="multiple" data-placeholder="Seleccione Proveedor" data-dropdown-css-class="select2-danger" style="width: 100%;"></select>
+                            <select name="" id="cboproveedor" class="custom-select custom-select-sm select2" multiple="multiple" data-dropdown-css-class="select2-danger" style="width: 100%;"></select>
                         </div>
 
                         <div class="col-md-3">
@@ -101,18 +101,18 @@
                         
                         <div class="col-md-3">
                             <label for="">Artículo de tela</label>
-                            <select name="" id="cboarticulo" class="custom-select custom-select-sm select2articulotela"  multiple="multiple" data-placeholder="Seleccione Articulo" data-dropdown-css-class="select2-danger" style="width: 100%;"></select>
+                            <select name="" id="cboarticulo" class="custom-select custom-select-sm select2articulotela"  multiple="multiple" data-dropdown-css-class="select2-danger" style="width: 100%;"></select>
                         </div>
 
                         <div class="col-md-3">
                             <label for="">Programa</label>
-                            <select name="" id="cboprograma" class="custom-select custom-select-sm select2programa"  multiple="multiple" data-placeholder="Seleccione Programa" data-dropdown-css-class="select2-danger" style="width: 100%;"></select>
+                            <select name="" id="cboprograma" class="custom-select custom-select-sm select2programa"  multiple="multiple" data-dropdown-css-class="select2-danger" style="width: 100%;"></select>
                         </div>
                         
 
                         <div class="col-md-2">
                             <label for="">Color</label>
-                            <select name="" id="cbocolor" class="custom-select custom-select-sm select2"  multiple="multiple" data-placeholder="Seleccione Color" data-dropdown-css-class="select2-danger" style="width: 100%;" ></select>
+                            <select name="" id="cbocolor" class="custom-select custom-select-sm select2"  multiple="multiple" data-placeholder=""  data-dropdown-css-class="select2-danger" style="width: 100%;" ></select>
                         </div>
 
                         <div class="col-md-2">
@@ -152,9 +152,6 @@
 
 
             <button class="btn btn-sm  btn-primary float-right ml-2" type="submit">Buscar</button>
-
-            <!-- <button class="btn btn-sm  btn-danger float-right" id="btnguardar" type="button">Guardar</button> -->
-
             <button class="btn btn-sm  btn-warning float-right " id="btnmostrar" type="button">
                 <i class="fas fa-eye-slash"></i>
             </button>
@@ -163,7 +160,7 @@
                         <i class="fas fa-arrow-left"></i>
             </button>
 
-
+            <button id="buttonLimpiar" class="btn btn-sm  btn-secondary float-right mr-2" type="button">Limpiar</button>
         </form>
 
     </div>
@@ -405,7 +402,19 @@
 <script src="../../js/testing/events.js"></script>
 <!-- <script src="../../../libs/admin/registrometales/registro.js"></script> -->
 
-
+<script>
+    $(document).ready(function() {
+        // Asignar evento click al botón Limpiar
+        $("#buttonLimpiar").click(function() {
+            // Identificar el panel activo
+            var panelActivo = $(".tab-pane.active");
+            // Limpiar todos los inputs dentro del panel activo
+            panelActivo.find("input[type='text'], input[type='date'], input[type='number']").val("");
+            // Restablecer todos los selectores dentro del panel activo
+            panelActivo.find("select").val(null).trigger('change');
+        });
+    });
+</script>
 
 <script >
     let mostrar = true;
@@ -446,7 +455,7 @@
 
         // SELECT 2 PROGRAMA
         $(".select2programa").select2({
-            placeholder : "Seleccione cliente",
+        placeholder : "",
             language: {
                 noResults: function() {
                     return 'SELECCIONE UN CLIENTE PRIMERO';
@@ -456,7 +465,7 @@
 
         // SELECT 2 ARTICULO TELA
         $(".select2articulotela").select2({
-            placeholder : "Seleccione cliente",
+            placeholder : "",
             language: {
                 noResults: function() {
                     return 'SELECCIONE UN CLIENTE PRIMERO';
@@ -610,7 +619,7 @@
 
             // // PRIMERO O TERCERA LAVADA
             $("#tdlabellavada").text(`MUESTRA ${TIPOLAVADA}RA LAVADA`);
-            $("#modallavadolabel").text("Datos Reales Lavadas: " + PARTIDA);
+            $("#modallavadolabel").text("Datos Reales Lavadas: " + PARTIDA  + ' - '+ TIPOLAVADA +'ra lavada' );
 
 
             // LIMPIAMOS ARRAY DE BOLSAS
@@ -988,7 +997,7 @@
 
             // // PRIMERO O TERCERA LAVADA
             $("#tdlabellavada").text(`MUESTRA ${TIPOLAVADA}RA LAVADA TAMBOR`);
-            $("#modallavadolabel").text("Datos Reales Lavadas: " + PARTIDA);
+            $("#modallavadolabel").text("Datos Reales Lavadas: "  + PARTIDA  + ' - '+ TIPOLAVADA +'ra lavada tambor');
 
 
             // LIMPIAMOS ARRAY DE BOLSAS
@@ -1076,39 +1085,6 @@
     }
 
 
-    // DIRECCIONALES
-    $(document).keyup( function(e){
-        // console.log(e.which);
-
-            // if(FILASOMBREADA != null){
-
-            //     // $("#container-datos-tela").scrollTop( $("#container-datos-generales").scrollTop() );
-            //     let scrool      = $("#container-datos-generales").scrollTop();
-            //     // let scroolleft  = $("#container-datos-generales").scrollLeft();
-
-            //     // console.log(scrool,"valor");
-
-
-            //     // ARRIBA
-            //     if(e.which == 38){
-            //         FILASOMBREADA--;
-            //         scrool -= 30;
-            //     }
-
-            //     // ABAJO
-            //     if(e.which == 40){
-            //         FILASOMBREADA++;
-            //         scrool += 30;
-
-            //     }
-
-
-            //     // console.log(scrool);
-            //     PintarDireccionales(scrool);
-
-            // }
-
-    });
 
     var isMobile = {
         Android: function() {

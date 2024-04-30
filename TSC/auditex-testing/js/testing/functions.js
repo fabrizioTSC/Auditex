@@ -252,12 +252,24 @@ async function getEstadoTesting(){
 // GET BOLSA
 async function getbolsa(idlavada,numerobolsa,idresidualpano = null,idlavadatambor = null){
 
-    let response;
+     console.log('idlavada',idlavada);
 
+     let intIdlavada;
+
+     if (idlavada !== undefined && idlavada !== null && idlavada !== '') {
+         intIdlavada = parseInt(idlavada);
+     } else {
+         intIdlavada = null;
+     }
+
+    console.log('intIdlavada', intIdlavada); 
+
+    let response;
     try{
+        console.log(intIdlavada,numerobolsa,idresidualpano,idlavadatambor);
 
         response = await get("auditex-testing","testing","getbolsa",{
-            idlavada,numerobolsa,idresidualpano,idlavadatambor
+            idlavada: intIdlavada,numerobolsa,idresidualpano,idlavadatambor
         });
 
     }catch(error){
@@ -386,9 +398,9 @@ async function getbolsa(idlavada,numerobolsa,idresidualpano = null,idlavadatambo
 
 // GET BOLSA DETALLE
 async function getbolsadetalle(idbolsa){
-
+    let intIdbolsa = idbolsa === null ? null : parseInt(idbolsa);
     return await get("auditex-testing","testing","getdetallebolsa",{
-        idbolsa
+        idbolsa : intIdbolsa
     });
 
 }
@@ -741,13 +753,14 @@ $("#btnguardarencogimiento").click(async function(){
 // CAMBIAR ESTADOS
 $("#container-datos-tela").on('click','.changeestatus',async function(){
 
-    IDTESTING = $(this).data("idtesting");
+    IDTESTING = parseInt($(this).data("idtesting"), 10);
     FILA = $(this).data("fila");
     PARTIDA = $(this).data("partida");
     LOTE = $(this).data("lote");
     KILOS = $(this).data("kilos");
     IDPROVEEDOR =  $(this).data("idproveedor");
 
+    console.log('FILA', $(this).data("idcliente"));
 
 
 
@@ -806,6 +819,8 @@ $("#container-datos-tela").on('click','.changeestatus',async function(){
                 let rptestado = await  get("auditex-testing","testing","setestadotesting",{
                     idtesting:IDTESTING,estado,user:USUARIO
                 });
+
+                console.log('REMOVIENDO ESTILOS');
     
                 // REMOVEMOS CLASES
                 $(`.changeestatus${FILA}`).removeClass("bg-success");
@@ -819,6 +834,8 @@ $("#container-datos-tela").on('click','.changeestatus',async function(){
     
                 $(`.changeestatus${FILA}`).val(rptestado.SIMBOLO);
                 $(`.changeestatus${FILA}`).addClass(rptestado.COLOR);
+
+                
     
                 InformarMini("Actualizado correctamente");
 
@@ -834,7 +851,7 @@ $("#container-datos-tela").on('click','.changeestatus',async function(){
 // ASIGNAR COMENTARIO
 $("#container-datos-generales").on('click','.observaciones',async function(){
 
-    IDTESTING = $(this).data("idtesting");
+    IDTESTING =parseInt($(this).data("idtesting"), 10);
     FILA = $(this).data("fila");
     PARTIDA = $(this).data("partida");
     LOTE = $(this).data("lote");
@@ -851,6 +868,8 @@ $("#container-datos-generales").on('click','.observaciones',async function(){
     // 
     let obs = await Obtener("Ingrese observaciones","textarea",observaciones);
     // console.log(response);
+
+    console.log('IDTESTING',IDTESTING);
 
     if(obs){
 
@@ -1046,7 +1065,7 @@ $("#container-datos-generales").on('change','.setconcesion',async function(){
 
     MostrarCarga("Cargando...");
 
-    IDTESTING = $(this).data("idtesting");
+    IDTESTING =parseInt($(this).data("idtesting"), 10);
     FILA = $(this).data("fila");
     PARTIDA = $(this).data("partida");
     LOTE = $(this).data("lote");

@@ -1,10 +1,10 @@
 <?php
 
-    require_once __DIR__.'../../../../models/modelo/core.modelo.php';
-    ini_set('memory_limit', '-1');
+require_once __DIR__.'../../../../models/modelo/core.modelo.php';
+ini_set('memory_limit', '-1');
 
 
-    session_start();
+session_start();
     if (!isset($_SESSION['user'])) {
         header('Location: index.php');
     }
@@ -23,6 +23,21 @@
         $responsecargasige = $objModelo->setAllSQL("uspCargaGiroFichaSigeToAuditex",[],"Correcto");
 
 
+       /*  $fecini = $_POST["frFechaI"] != "" ? $_POST["frFechaI"] : null;
+        $fecfin = $_POST["frFechaF"] != "" ? $_POST["frFechaF"] : null;
+        $cliente = $_POST["cliente"] != "" ? $_POST["cliente"] : null;
+        $partida = $_POST["partida"] != "" ? $_POST["partida"] : null;
+        $ficha = $_POST["ficha"] != "" ? $_POST["ficha"] : null;
+        $estcli = $_POST["estcli"] != "" ? $_POST["estcli"] : null;
+        $articulo = $_POST["articulo"] != "" ? $_POST["articulo"] : null;
+        $programa = $_POST["programa"] != "" ? $_POST["programa"] : null;
+        $estatus = isset($_POST["estatus"]) ? join("','", $_POST["estatus"]) : null;
+        $esttsc = $_POST["esttsc"] != "" ? $_POST["esttsc"] : null;
+        $color = $_POST["color"] != "" ? $_POST["color"] : null;
+        $encogimiento = $_POST["encogimiento"] != "" ? $_POST["encogimiento"] : null;
+        $fecinilib = $_POST["frFechaILiberacion"] != "" ? $_POST["frFechaILiberacion"] : null;
+        $fecfinlib = $_POST["frFechaFLiberacion"] != "" ? $_POST["frFechaFLiberacion"] : null;
+        $usuliberacion = $_POST["usuliberacion"] != "" ? $_POST["usuliberacion"] : null;  */
         $fecini         = $_POST["frFechaI"]        != "" ? $_POST["frFechaI"] : "";
         $fecfin         = $_POST["frFechaF"]        != "" ? $_POST["frFechaF"] : "";
         $cliente        = $_POST["cliente"]         != "" ? $_POST["cliente"] : "";
@@ -41,12 +56,26 @@
         $fecfinlib      = $_POST["frFechaFLiberacion"]        != "" ? $_POST["frFechaFLiberacion"] : "";
 
         $usuliberacion  = $_POST["usuliberacion"]              != "" ? $_POST["usuliberacion"] : "";
+        
 
-        $responsefichas = $objModelo->getAll("USYSTEX.SPGET_RPT_MOLDESCORTE_001_NEW", [
+        $responsefichas = $objModelo->getAllSQL("AUDITEX.SPGET_RPT_MOLDESCORTE_001_NEW", [  
             $fecini,    $fecfin,    $cliente, $partida, $ficha, $estcli, $articulo, $programa, $estatus, $esttsc, $color, $encogimiento,
             $fecinilib, $fecfinlib,$usuliberacion
         ]);
 
+        
+         //var_dump($responsefichas);    
+ 
+
+            // Después de obtener la respuesta de la base de datos
+       /*  if (false === $responsefichas) {
+            // La consulta no devolvió resultados o ocurrió un error
+            $responsefichas = []; // Establece $responsefichas como un arreglo vacío
+        } elseif (!isset($responsefichas[0])) {
+            // La consulta devolvió un único resultado, conviértelo en un arreglo de arreglos
+            $responsefichas = array($responsefichas);
+        } */
+                
         $contfichas = 0;
         $contadorfichas_new = 0;
 
@@ -70,15 +99,13 @@
     <!-- STYLE -->
     <?php require_once '../../../plantillas/style.view.php'; ?>
 
-    <!-- <link rel="stylesheet" href="../../../libs/bootstraptable/css/bootstrap-table.min.css">
-    <link rel="stylesheet" href="../../../libs/bootstraptable/css/bootstrap-table-fixed-columns.min.css" > -->
-    <!-- <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/sticky-header/bootstrap-table-sticky-header.css" rel="stylesheet"> -->
-
-
-
     <style>
         body{
             padding-top: 50px !important;
+        }
+
+        .bg-sistema {
+         background-color: #922b21 !important;
         }
     </style>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"  rel="stylesheet"  />
@@ -479,15 +506,15 @@
                                             {$inclinacionafter}
                                         </td>";
 
-
+                                       
                                         // <!-- MOLDE USAR -->
                                         if($molde_usar_hilo != '' || $molde_usar_trama != '' || $molde_usar_manga != '' )
                                         {
-
+                                            /*  HERE2 ESTILOTSC */
                                             $datostablasegunda .= "
-                                                <td height='25' class='{$clasefichadisabled}'>
-                                                                
-                                                    <button type='button' class='btn btn-sm btn-success btn-block selectmoldeusar hilousar{$contadorfichas_new} font-sistema p-0' title='Asignar molde a usar'
+                                            <td height='25' class='{$clasefichadisabled}'>
+                                           
+                                                     <button type='button' class='btn btn-sm btn-success btn-block selectmoldeusar hilousar{$contadorfichas_new} font-sistema p-0' title='Asignar molde a usar'
                                                         data-estilotsc='{$fila['ESTILOTSC']}'
                                                         data-estilocliente='{$fila['ESTILOCLIENTE']}'
                                                         data-ficha='{$fila['FICHA']}'
@@ -505,6 +532,7 @@
                                         }else{
                                             $datostablasegunda .="
                                             <td height='25' class='{$clasefichadisabled}'>
+                                           
                                                 <button type='button' class='btn btn-sm btn-primary btn-block selectmoldeusar hilousar{$contadorfichas_new} font-sistema p-0' title='Asignar molde a usar'
                                                     data-estilotsc='{$fila['ESTILOTSC']}'
                                                     data-estilocliente='{$fila['ESTILOCLIENTE']}'
@@ -547,9 +575,11 @@
                                             <td height='25' class='tramapanousar{$contadorfichas_new} {$clasefichadisabled}'> {$molde_pano_trama}% </td>
                                             ";
                                         }else{
-
+                                            /*     HERE2 BOTON USAR */
                                             $datostablasegunda .="
+                                            
                                                 <td height='25' class='{$clasefichadisabled}'>
+                                            
                                                     <button type='button' class='btn btn-sm btn-primary btn-block selectmoldepanousar hilopanousar{$contadorfichas_new} font-sistema p-0' title='Asignar molde paño a usar'
                                                         data-estilotsc='{$fila['ESTILOTSC']}'
                                                         data-estilocliente='{$fila['ESTILOCLIENTE']}'
@@ -573,8 +603,13 @@
                                         // <!-- VERSION DEL MOLDE -->
                                         if($fila['MOLDE_VERSION'] == '')
                                         {
+
+                           
                                             $datostablasegunda .="
+
+                                          
                                                 <td height='25' class='{$clasefichadisabled}'>
+                                                
                                                     <button type='button' class='btn btn-sm btn-primary btn-block selectversionmolde versionmolde{$contadorfichas_new} font-sistema p-0' title='Asignar version de molde'
                                                         data-estilotsc='{$fila['ESTILOTSC']}'
                                                         data-estilocliente='{$fila['ESTILOCLIENTE']}'
@@ -589,10 +624,11 @@
                                                 </td>
                                             ";
                                         }else{
-
+                                            /* HERE2  MOLDE_VERSION */
                                             $datostablasegunda .="
-
+                                            
                                                 <td height='25' class='{$clasefichadisabled}'>
+                                                
                                                     <button type='button' class='btn btn-sm btn-success btn-block selectversionmolde versionmolde{$contadorfichas_new} font-sistema p-0' title='Asignar version de molde'
                                                         data-estilotsc='{$fila['ESTILOTSC']}'
                                                         data-estilocliente='{$fila['ESTILOCLIENTE']}'
@@ -760,9 +796,9 @@
 
                                             // <!-- OBSERVACION -->
                                             $datostablasegunda .=" 
-
+                                            
                                                 <td height='25' class='{$clasefichadisabled}'>
-                                                
+                                              
                                                     <button type='button' 
                                                         data-ficha='{$fila['FICHA']}' 
                                                         data-fila='{$contadorfichas_new}' 
@@ -852,7 +888,7 @@
                                         $datostablasegunda .= "  
                                         <!-- OBSERVACION LIBERACION -->
                                             <td height='25' class='{$clasefichadisabled}'  >   
-                                                
+                                            
                                                 <button type='button' 
                                                         class='btn btn-sm {$mostrar} btn-block  observacionliberacion observacionliberacion{$contadorfichas_new} {$clasefichadisabled} font-sistema p-0' title='Asignar observación de liberación'
                                                         data-estilotsc='{$fila['ESTILOTSC']}'
@@ -920,12 +956,10 @@
 
                                         <?php endif; ?>
 
-                                        
-
+                                      
                                         <!-- ESTADO DE MOLDAJE -->
                                         <td height="25"   class='<?= $clasefichadisabled; ?> '  style="padding: 0px !important;">
-
-                                            <button 
+                                                                                    <button 
                                                 type='button' 
                                                 data-ficha='<?= $fila["FICHA"]; ?> ' 
                                                 data-idestado='<?=$fila['IDESTADOMOLDE'];?>'
@@ -1393,7 +1427,7 @@
                 await getusuarioliberacion("<?= $p_usuliberacion; ?>");
 
                 // GET CLIENTES
-                await getclientes("<?= $p_cliente; ?>");
+                await getclientes("<?= $p_cliente; ?>"); 
 
                 tableCont.addEventListener('scroll',scrollHandle);
 
@@ -1423,6 +1457,8 @@
             // CUANDO DAMOS CLICK EN GUARDAR ENCOGIMIENTO DISPONIBLE
             $("#btnguardarmoldeusar").click(async function() {
 
+
+            
                 MostrarCarga("Cargando");
 
                 // GUARDAMOS RADIOS
@@ -1465,7 +1501,7 @@
 
                             // ENVIAMOS DATOS A LA FUNCION
                             await GuardarEncogimiento(hilo, trama, manga,ficha,estilotsc,loteficha);
-
+                            console.log('se está ejecutando GuardarEncogimiento ');
                             // ASIGNAMOS DATOS
                             $(".hilousar"+fila).removeClass("btn-primary");
                             $(".hilousar"+fila).addClass("btn-success");

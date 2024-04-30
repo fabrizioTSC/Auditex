@@ -1,4 +1,5 @@
 
+
 <?php
 session_start();
 ini_set('memory_limit', '-1');
@@ -55,7 +56,7 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
             {
 
                  // REGISTRAMOS DATOS DE LA PRUEBA DE ENCOGIMIENTO
-                $response = $objModelo->get("AUDITEX.PQ_MOLDES.SPU_SETPROGENERAL", [
+                $response = $objModelo->getSQL("AUDITEX.PQ_MOLDES_SPU_SETPROGENERAL", [
                     9,$ficha,$estilotsc,null,null,null,null,null,null,null,null,null,null,$usuario,null,
                     $hilotendencia,$tramatendencia,$hiloevaluacion,$tramaevaluacion,$mangaevaluacion,$nombreimagenprincipal
                     ,null,null,null,null
@@ -93,7 +94,7 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
                         {
 
                             // REGISTRAMOS RUTA DE LA IMAGEN
-                            $response = $objModelo->setAll("AUDITEX.PQ_MOLDES.SPU_SETIMGPRUEBAENCOGIMIENTO", [
+                            $response = $objModelo->setAllSQL("AUDITEX.PQ_MOLDES_SPU_SETIMGPRUEBAENCOGIMIENTO", [
                                 $ficha,$nombre,$usuario
                             ],"Registrado Correctamente");
 
@@ -144,45 +145,7 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
         // EXPORTAMOS REPORTE
         if($_GET["operacion"] == "setexportarmoldes"){
 
-            // $objEncogimientosCorteM->getExcelMoldes("reporteencogimientos",$_SESSION["molde_reporte"]);
-            // var_dump($_SESSION["molde_reporte"]);
-
-            // $fecini         = $_GET["frFechaI"]        != "" ? $_GET["frFechaI"] : "";
-            // $fecfin         = $_GET["frFechaF"]        != "" ? $_GET["frFechaF"] : "";
-            // $cliente        = $_GET["cliente"]         != "" ? $_GET["cliente"] : "";
-            // $partida        = $_GET["partida"]         != "" ? $_GET["partida"] : "";
-            // $ficha          = $_GET["ficha"]           != "" ? $_GET["ficha"] : "";
-            // $estcli         = $_GET["estcli"]          != "" ? $_GET["estcli"] : "";
-            // $articulo       = $_GET["articulo"]        != "" ? $_GET["articulo"] : "";
-            // $programa       = $_GET["programa"]        != "" ? $_GET["programa"] : "";
-
-            // // $estatus        = isset($_GET["estatus"])          ? join("','",$_GET["estatus"]) : "";
-            // $estatus        = isset($_GET["estatus"])          ? $_GET["estatus"] : "";
-
-
-
-
-            // $esttsc         = $_GET["esttsc"]          != "" ? $_GET["esttsc"] : "";
-            // $color          = $_GET["color"]           != "" ? $_GET["color"] : "";
-            // $encogimiento   = $_GET["encogimiento"]    != "" ? $_GET["encogimiento"] : "";
-
-            // $fecinilib      = $_GET["frFechaILiberacion"]        != "" ? $_GET["frFechaILiberacion"] : "";
-            // $fecfinlib      = $_GET["frFechaFLiberacion"]        != "" ? $_GET["frFechaFLiberacion"] : "";
-
-            // $usuliberacion = $_GET["usuliberacion"]              != "" ? $_GET["usuliberacion"] : ""; 
-            
-
-            // $responsefichas = $objModelo->getAll("USYSTEX.SPGET_RPT_MOLDESCORTE_001_NEW", [
-            //     $fecini,    $fecfin,    $cliente, $partida, $ficha, $estcli, $articulo, $programa, $estatus, $esttsc, $color, $encogimiento,
-            //     $fecinilib, $fecfinlib,$usuliberacion
-            // ]);
-
             $objEncogimientosCorteM->getExcelMoldes("reporteencogimientos",$_SESSION["molde_reporte"]);
-            // $objEncogimientosCorteM->getExcelMoldes("reporteencogimientos",$responsefichas);
-
-
-    
-
 
         }
 
@@ -202,7 +165,9 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
             $color = $_GET["color"];
             $encogimiento = $_GET["encogimiento"];
             
-            $response = $objModelo->getAll("USYSTEX.SPGET_RPT_MOLDESCORTE_001_NEW", [
+
+            $response = $objModelo->getSQL("AUDITEX.SPGET_RPT_MOLDESCORTE_001_NEW", [   
+            //$response = $objModelo->getAllSQL("AUDITEX.SPGET_RPT_MOLDESCORTE_001_NEW", [
                 $fecini, $fecfin, $cliente, $partida, $ficha, $estcli, $articulo, $programa, $estatus, $esttsc, $color, $encogimiento
             ]);
 
@@ -473,14 +438,16 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
             // DATOS DE LA FICHA
             if($opcion == 1){
 
-                $response = $objModelo->get("USYSTEX.SPGET_RPT_MOLDESCORTE_002_NEW",[$opcion,$ficha,$partida]);
+                $response = $objModelo->getSQL("AUDITEX.SPGET_RPT_MOLDESCORTE_002_NEW",[$opcion,$ficha,$partida]);
+                
+                
                 echo json_encode($response);
             }
 
             // DATOS DE LAS PARTIDAS
             if($opcion == 2){
 
-                $response = $objModelo->getAll("USYSTEX.SPGET_RPT_MOLDESCORTE_002_NEW",[$opcion,$ficha,$partida]);
+                $response = $objModelo->getAllSQL("AUDITEX.SPGET_RPT_MOLDESCORTE_002_NEW",[$opcion,$ficha,$partida]);
                 echo json_encode($response);
 
             }
@@ -488,7 +455,7 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
             // DATOS DE TODAS LAS PARTIDAS
             if($opcion == 3){
 
-                $response = $objModelo->getAll("USYSTEX.SPGET_RPT_MOLDESCORTE_002_NEW",[$opcion,$ficha,$partida]);
+                $response = $objModelo->getAllSQL("AUDITEX.SPGET_RPT_MOLDESCORTE_002_NEW",[$opcion,$ficha,$partida]);
 
 
                 // ARMAMOS
@@ -518,7 +485,7 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
             // DATOS DE LAS PARTIDAS
             if($opcion == 4){
 
-                $response = $objModelo->get("USYSTEX.SPGET_RPT_MOLDESCORTE_002_NEW",[$opcion,$ficha,$partida]);
+                $response = $objModelo->getSQL("AUDITEX.SPGET_RPT_MOLDESCORTE_002_NEW",[$opcion,$ficha,$partida]);
                 echo json_encode($response);
 
             }
@@ -547,7 +514,7 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
         if ($_GET["operacion"] == "getprevisualizacion") {
             $ficha = $_GET["FICHA"];
 
-            $response = $objModelo->get("USYSTEX.SPGET_RPT_MOLDESCORTE_002", [
+            $response = $objModelo->getSQL("AUDITEX.SPGET_RPT_MOLDESCORTE_002", [
                 $ficha
             ]);
     
@@ -562,7 +529,7 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
             $estilotsc  = $_GET["estilotsc"];
             $ficha      = $_GET["ficha"];
 
-            $response = $objModelo->getAll("AUDITEX.PQ_MOLDES.SPU_GETMOLDESUSAR", [
+            $response = $objModelo->getAllSQL("AUDITEX.PQ_MOLDES_SPU_GETMOLDESUSAR", [
                 $estilotsc,$ficha
             ]);
 
@@ -657,7 +624,7 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
             $loteficha = $_GET["loteficha"];
             // $usuario = $_SESSION["user"];
 
-            $response = $objModelo->get("AUDITEX.PQ_MOLDES.SPU_SETPROGENERAL", [
+            $response = $objModelo->getSQL("AUDITEX.PQ_MOLDES_SPU_SETPROGENERAL", [
                 1,$ficha,$estilotsc,null,$estado,null,null,null,null,null,null,null,null,$usuario,null,null,null,null,null,null,null
                 ,null,null,null,$loteficha
             ]);
@@ -667,20 +634,15 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
 
         // MUESTRA SI LLEVA PRUEBA DE ENCOGIMIENTO
         if ($_GET["operacion"] == "set-actualizarpruebaencogimiento") {
-
-            // $ficha = $_GET["ficha"];
-            // $pruebaencogimiento = $_GET["check"];
-            // $usuario = $_SESSION["user"];
             $ficha          = $_GET["ficha"];
             $estilotsc      = $_GET["estilotsc"];
-            // $estado     = $_GET["estado"];
             $usuario        = $_GET["usuario"];
             $pruebaencogimiento = $_GET["check"];
             $partida        = $_GET["partida"];
             $loteficha = $_GET["loteficha"];
 
 
-            $response = $objModelo->get("AUDITEX.PQ_MOLDES.SPU_SETPROGENERAL", [
+            $response = $objModelo->getSQL("AUDITEX.PQ_MOLDES_SPU_SETPROGENERAL", [
                 2,$ficha,$estilotsc,$pruebaencogimiento,null,null,null,null,null,null,null,null,null,$usuario,$partida,null,null,null,null,null,null
                 ,null,null,null,$loteficha
             ]);
@@ -699,11 +661,9 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
             $manga = $_GET["manga"];
             $usuario = $_GET["usuario"];
             $loteficha = $_GET["loteficha"];
-            // $response = $objModelo->setAll("USYSTEX.SPSET_MOLDESCORTE_003", [
-            //     $ficha, $estilotsc, $hilo, $trama, $manga, $usuario
-            // ], 'Registro actualizado correctamente.');
 
-            $response = $objModelo->get("AUDITEX.PQ_MOLDES.SPU_SETPROGENERAL", [
+
+            $response = $objModelo->getSQL("AUDITEX.PQ_MOLDES_SPU_SETPROGENERAL", [
                 3,$ficha,$estilotsc,null,null,null,$hilo,$trama,$manga,null,null,null,null,$usuario,null,null,null,null,null,null,null
                 ,null,null,null,$loteficha
             ]);
@@ -724,7 +684,7 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
             $loteficha = $_GET["loteficha"];
 
 
-            $response = $objModelo->get("AUDITEX.PQ_MOLDES.SPU_SETPROGENERAL", [
+            $response = $objModelo->getSQL("AUDITEX.PQ_MOLDES_SPU_SETPROGENERAL", [
                 4,$ficha,$estilotsc,null,null,null,null,null,null,$hilo,$trama,$manga,null,$usuario,null,null,null,null,null,null,null
                 ,null,null,null,$loteficha
             ]);
@@ -741,11 +701,7 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
             $usuario        = $_GET["usuario"];
             $loteficha = $_GET["loteficha"];
 
-            // $response = $objModelo->setAll("USYSTEX.SPSET_MOLDESCORTE_005", [
-            //     $ficha, $observacion, $usuario
-            // ], 'Registro actualizado correctamente.');
-
-            $response = $objModelo->get("AUDITEX.PQ_MOLDES.SPU_SETPROGENERAL", [
+            $response = $objModelo->getSQL("AUDITEX.PQ_MOLDES_SPU_SETPROGENERAL", [
                 5,$ficha,$estilotsc,null,null,null,null,null,null,null,null,null,$observacion,$usuario,null,null,null,null,null,null,null
                 ,null,null,null,$loteficha
             ]);
@@ -762,10 +718,8 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
             $usuario        = $_GET["usuario"];
             $loteficha = $_GET["loteficha"];
             
-            // $response = $objModelo->setAll("USYSTEX.SPSET_MOLDESCORTE_006", [
-            //     $ficha, $observacion, $usuario
-            // ], 'Registro actualizado correctamente.');
-            $response = $objModelo->get("AUDITEX.PQ_MOLDES.SPU_SETPROGENERAL", [
+
+            $response = $objModelo->getSQL("AUDITEX.PQ_MOLDES_SPU_SETPROGENERAL", [
                 6,$ficha,$estilotsc,null,null,$observacion,null,null,null,null,null,null,null,$usuario,null,null,null,null,null,null,null
                 ,null,null,null,$loteficha
             ]);
@@ -777,9 +731,8 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
         if ($_GET["operacion"] == "get-historialestados") {
 
             $ficha          = $_GET["ficha"];
-            // $loteficha = $_GET["loteficha"];
 
-            $response = $objModelo->getAll("AUDITEX.PQ_MOLDES.SPU_SETPROGENERAL", [
+            $response = $objModelo->getAllSQL("AUDITEX.PQ_MOLDES_SPU_SETPROGENERAL", [
                 7,$ficha,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
                 ,null,null,null,null
             ]);
@@ -801,14 +754,11 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
             $ficha          = $_GET["ficha"];
             // $loteficha = $_GET["loteficha"];
 
-            $response = $objModelo->getAll("AUDITEX.PQ_MOLDES.SPU_SETPROGENERAL", [
+            $response = $objModelo->getAllSQL("AUDITEX.PQ_MOLDES_SPU_SETPROGENERAL", [
                 13,$ficha,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
                 ,null,null,null,null
             ]);
-
-
-
-
+            
             foreach($response as $fila){
 
                 echo "<tr>";
@@ -828,7 +778,7 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
             // $loteficha = $_GET["loteficha"];
 
 
-            $response = $objModelo->getAll("AUDITEX.PQ_MOLDES.SPU_SETPROGENERAL", [
+            $response = $objModelo->getAllSQL("AUDITEX.PQ_MOLDES_SPU_SETPROGENERAL", [
                 14,$ficha,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
                 ,null,null,null,null
             ]);
@@ -858,17 +808,13 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
                     echo "<td>{$fila['FECHA']}</td>";
                     echo "<td>{$fila['USUARIO']}</td>";
                     echo "</tr>";
-
-                }
-
-
-                
+                }   
 
             }
 
         }
 
-        // REGISTRAMOS PARTIDAS AGRUPADAS
+        // REGISTRAMOS PARTIDAS AGRUPADAS -HERE2 PARTIDAS
         if ($_GET["operacion"] == "setpartidasagrupadas") {
 
             $ficha          = $_GET["ficha"];
@@ -879,7 +825,7 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
 
 
 
-            $response = $objModelo->get("AUDITEX.PQ_MOLDES.SPU_SETPROGENERAL", [
+            $response = $objModelo->getSQL("AUDITEX.PQ_MOLDES_SPU_SETPROGENERAL", [
                 8,$ficha,$estilotsc,null,null,null,null,null,null,null,null,null,null,$usuario,$partida,null,null,null,null,null,null
                 ,null,null,null,$loteficha
             ]);
@@ -896,7 +842,7 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
             // $loteficha = $_GET["loteficha"];
 
 
-            $response = $objModelo->get("AUDITEX.PQ_MOLDES.SPU_SETPROGENERAL", [
+            $response = $objModelo->getSQL("AUDITEX.PQ_MOLDES_SPU_SETPROGENERAL", [
                 10,$ficha,null,null,null,null,null,null,null,null,null,null,null,null,null,
                 null,null,null,null,null,null
                 ,null,null,null,null
@@ -918,7 +864,7 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
             $loteficha = $_GET["loteficha"];
             // $usuario = $_SESSION["user"];
 
-            $response = $objModelo->get("AUDITEX.PQ_MOLDES.SPU_SETPROGENERAL", [
+            $response = $objModelo->getSQL("AUDITEX.PQ_MOLDES_SPU_SETPROGENERAL", [
                 11,$ficha,$estilotsc,null,null,null,null,null,null,null,null,null,null,$usuario,null,null,null,null,null,null,null
                 ,$hilo,$trama,null,$loteficha
             ]);
@@ -943,9 +889,9 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
 
             $usuario = $_GET["usuario"];
             $loteficha = $_GET["loteficha"];
-            // $usuario = $_SESSION["user"];
 
-            $response = $objModelo->get("AUDITEX.PQ_MOLDES.SPU_SETPROGENERAL", [
+
+            $response = $objModelo->getSQL("AUDITEX.PQ_MOLDES_SPU_SETPROGENERAL", [
                 15,$ficha,$estilotsc,null,null,null,null,null,$revirado,$densidad,$inclinacionbw,$inclinacionaw,null,$usuario,null,null,null,null,null,null,null
                 ,$hilo,$trama,null,$loteficha
             ]);
@@ -967,7 +913,7 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
             $loteficha = $_GET["loteficha"];
             // $usuario = $_SESSION["user"];
 
-            $response = $objModelo->get("AUDITEX.PQ_MOLDES.SPU_SETPROGENERAL", [
+            $response = $objModelo->getSQL("AUDITEX.PQ_MOLDES_SPU_SETPROGENERAL", [
                 12,$ficha,$estilotsc,null,null,null,null,null,null,null,null,null,null,$usuario,null,null,null,null,null,null,null
                 ,null,null,$versionmolde,$loteficha
             ]);
@@ -984,7 +930,7 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
             $ruta = $_GET["ruta"];
             $usuario = $_SESSION["user"];
 
-            $response = $objModelo->setAll("USYSTEX.SPSET_MOLDESCORTE_007", [
+            $response = $objModelo->setAllSQL("USYSTEX.SPSET_MOLDESCORTE_007", [
                 $ficha, $item, $ruta, $usuario
             ], 'Registro actualizado correctamente.');
 
@@ -1006,7 +952,7 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
             $manga = $_GET["manga"];
             $usuario = $_SESSION["user"];
 
-            $response = $objModelo->setAll("USYSTEX.SPSET_MOLDESCORTE_008", [
+            $response = $objModelo->setAllSQL("USYSTEX.SPSET_MOLDESCORTE_008", [
                 $ficha, $color, $partida1, $estilopru, $molde, $largo, $ancho, $hilo, $trama, $manga, $usuario
             ], 'Registro actualizado correctamente.');
 
@@ -1017,7 +963,7 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
         // OBTENEMOS LOS ESTADOS DE MOLDAJE
         if($_GET["operacion"] == "getestadosmoldaje"){
 
-            $response = $objModelo->getAll("AUDITEX.PQ_MOLDES.SPU_GETESTADOS",[]);
+            $response = $objModelo->getAllSQL("AUDITEX.PQ_MOLDES_SPU_GETESTADOS",[]);
             echo json_encode($response);
 
         }
@@ -1025,15 +971,16 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
         // OBTENEMOS LOS ESTADOS DE MOLDAJE
         if($_GET["operacion"] == "getusuariosliberacion"){
 
-            $response = $objModelo->getAll("AUDITEX.PQ_MOLDES.SPU_GETUSULIBERACION",[]);
+            $response = $objModelo->getAllSQL("AUDITEX.PQ_MOLDES_SPU_GETUSULIBERACION",[]);
             echo json_encode($response);
 
         }
+        
 
         // OBTENEMOS LOS ESTADOS DE MOLDAJE
         if($_GET["operacion"] == "getclientes"){
 
-            $response = $objModelo->getAll("AUDITEX.PQ_MOLDES.SPU_GETCLIENTES",[]);
+            $response = $objModelo->getAllSQL("AUDITEX.GET_CLIENTES",[]);
             echo json_encode($response);
 
         }
@@ -1042,7 +989,9 @@ $objEncogimientosCorteM = new EncogimientosCorteModelo();
         if($_GET["operacion"] == "getimagenespruebaencogimiento"){
 
             $ficha = $_GET["ficha"];
-            $response = $objModelo->getAll("AUDITEX.PQ_MOLDES.SPU_GETIMGPRUEBAENCOGIMIENTO",[$ficha]);
+            $response = $objModelo->getAllSQL("AUDITEX.PQ_MOLDES_SPU_GETIMGPRUEBAENCOGIMIENTO",[$ficha]);
+
+            //echo json_encode("AUDITEX.PQ_MOLDES_SPU_GETIMGPRUEBAENCOGIMIENTO",[$ficha]);
             echo json_encode($response);
 
         }

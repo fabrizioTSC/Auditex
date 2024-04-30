@@ -172,7 +172,8 @@
                                     <tr>
                                         <th class="border-table">
                                             IMAGENES
-                                            <input type="file" multiple required id="input_imagenes" name="imagenes[]">
+                                            <input type="file" multiple required id="input_imagenes" name="imagenes[]"> 
+                                         <!--   <input type="file" multiple id="input_imagenes" name="imagenes[]"> -->
                                         </th>
                                     </tr>
                                 </thead>
@@ -191,7 +192,9 @@
                             <div class="row">
 
                                 <div class="col-md-12">
-                                    <input type="file" name="imgprincipal" id="input_imagegeneral" class="form-control form-control-sm" required>
+                                 <input type="file" name="imgprincipal" id="input_imagegeneral" class="form-control form-control-sm" required> 
+                                   <!--  <input type="file" name="imgprincipal" id="input_imagegeneral" class="form-control form-control-sm"> -->
+                                
                                 </div>
 
                                 <div class="col-md-12 mt-2" style="height: 500px !important;" >

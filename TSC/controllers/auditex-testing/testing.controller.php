@@ -22,18 +22,15 @@
             $responsecargasige = $objModelo->setAllSQLSIGE("uspCargaPartidaSigeToAuditex",[],"Correcto");
 
             $parametros = $_POST["parameters"];
-            $response = $objModelo->getAll("USYSTEX.SPU_GET_TESTING",$parametros);
-            // var_dump($response);
+            //$response = $objModelo->getAll("USYSTEX.SPU_GET_TESTING",$parametros);
+            $response = $objModelo->getAllSQL("AUDITEX.SPU_GET_TESTING",$parametros);
+
             $_SESSION["reportetesting"] = $response;
 
             $datostela ="";
             $datosgenerales ="";
 
-            $cont = 0;
-
-            // echo json_encode(array("success"=>true));
-
-            // var_dump($response);
+            $cont = 0;         
 
             // ARMAMOS TABLA
             foreach($response as $fila){
@@ -294,10 +291,11 @@
                 </div><div class='td sombreado{$cont}' data-filasombreado='{$cont}'> <input type='tel' class='$colorcomplemento $colormuestra  $colorpartidapendiente w-100 h-100  input-hover  incliafter{$cont}'  value='{$fila['INCLINACIONAFTER']}'>
                 </div><!--";
 
-                // $fechaliberacion    = $fila['FECHALIBERACION']  == "" ? "-" : date("d/m/Y", strtotime($fila['FECHALIBERACION']));// $fila['FECHALIBERACION'];
-                $fechaliberacionlarga    = $fila['FECHALIBERACION']  == "" ? "-" : date("d/m/Y", strtotime($fila['FECHALIBERACION']));// $fila['FECHALIBERACION'];
+                $fechaliberacionlarga    = $fila['FECHALIBERACION']  ;
+                $fechaliberacionlarga = $fila['FECHALIBERACION'];
+                $hora = date('H:i:s', strtotime($fechaliberacionlarga));
                 $fechaliberacion    = $fila['FECHALIBERACION']  == "" ? "-" : date("d-m", strtotime($fila['FECHALIBERACION']));// $fila['FECHALIBERACION'];
-
+           
 
                 $usuario            = $fila['USUARIO']          == "" ? "-" : $fila['USUARIO'];
                 $nombreusuario      = $fila['NOMBREUSUARIO'];
@@ -429,7 +427,7 @@
                     </div><!--
                 ";
 
-                 // DATOS EXTRA
+                 // DATOS EXTRA 264165 fecha liberacion
                 //  $datosgenerales .= "
                 //  --><div class='td sombreado{$cont}' data-filasombreado='{$cont}'  data-toggle='tooltip' data-placement='top' title='{$fechaliberacionlarga}' > <input value='{$fechaliberacion}' class='$colorcomplemento $colormuestra  $colorpartidapendiente w-100  h-100 input-hover' readonly />   
                 //  </div><div class='td sombreado{$cont}' data-filasombreado='{$cont}' data-toggle='tooltip' data-placement='top' title='{$nombreusuario}' >      <input value='{$usuario}' class='$colorcomplemento $colormuestra  $colorpartidapendiente w-100  h-100 input-hover' readonly />  
@@ -442,7 +440,10 @@
                 // DATOS EXTRA
                 $datosgenerales .= "
                  --><div class='td sombreado{$cont}' data-filasombreado='{$cont}'  data-toggle='tooltip' data-placement='top' title='{$fechaliberacionlarga}' > <input value='{$fechaliberacion}' class='$colorcomplemento $colormuestra  $colorpartidapendiente w-100  h-100 input-hover' readonly />   
-                 </div><div class='td sombreado{$cont}' data-filasombreado='{$cont}' data-toggle='tooltip' data-placement='top' title='{$nombreusuario}' >      <input value='{$usuario}' class='$colorcomplemento $colormuestra  $colorpartidapendiente w-100  h-100 input-hover' readonly />  
+                 </div>
+                 <div class='td sombreado{$cont}' data-filasombreado='{$cont}' data-toggle='tooltip' data-placement='top' title='{$nombreusuario} ' >
+                 
+                 <input value='{$usuario}' class='$colorcomplemento $colormuestra  $colorpartidapendiente w-100  h-100 input-hover' readonly />  
                  </div><div class='td sombreado{$cont}'  data-fila='{$cont}'  style='width:100px !important;cursor:pointer;'><input data-fila='{$cont}' data-lote='{$fila['LOTE_PRODUTO']}' data-kilos='{$fila['KILOS']}' data-partida='{$fila['PARTIDA']}' data-observaciones='{$fila['OBSERVACIONES']}' data-idproveedor='{$fila['CODPRV']}' data-idtesting='{$fila['IDTESTING']}' value='{$observaciones}' class='observaciones observaciones{$cont} $colorcomplemento $colormuestra  $colorpartidapendiente w-100  h-100 input-hover' readonly />  
                  </div><div class='td sombreado{$cont}'  data-fila='{$cont}' ><input type='checkbox' data-fila='{$cont}' data-lote='{$fila['LOTE_PRODUTO']}' data-kilos='{$fila['KILOS']}' data-partida='{$fila['PARTIDA']}' data-idproveedor='{$fila['CODPRV']}' data-idtesting='{$fila['IDTESTING']}'  {$checkedconcesion} class='form-control form-control-sm setconcesion{$cont} setconcesion'  />  
                  </div><!--";
@@ -482,7 +483,7 @@
         // GET BOLSAS
         if($_GET["operacion"] == "getbolsa"){
 
-            $response = $objModelo->get("AUDITEX.SPU_GETBOLSAS_NEW_V2",[
+            $response = $objModelo->getSQL("AUDITEX.SPU_GETBOLSAS_NEW_V2",[
                 $_GET["idlavada"],$_GET["idresidualpano"],$_GET["numerobolsa"],$_GET["idlavadatambor"]
             ]);
             echo json_encode($response);
@@ -492,7 +493,7 @@
         // GET DETALLE DE BOLSA
         if($_GET["operacion"] == "getdetallebolsa"){
 
-            $response = $objModelo->getAll("AUDITEX.SPU_GETDETALLEBOLSAS",[
+            $response = $objModelo->getAllSQL("AUDITEX.SPU_GETDETALLEBOLSAS",[
                 $_GET["idbolsa"]
             ]);
             echo json_encode($response);
@@ -502,7 +503,7 @@
         // PROVEEDORES DE TELA
         if($_GET["operacion"] == "getproveedorestela"){
 
-            $response = $objModelo->getAll("AUDITEX.SPU_GETPROVEEDORESTELA",[]);
+            $response = $objModelo->getAllSQL("AUDITEX.SPU_GETPROVEEDORESTELA",[]);
             echo json_encode($response);
 
         }
@@ -510,7 +511,7 @@
         // CLIENTES
         if($_GET["operacion"] == "getclientes"){
 
-            $response = $objModelo->getAll("AUDITEX.PQ_MOLDES.SPU_GETCLIENTES",[]);
+            $response = $objModelo->getAllSQL("AUDITEX.GET_CLIENTES",[]);
             echo json_encode($response);
 
         }
@@ -518,7 +519,7 @@
         // PROGRAMAS SEGUN CLIENTE
         if($_GET["operacion"] == "getprogramacliente"){
 
-            $response = $objModelo->getAll("AUDITEX.SPU_GETPROGRAMACLIENTE",[
+            $response = $objModelo->getAllSQL("AUDITEX.SPU_GETPROGRAMACLIENTE",[
                 // $_GET["cli9"],$_GET["cli4"],$_GET["cli2"]
                 $_GET["idcliente"]
             ]);
@@ -529,7 +530,7 @@
         // TIPOS DE TELA
         if($_GET["operacion"] == "gettipostela"){
 
-            $response = $objModelo->getAll("AUDITEX.SPU_GETTIPOSTELA_TESTING",[]);
+            $response = $objModelo->getAllSQL("AUDITEX.SPU_GETTIPOSTELA_TESTING",[]);
             echo json_encode($response);
 
         }
@@ -537,7 +538,7 @@
         // ARTICULOS DE TELA
         if($_GET["operacion"] == "getarticulostela"){
 
-            $response = $objModelo->getAll("AUDITEX.SPU_GETARTICULOCLIENTE",[
+            $response = $objModelo->getAllSQL("AUDITEX.SPU_GETARTICULOCLIENTE",[
                 $_GET["idcliente"]
             ]);
 
@@ -564,7 +565,7 @@
         // ENCOGIMIENTOS SEGUN TESTING
         if($_GET["operacion"] == "getencogimientos"){
 
-            $response = $objModelo->get("AUDITEX.GET_ENCOGIMIENTOS",[
+            $response = $objModelo->getSQL("AUDITEX.GET_ENCOGIMIENTOS",[
                 $_GET["idtesting"],$_GET["tipo"]
             ]);
 
@@ -575,7 +576,7 @@
         // GET DATOS ENCOGIMIENTOS 
         if($_GET["operacion"] == "getencogimientoreal"){
 
-            $response = $objModelo->get("AUDITEX.SPU_GETENCOGIMIENTOREAL",[
+            $response = $objModelo->getSQL("AUDITEX.SPU_GETENCOGIMIENTOREAL",[
                 $_GET["idtesting"]
             ]);
 
@@ -586,7 +587,7 @@
         // GET ESTADO TESTING
         if($_GET["operacion"] == "getestadostesting"){
 
-            $response = $objModelo->getAll("AUDITEX.SPU_GETESTADOS_TESTING",[]);
+            $response = $objModelo->getAllSQL("AUDITEX.SPU_GETESTADOS_TESTING",[]);
             echo json_encode($response);
 
         }
@@ -594,7 +595,7 @@
         // MOSTRAMOS DATOS
         if($_GET["operacion"] == "getpartidasagrupadas"){
 
-            $response = $objModelo->getAll("AUDITEX.SPU_GETPARTIDASAGRUPADAS",[$_GET["partida"]]);
+            $response = $objModelo->getAllSQL("AUDITEX.SPU_GETPARTIDASAGRUPADAS",[$_GET["partida"]]);
 
             foreach($response as $fila){
 
@@ -625,7 +626,7 @@
         // MOTIVOS DE DEVOLUCION
         if($_GET["operacion"] == "getmotivosrechazos"){
 
-            $response = $objModelo->getAll("AUDITEX.SPU_GETMOTIVOS_DEVO",[]);
+            $response = $objModelo->getAllSQL("AUDITEX.SPU_GETMOTIVOS_DEVO",[]);
             echo json_encode($response);
 
         }
@@ -633,7 +634,7 @@
         // MOTIVOS DE DEVOLUCION
         if($_GET["operacion"] == "getmotivosrechazosbyid"){
 
-            $response = $objModelo->getAll("AUDITEX.SPU_GETMOTIVODEVO_TESTING",[$_GET["id"]]);
+            $response = $objModelo->getAllSQL("AUDITEX.SPU_GETMOTIVODEVO_TESTING",[$_GET["id"]]);
             echo json_encode($response);
 
         }
@@ -646,7 +647,7 @@
         // REGISTRO TESTING
         if($_GET["operacion"] == "settesting"){
 
-            $response = $objModelo->get("AUDITEX.SPU_TESTING_CREATE_NEW",[
+            $response = $objModelo->getSQL("AUDITEX.SPU_TESTING_CREATE_NEW",[
                 $_GET["partida"],$_GET["lote"],$_GET["kilos"],$_GET["idproveedor"]
             ]);
 
@@ -657,7 +658,7 @@
          // REGISTRO LAVADA
          if($_GET["operacion"] == "setlavada"){
 
-            $response = $objModelo->get("AUDITEX.SPU_LAVADA_CREATE_V2",[
+            $response = $objModelo->getSQL("AUDITEX.SPU_LAVADA_CREATE_V2",[
                 $_GET["idtesting"],$_GET["tipolavada"],$_GET["tambor"]
             ]);
 
@@ -668,7 +669,7 @@
         // REGISTRAR BOLSAS
         if($_GET["operacion"] == "setbolsas"){
 
-            $response = $objModelo->get("AUDITEX.SPU_BOLSAS_CREATE_NEW_V2",[
+            $response = $objModelo->getSQL("AUDITEX.SPU_BOLSAS_CREATE_NEW_V2",[
                 $_GET["idbolsa"],               $_GET["idreallavada"],      $_GET["idresidualpano"],
                 $_GET["idreallavadatambor"],    $_GET["numerobolsa"],       $_GET["valorac"],
                 $_GET["valorbd"]
@@ -681,7 +682,7 @@
         // REGISTRAR DETALLE DE BOLSAS
         if($_GET["operacion"] == "setdetallebolsas"){
 
-            $response = $objModelo->get("AUDITEX.SPU_DETALLE_BOLSAS_CREATE",[
+            $response = $objModelo->getSQL("AUDITEX.SPU_DETALLE_BOLSAS_CREATE",[
                 $_GET["iddetallebolsa"],$_GET["idbolsa"],$_GET["hilo"],$_GET["trama"],$_GET["orden"]
             ]);
 
@@ -693,7 +694,7 @@
         // ACTUALIZAMOS LAVADA
         if($_GET["operacion"] == "setupdatelavada"){
 
-            $response = $objModelo->get("AUDITEX.SPU_UPDATE_REALESLAVADA",[
+            $response = $objModelo->getSQL("AUDITEX.SPU_UPDATE_REALESLAVADA",[
                 $_GET["idbolsa"]
             ]);
 
@@ -706,7 +707,7 @@
         if($_GET["operacion"] == "setencogimientos"){
 
 
-            $response = $objModelo->setAll("AUDITEX.SPU_ENCOGIMIENTOS_CREATE",[
+            $response = $objModelo->setAllSQL("AUDITEX.SPU_ENCOGIMIENTOS_CREATE",[
                 $_GET["idtesting"],$_GET["tipo"],$_GET["hilo"],$_GET["trama"]
             ],"correcto");
 
@@ -717,7 +718,7 @@
         // ACTUALIZAMOS ENCOGIMIENTOS EN TESTING
         if($_GET["operacion"] == "updateencogimientos"){
 
-            $response = $objModelo->get("AUDITEX.TESTING_ENCOGI_UPDATE",[
+            $response = $objModelo->getSQL("AUDITEX.TESTING_ENCOGI_UPDATE",[
 
                 $_GET["idtesting"], $_GET["hilo"],
                 $_GET["trama"],     $_GET["inclib"],
@@ -733,7 +734,7 @@
         if($_GET["operacion"] == "setupdatelavadamanual"){
 
 
-            $response = $objModelo->get("AUDITEX.SPU_REAL_TSC_LAVADA_UPD_V2",[
+            $response = $objModelo->getSQL("AUDITEX.SPU_REAL_TSC_LAVADA_UPD_V2",[
                 $_GET["idreallavada"],  $_GET["idtesting"],     $_GET["tipolavada"],    $_GET["hilo"],
                 $_GET["trama"],         $_GET["densidad"],      $_GET["inclinacion"],   $_GET["anchototal"],
                 $_GET["revirado1"],     $_GET["revirado2"],     $_GET["revirado3"],     $_GET["solidez"],
@@ -747,7 +748,7 @@
         // ACTUALIZAMOS RESIDUAL PAÑO
         if($_GET["operacion"] == "setupdateresidualpanomanual"){
 
-            $response = $objModelo->get("AUDITEX.SPU_RESIDUAL_PANO_UPDATE",[
+            $response = $objModelo->getSQL("AUDITEX.SPU_RESIDUAL_PANO_UPDATE",[
                 $_GET["idresidualpano"],    $_GET["idtesting"],     $_GET["hilo"],
                 $_GET["trama"],             $_GET["inclinacion"],   $_GET["revirado1"],
                 $_GET["revirado2"],         $_GET["revirado3"]
@@ -761,7 +762,7 @@
         // ACTUALIZAMOS ESTADO
         if($_GET["operacion"] == "setestadotesting"){
 
-            $response = $objModelo->get("AUDITEX.SPU_UPDATEESTADO_TESTING",[
+            $response = $objModelo->getSQL("AUDITEX.SPU_UPDATEESTADO_TESTING",[
                 $_GET["idtesting"],$_GET["estado"],$_GET["user"]
             ]);
 
@@ -772,7 +773,7 @@
         // ASIGNAR CONCESION
         if($_GET["operacion"] == "setconcesion"){
 
-            $response = $objModelo->setAll("AUDITEX.SPU_SETCONCESION_TESTING",[
+            $response = $objModelo->setAllSQL("AUDITEX.SPU_SETCONCESION_TESTING",[
                 $_GET["idtesting"],$_GET["estado"]
             ],"Realizado correctamente");
 
@@ -783,7 +784,7 @@
         // ACTUALIZAMOS OBSERVACIONES
         if($_GET["operacion"] == "setobstesting"){
 
-            $response = $objModelo->setAll("AUDITEX.SPU_UPDATEOBS_TESTING",[
+            $response = $objModelo->setAllSQL("AUDITEX.SPU_UPDATEOBS_TESTING",[
                 $_GET["idtesting"],$_GET["obs"]
             ],"Modificado correctamente");
             
@@ -805,7 +806,7 @@
 
 
 
-            $response = $objModelo->setAll("AUDITEX.SPU_AGRUPAR_TESTING_NEW",[
+            $response = $objModelo->setAllSQL("AUDITEX.SPU_AGRUPAR_TESTING_NEW",[
                 $idtesting, $partidaorigen,$partidacopia,$kilos,$lote,$idproveedor
             ],"Agrupado correctamente");
 
@@ -816,7 +817,7 @@
         // DESAGRUPAR PARTIDAS
         if($_GET["operacion"] == "setdesagruparpartidas"){
 
-            $response = $objModelo->setAll("AUDITEX.SPU_DESAGRUPAR_PARTIDA",
+            $response = $objModelo->setAllSQL("AUDITEX.SPU_DESAGRUPAR_PARTIDA",
                 [$_GET["id"]],"Desagrupada correctamente"
             );  
 
@@ -830,7 +831,7 @@
             $idtesting      = $_GET["idtesting"];
             $idfammotivo    = $_GET["idfammotivo"];
 
-            $response = $objModelo->setAll("AUDITEX.SPU_SETMOTIVODEVO_TESTING",[$idtesting,$idfammotivo],"registrado");
+            $response = $objModelo->setAllSQL("AUDITEX.SPU_SETMOTIVODEVO_TESTING",[$idtesting,$idfammotivo],"registrado");
             echo json_encode($response);
 
         }
@@ -840,7 +841,7 @@
 
             $idtesting      = $_GET["idtesting"];
 
-            $response = $objModelo->setAll("AUDITEX.SPU_DELETEMOTIVODEVO_TESTING",[$idtesting],"Eliminado");
+            $response = $objModelo->setAllSQL("AUDITEX.SPU_DELETEMOTIVODEVO_TESTING",[$idtesting],"Eliminado");
             echo json_encode($response);
 
         }

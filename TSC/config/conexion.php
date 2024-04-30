@@ -1,34 +1,36 @@
 <?php
 
+
 class Conexion
 {
 
+
     // CREDENCIALES ORACLE
-    // private $host		= "172.16.88.137";
-    private $host		= "172.16.87.26";
-    private $base  		= "dbsystex";
-    private $user 		= "USYSTEX";
-    private $pass 		= "oracle";
+    private $host       = "172.16.87.26";
+    private $base       = "dbsystex";
+    private $user       = "USYSTEX";
+    private $pass       = "oracle";
     private $charset    = "utf8";
 
+
+    private $host_sql_test       = '172.16.84.221';
+    private $base_sql_test       = 'SIGE_AUDITEX_PRUEBA_2';
+    private $user_sql_test       = 'sa';
+    private $pass_sql_test       = 'Developer2024$';
+   
     // CREDENCIALES SQL
-    private $host_sql		= '172.16.87.9';
-    private $base_sql  		= 'bd_genesys';
-    private $user_sql 		= 'sa';
-    private $pass_sql 		= 'scr20.$ab';
-    // private $charset_sql    = 'utf8';
+    private $host_sql       = '172.16.87.9';
+    private $base_sql       = 'bd_genesys';
+    private $user_sql       = 'sa';
+    private $pass_sql       = 'scr20.$ab';
+
 
     // CREDENCIALES SQL SIGE
-    private $host_sql_sige		= '172.16.87.12';
+    private $host_sql_sige      = '172.16.87.12';
     private $base_sql_sige      = 'sige_tsc';
-    private $user_sql_sige 		= 'sa';
-    private $pass_sql_sige 		= 'D8t8$46nt63$';
+    private $user_sql_sige      = 'sa';
+    private $pass_sql_sige      = 'D8t8$46nt63$';
 
-    // CREDENCIALES SQL SIGE AUDITEX
-    // private $host_sql_sige_a		= '172.16.87.12';
-    // private $base_sql_sige_a        = 'sige_auditex';
-    // private $user_sql_sige_a 		= 'sa';
-    // private $pass_sql_sige_a 		= 'D8t8$46nt63$';
 
     public function Conectar()
     {
@@ -51,6 +53,7 @@ class Conexion
         }
     }
 
+
     public function ConectarSQL($basedatos = "bd_genesys")
     {
         try{
@@ -61,6 +64,20 @@ class Conexion
             die($e->getMessage());
         }
     }
+
+
+    public function ConectarSQLTest() {
+        try {
+            $con = new PDO("sqlsrv:server=".$this->host_sql_test.";database=".$this->base_sql_test, $this->user_sql_test, $this->pass_sql_test);
+            return $con;
+
+
+        } catch(Exception $e) {
+            error_log("Error al conectar a SQL Server: " . $e->getMessage());
+            die($e->getMessage());
+        }
+    }
+
 
     public function ConectarSQLSIGE($basedatos = "sige_tsc")
     {

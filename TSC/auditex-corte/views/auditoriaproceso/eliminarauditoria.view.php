@@ -81,8 +81,8 @@
         if(isset($_GET["ficha"])){
 
             $ficha = $_GET["ficha"];
-            $dataficha = $objModelo->getAll("AUDITEX.PQ_MODAUDITEX.SPU_GETFICHASAUDITORIA",[3,$ficha]);
-            // var_dump($dataficha);
+            $dataficha = $objModelo->getAllSQL("AUDITEX.PQ_MODAUDITEX_SPU_GETFICHASAUDITORIA",[3,$ficha]);
+            //var_dump($dataficha);
         }
     ?>
 

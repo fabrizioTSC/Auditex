@@ -1,15 +1,26 @@
 <?php
-	include("connection.php");
-	$response=new stdClass();
+    include("connection.php");
+    $response = new stdClass();
 
-	$sql="BEGIN SP_AFC_INFO_TAMDESMED(:TAMDESMED); END;";
-	$stmt=oci_parse($conn, $sql);
-	oci_bind_by_name($stmt, ':TAMDESMED', $tamdesmed,40);
-	$result=oci_execute($stmt);
+    $tamdesmed = isset($_POST['tamdesmed']) ? $_POST['tamdesmed'] : ''; 
 
-	$response->tamdesmed=$tamdesmed;
+    $sql = "{CALL AUDITEX.SP_AFC_INFO_TAMDESMED(?)}"; 
+    $params = array(
+        array(&$tamdesmed, SQLSRV_PARAM_INOUT, null, SQLSRV_SQLTYPE_VARCHAR(40)) 
+    );
+    $stmt = sqlsrv_prepare($conn, $sql, $params);
+    if (!$stmt) {
+        die(print_r(sqlsrv_errors(), true)); // Manejo de errores
+    }
 
-	oci_close($conn);
-	header('Content-Type: application/json');
-	echo json_encode($response);
+    $result = sqlsrv_execute($stmt);
+    if (!$result) {
+        die(print_r(sqlsrv_errors(), true)); // Manejo de errores
+    }
+
+    $response->tamdesmed = $tamdesmed;
+
+    sqlsrv_close($conn);
+    header('Content-Type: application/json');
+    echo json_encode($response);
 ?>

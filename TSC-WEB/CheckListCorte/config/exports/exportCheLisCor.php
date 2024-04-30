@@ -61,25 +61,26 @@ function process_resultado($text){
 	</tr>
 </table>
 <?php
-	$sql="BEGIN SP_CLC_SELECT_RESULTADOS(:CODFIC,:CODTAD,:NUMVEZ,:PARTE,:OUTPUT_CUR); END;";
-	$stmt=oci_parse($conn, $sql);
-	oci_bind_by_name($stmt, ':CODFIC', $_GET['codfic']);
-	oci_bind_by_name($stmt, ':CODTAD', $_GET['codtad']);
-	oci_bind_by_name($stmt, ':NUMVEZ', $_GET['numvez']);
-	oci_bind_by_name($stmt, ':PARTE', $_GET['parte']);
-	$OUTPUT_CUR=oci_new_cursor($conn);
-	oci_bind_by_name($stmt, ':OUTPUT_CUR', $OUTPUT_CUR,-1,OCI_B_CURSOR);
-	$result=oci_execute($stmt);
-	oci_execute($OUTPUT_CUR);
-	$resdoc="";
-	$resten="";
-	$restiz="";
-	while($row=oci_fetch_assoc($OUTPUT_CUR)){
-		$resdoc=process_resultado($row['RESDOC']);
-		$resten=process_resultado($row['RESTEN']);
-		$restiz=process_resultado($row['RESTIZ']);
-	}
+    $sql = "EXEC AUDITEX.SP_CLC_SELECT_RESULTADOS @CODFIC = ?, @CODTAD = ?, @NUMVEZ = ?, @PARTE = ?";
+    $params = array($_GET['codfic'], $_GET['codtad'], $_GET['numvez'], $_GET['parte']);
+    $stmt = sqlsrv_query($conn, $sql, $params);
+
+    $resdoc = "";
+    $resten = "";
+    $restiz = "";
+
+    if ($stmt) {
+        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+            $resdoc = process_resultado($row['RESDOC']);
+            $resten = process_resultado($row['RESTEN']);
+            $restiz = process_resultado($row['RESTIZ']);
+        }
+        sqlsrv_free_stmt($stmt);
+    } else {
+        echo "Error executing statement.";
+    }
 ?>
+
 
 <h4>Resultados</h4>
 <div>1. Validacion de documentacion: <?php echo $resdoc; ?></div>
@@ -92,35 +93,42 @@ function process_resultado($text){
 		<th style="border:1px #333 solid;">Descripcion</th>
 		<th style="border:1px #333 solid;">Resultado</th>
 	</tr>
-<?php
-$sql="BEGIN SP_CLC_SELECT_CHEDOCGUA(:CODFIC,:CODTAD,:NUMVEZ,:PARTE,:OUTPUT_CUR); END;";
-$stmt=oci_parse($conn, $sql);
-oci_bind_by_name($stmt, ':CODFIC', $_GET['codfic']);
-oci_bind_by_name($stmt, ':CODTAD', $_GET['codtad']);
-oci_bind_by_name($stmt, ':NUMVEZ', $_GET['numvez']);
-oci_bind_by_name($stmt, ':PARTE', $_GET['parte']);
-$OUTPUT_CUR=oci_new_cursor($conn);
-oci_bind_by_name($stmt, ':OUTPUT_CUR', $OUTPUT_CUR,-1,OCI_B_CURSOR);
-$result=oci_execute($stmt);
-oci_execute($OUTPUT_CUR);
-while($row=oci_fetch_assoc($OUTPUT_CUR)){
-?>
-	<tr>
-		<td style="border:1px #333 solid;"><?php echo utf8_encode($row['DESDOC']); ?></td>
-		<td style="border:1px #333 solid;"><?php echo process_res($row['RESDOC']); ?></td>
-	</tr>
-<?php
+	<?php
+// Preparar y ejecutar el procedimiento almacenado
+$sql = "EXEC AUDITEX.SP_CLC_SELECT_CHEDOCGUA ?, ?, ?, ?";
+$params = array(
+    array($_GET['codfic'], SQLSRV_PARAM_IN),
+    array($_GET['codtad'], SQLSRV_PARAM_IN),
+    array($_GET['numvez'], SQLSRV_PARAM_IN),
+    array($_GET['parte'], SQLSRV_PARAM_IN)
+);
+
+$stmt = sqlsrv_query($conn, $sql, $params);
+
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
 }
-?>
-</table>
-<?php
-if ($_GET['obs1']!="") {
-?>
-<div>Observacion</div>
-<div><?php echo $_GET['obs1']; ?></div>
-<?php
+
+// Procesar los resultados obtenidos
+echo '<table>';
+while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+    echo '<tr>';
+    echo '<td style="border:1px #333 solid;">' . utf8_encode($row['DESDOC']) . '</td>';
+    echo '<td style="border:1px #333 solid;">' . process_res($row['RESDOC']) . '</td>';
+    echo '</tr>';
 }
+echo '</table>';
+
+// Verificar y mostrar observaciones si existen
+if (!empty($_GET['obs1'])) {
+    echo '<div>Observacion</div>';
+    echo '<div>' . htmlspecialchars($_GET['obs1']) . '</div>';
+}
+
+// Limpiar después de la ejecución
+sqlsrv_free_stmt($stmt);
 ?>
+
 <h4>2. Validacion del tizado/moldes</h4>
 <table>
 	<tr>
@@ -128,68 +136,81 @@ if ($_GET['obs1']!="") {
 		<th style="border:1px #333 solid;">Veces</th>
 		<th style="border:1px #333 solid;">Resultado</th>
 	</tr>
-<?php	
-$sql="BEGIN SP_CLC_SELECT_CHETIZGUA(:CODFIC,:CODTAD,:NUMVEZ,:PARTE,:OUTPUT_CUR); END;";
-$stmt=oci_parse($conn, $sql);
-oci_bind_by_name($stmt, ':CODFIC', $_GET['codfic']);
-oci_bind_by_name($stmt, ':CODTAD', $_GET['codtad']);
-oci_bind_by_name($stmt, ':NUMVEZ', $_GET['numvez']);
-oci_bind_by_name($stmt, ':PARTE', $_GET['parte']);
-$OUTPUT_CUR=oci_new_cursor($conn);
-oci_bind_by_name($stmt, ':OUTPUT_CUR', $OUTPUT_CUR,-1,OCI_B_CURSOR);
-$result=oci_execute($stmt);
-oci_execute($OUTPUT_CUR);
-while($row=oci_fetch_assoc($OUTPUT_CUR)){
-?>
-	<tr>
-		<td style="border:1px #333 solid;"><?php echo utf8_encode($row['DESTIZ']); ?></td>
-		<td style="border:1px #333 solid;"><?php echo str_replace(",",".",$row['VECES']); ?></td>
-		<td style="border:1px #333 solid;"><?php echo process_res($row['RESTIZ']); ?></td>
-	</tr>
-<?php
+	<?php
+// Preparar y ejecutar el procedimiento almacenado
+$sql = "EXEC AUDITEX.SP_CLC_SELECT_CHETIZGUA ?, ?, ?, ?";
+$params = array(
+    array($_GET['codfic'], SQLSRV_PARAM_IN),
+    array($_GET['codtad'], SQLSRV_PARAM_IN),
+    array($_GET['numvez'], SQLSRV_PARAM_IN),
+    array($_GET['parte'], SQLSRV_PARAM_IN)
+);
+
+$stmt = sqlsrv_query($conn, $sql, $params);
+
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
 }
-?>
-</table>
-<?php
-if ($_GET['obs2']!="") {
-?>
-<div>Observacion</div>
-<div><?php echo $_GET['obs2']; ?></div>
-<?php
+
+// Procesar los resultados obtenidos
+echo '<table>';
+while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+    echo '<tr>';
+    echo '<td style="border:1px #333 solid;">' . utf8_encode($row['DESTIZ']) . '</td>';
+    echo '<td style="border:1px #333 solid;">' . str_replace(",", ".", $row['VECES']) . '</td>';
+    echo '<td style="border:1px #333 solid;">' . process_res($row['RESTIZ']) . '</td>';
+    echo '</tr>';
 }
+echo '</table>';
+
+// Verificar y mostrar observaciones si existen
+if (!empty($_GET['obs2'])) {
+    echo '<div>Observacion</div>';
+    echo '<div>' . htmlspecialchars($_GET['obs2']) . '</div>';
+}
+
+// Limpiar después de la ejecución
+sqlsrv_free_stmt($stmt);
 ?>
+
 <h4>3. Validacion del tendido</h4>
 <table>
 	<tr>
 		<th style="border:1px #333 solid;">Descripcion</th>
 		<th style="border:1px #333 solid;">Resultado</th>
 	</tr>
-<?php	
-$sql="BEGIN SP_CLC_SELECT_CHETENGUA(:CODFIC,:CODTAD,:NUMVEZ,:PARTE,:OUTPUT_CUR); END;";
-$stmt=oci_parse($conn, $sql);
-oci_bind_by_name($stmt, ':CODFIC', $_GET['codfic']);
-oci_bind_by_name($stmt, ':CODTAD', $_GET['codtad']);
-oci_bind_by_name($stmt, ':NUMVEZ', $_GET['numvez']);
-oci_bind_by_name($stmt, ':PARTE', $_GET['parte']);
-$OUTPUT_CUR=oci_new_cursor($conn);
-oci_bind_by_name($stmt, ':OUTPUT_CUR', $OUTPUT_CUR,-1,OCI_B_CURSOR);
-$result=oci_execute($stmt);
-oci_execute($OUTPUT_CUR);
-while($row=oci_fetch_assoc($OUTPUT_CUR)){
-?>
-	<tr>
-		<td style="border:1px #333 solid;"><?php echo utf8_encode($row['DESTEN']); ?></td>
-		<td style="border:1px #333 solid;"><?php echo process_res($row['RESTEN']); ?></td>
-	</tr>
-<?php
+	<?php
+// Preparar y ejecutar el procedimiento almacenado
+$sql = "EXEC AUDITEX.SP_CLC_SELECT_CHETENGUA ?, ?, ?, ?";
+$params = array(
+    array($_GET['codfic'], SQLSRV_PARAM_IN),
+    array($_GET['codtad'], SQLSRV_PARAM_IN),
+    array($_GET['numvez'], SQLSRV_PARAM_IN),
+    array($_GET['parte'], SQLSRV_PARAM_IN)
+);
+
+$stmt = sqlsrv_query($conn, $sql, $params);
+
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
 }
-?>
-</table>
-<?php
-if ($_GET['obs3']!="") {
-?>
-<div>Observacion</div>
-<div><?php echo $_GET['obs3']; ?></div>
-<?php
+
+// Procesar los resultados obtenidos
+echo '<table>';
+while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+    echo '<tr>';
+    echo '<td style="border:1px #333 solid;">' . utf8_encode($row['DESTEN']) . '</td>';
+    echo '<td style="border:1px #333 solid;">' . process_res($row['RESTEN']) . '</td>';
+    echo '</tr>';
 }
+echo '</table>';
+
+// Verificar y mostrar observaciones si existen
+if (!empty($_GET['obs3'])) {
+    echo '<div>Observacion</div>';
+    echo '<div>' . htmlspecialchars($_GET['obs3']) . '</div>';
+}
+
+// Limpiar después de la ejecución
+sqlsrv_free_stmt($stmt);
 ?>

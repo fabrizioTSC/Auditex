@@ -44,10 +44,17 @@
         $usuliberacion = $_POST["usuliberacion"]              != "" ? $_POST["usuliberacion"] : "";
 
         
-        $responsefichas = $objModelo->getAll("USYSTEX.SPGET_RPT_MOLDESCORTE_001_NEW", [
+        //$responsefichas = $objModelo->getAll("AUDITEX.SPGET_RPT_MOLDESCORTE_001_NEW", [
+        $responsefichas = $objModelo->getAllSQL("AUDITEX.SPGET_RPT_MOLDESCORTE_001_NEW", [   
             $fecini,    $fecfin,    $cliente, $partida, $ficha, $estcli, $articulo, $programa, $estatus, $esttsc, $color, $encogimiento,
             $fecinilib, $fecfinlib,$usuliberacion
         ]);
+
+        //Código para mostrar solo un registro
+        if ($responsefichas === false) {
+            $responsefichas = [];
+        }  
+
 
         $contfichas = 0;
         $contadorfichas_new = 0;
@@ -87,6 +94,11 @@
     <style>
         body{
             padding-top: 50px !important;
+        }
+
+        
+        .bg-sistema {
+         background-color: #922b21 !important;
         }
     </style>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"  rel="stylesheet"  />
@@ -494,8 +506,9 @@
                                         {
 
                                             $datostablasegunda .= "
+                                           
                                                 <td height='25' class='{$clasefichadisabled}'>
-                                                                
+                                                            
                                                     <button type='button' class='btn btn-sm btn-success btn-block selectmoldeusar hilousar{$contadorfichas_new} font-sistema p-0' title='Asignar molde a usar'
                                                         data-estilotsc='{$fila['ESTILOTSC']}'
                                                         data-estilocliente='{$fila['ESTILOCLIENTE']}'
@@ -512,7 +525,9 @@
 
                                         }else{
                                             $datostablasegunda .="
+                                          
                                             <td height='25' class='{$clasefichadisabled}'>
+                                            HERE2
                                                 <button type='button' class='btn btn-sm btn-primary btn-block selectmoldeusar hilousar{$contadorfichas_new} font-sistema p-0' title='Asignar molde a usar'
                                                     data-estilotsc='{$fila['ESTILOTSC']}'
                                                     data-estilocliente='{$fila['ESTILOCLIENTE']}'
@@ -757,6 +772,7 @@
                                         $mostrar = $observacion_liberacion == 'Mostrar' ? 'btn-warning' : 'btn-primary';
                                         $datostablasegunda .= "  
                                         <!-- OBSERVACION LIBERACION -->
+                                       
                                             <td height='25' class='{$clasefichadisabled}'  >   
                                                 
                                                 <button type='button' 
@@ -1397,7 +1413,7 @@
                 await getusuarioliberacion("<?= $p_usuliberacion; ?>");
 
                 // GET CLIENTES
-                await getclientes("<?= $p_cliente; ?>");
+                //QUITAR COMENTARIO await getclientes("<?= $p_cliente; ?>");
 
                 tableCont.addEventListener('scroll',scrollHandle);
 

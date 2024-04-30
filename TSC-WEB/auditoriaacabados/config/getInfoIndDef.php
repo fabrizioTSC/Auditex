@@ -3,6 +3,10 @@
 	include("connection.php");
 	$response=new stdClass();
 
+    /* $_POST['codtll'] = '000000000009991';
+    $_POST['codtipser'] = '3';
+    $_POST['codsede'] = '42'; */
+ 
 	$titulo="";
 	if ($_POST['codsede']=="0") {
 		$titulo.="SEDE: (TODOS) / ";
@@ -100,7 +104,7 @@
 	$response->semanas=$semanas;
 	$response->semana=$semana;
 
-	$defectos=[];
+	/* $defectos=[];
 	$i=0;
 	$sql="BEGIN SP_AA_INDICADOR_DEFECTOS_ALL(:CODTLL,:CODSED,:CODTIPSER,:OUTPUT_CUR,:NUMANIO,:NUMSEM); END;";
 	$stmt=oci_parse($conn, $sql);
@@ -124,9 +128,11 @@
 		$defectos[$i]=$obj;
 		$i++;
 	}
-	$response->defectos=$defectos;
+	$response->defectos=$defectos; */
 
 	oci_close($conn);
 	header('Content-Type: application/json');
+
+	echo json_encode($_POST['codtll'], $_POST['codsede'], $_POST['codtipser'], $anio, $semana);
 	echo json_encode($response);
 ?>

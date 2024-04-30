@@ -14,6 +14,9 @@
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
 	<style>
+		.textMsgCarga{
+			color: black;
+		}
 		table{
 			border-collapse: collapse;			
 		}

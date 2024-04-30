@@ -14,8 +14,8 @@
         $partida = $_GET["partida"];
 
         
-        $datosficha             = $objModelo->get("USYSTEX.SPGET_RPT_MOLDESCORTE_002_NEW",[4,$ficha,$partida]);
-        $datospartida           = $objModelo->getAll("USYSTEX.SPGET_RPT_MOLDESCORTE_002_NEW",[3,$ficha,$partida]);
+        $datosficha             = $objModelo->get("AUDITEX.SPGET_RPT_MOLDESCORTE_002_NEW",[4,$ficha,$partida]);
+        $datospartida           = $objModelo->getAll("AUDITEX.SPGET_RPT_MOLDESCORTE_002_NEW",[3,$ficha,$partida]);
         $imagenesadjuntas       = $objModelo->getAll("AUDITEX.PQ_MOLDES.SPU_GETIMGPRUEBAENCOGIMIENTO",[$ficha]);
  
 		//AGREGA PAGINA
